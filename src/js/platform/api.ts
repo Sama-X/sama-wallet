@@ -7,7 +7,6 @@ import {
 import { RequestResponseData } from 'avalanche/src/common'
 import axios from 'axios'
 
-
 export interface JsonResponseData {
     jsonrpc: string
     result: any

@@ -5,9 +5,8 @@
         </div>
         <p class="amount" :profit="isProfit">
             {{ amtText }}
-            <template v-if="assetDetail">
-                {{ assetDetail.symbol }}
-            </template>
+            <template v-if="assetDetail">SAMA</template>
+            <!-- <template v-if="assetDetail">{{ assetDetail.symbol }}</template> -->
         </p>
     </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <div class="sel_locale">
         <country-flag :country="flag" size="small" class="flag"></country-flag>
-        <select v-model="locale">
+        <select v-model="locale" disabled>
             <option v-for="item in items" :key="item.code" :value="item.code">
                 {{ item.nativeName }}
             </option>

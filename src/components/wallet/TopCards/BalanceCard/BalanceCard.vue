@@ -6,7 +6,7 @@
                 <div class="refresh">
                     <Spinner v-if="isUpdateBalance" class="spinner"></Spinner>
                     <button v-else @click="updateBalance">
-                        <fa icon="sync"></fa>
+                        <fa icon="sync" style="background: white"></fa>
                     </button>
                 </div>
                 <h4>{{ $t('top.title2') }}</h4>
@@ -16,24 +16,24 @@
                         {{ $t('top.balance.show') }}
                     </button>
                 </template>
-                <template v-else>
+                <!-- <template v-else>
                     <button class="breakdown_toggle" @click="toggleBreakdown">
                         <fa icon="eye-slash"></fa>
                         {{ $t('top.balance.hide') }}
                     </button>
                 </template>
-                <button @click="showUTXOsModal" class="breakdown_toggle">Show UTXOs</button>
+                <button @click="showUTXOsModal" class="breakdown_toggle">Show UTXOs</button> -->
             </div>
             <div class="balance_row">
                 <p class="balance" data-cy="wallet_balance" v-if="!balanceTextRight">
-                    {{ balanceTextLeft }} AVAX
+                    {{ balanceTextLeft }} SAMA
                     <!-- {{ samaInfoNumber }}  AVAX -->
                 </p>
                 <p class="balance" data-cy="wallet_balance" v-else>
                     {{ balanceTextLeft }}
                     <!-- {{ samaInfoNumber }} -->
                     <!-- <span>.{{ balanceTextRight }}</span> -->
-                    AVAX
+                    SAMA
                 </p>
                 <div style="display: flex; flex-direction: row">
                     <p class="balance_usd">
@@ -41,7 +41,7 @@
                         USD
                     </p>
                     <p class="balance_usd" style="background-color: transparent">
-                        <b>1 AVAX</b>
+                        <b>1 SAMA</b>
                         =
                         <b>${{ avaxPriceText }}</b>
                         USD

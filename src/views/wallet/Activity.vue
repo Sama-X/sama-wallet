@@ -29,7 +29,7 @@
                             depressed
                             :disabled="!showList"
                         >
-                            Export AVAX Transfers
+                            Export SAMA Transfers
                         </v-btn>
                     </div>
                 </div>

@@ -182,7 +182,7 @@ const network_module: Module<NetworkState, RootState> = {
 
         async init({ state, commit, dispatch }) {
             const mainnet = new AvaNetwork(
-                'Mainnet',
+                'Testnet',
                 'https://api.avax.network:443',
                 1,
                 'https://explorerapi.avax.network',
@@ -190,14 +190,14 @@ const network_module: Module<NetworkState, RootState> = {
                 true
             )
 
-            const fuji = new AvaNetwork(
-                'Fuji',
-                'https://api.avax-test.network:443',
-                5,
-                'https://explorerapi.avax-test.network',
-                'https://explorer.avax-test.network',
-                true
-            )
+            // const fuji = new AvaNetwork(
+            //     'Fuji',
+            //     'https://api.avax-test.network:443',
+            //     5,
+            //     'https://explorerapi.avax-test.network',
+            //     'https://explorer.avax-test.network',
+            //     true
+            // )
 
             // Load custom networks if any
             try {
@@ -207,7 +207,7 @@ const network_module: Module<NetworkState, RootState> = {
             }
 
             commit('addNetwork', mainnet)
-            commit('addNetwork', fuji)
+            // commit('addNetwork', fuji)
 
             try {
                 const isSet = await dispatch('loadSelectedNetwork')

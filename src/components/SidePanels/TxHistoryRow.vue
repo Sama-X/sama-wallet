@@ -1,17 +1,19 @@
 <template>
     <div class="tx_history_row">
         <div>
-            <p class="time">
-                {{ timeText }}
-                <a
+            <p class="time" style="justify-content: space-between; display: flex">
+                <span>{{ timeText }}</span>
+                <!-- <a
                     v-if="explorerUrl"
                     :href="explorerUrl"
                     target="_blank"
                     tooltip="View in Explorer"
                     class="explorer_link"
-                >
+                > -->
+                <i class="explorer_link">
                     <fa icon="search"></fa>
-                </a>
+                </i>
+                <!-- </a> -->
             </p>
 
             <div v-if="memo" class="memo">

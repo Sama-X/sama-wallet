@@ -67,7 +67,7 @@ export default class MnemonicDisplay extends Vue {
     box-sizing: content-box;
     text-align: center;
     user-select: none;
-    color: var(--primary-color);
+    color: white;
     font-weight: 400;
 }
 

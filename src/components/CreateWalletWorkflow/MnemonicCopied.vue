@@ -28,18 +28,20 @@ export default {
 @use "../../main";
 
 .checkbox {
-    .v-label {
-        color: var(--primary-color);
+    .v-label,
+    .v-label,
+    .theme--light {
+        color: white !important;
     }
 
     .v-input--selection-controls__input {
         > * {
-            color: var(--primary-color) !important;
+            color: white !important;
         }
     }
 
     .v-input--selection-controls__ripple {
-        color: var(--secondary-color) !important;
+        color: white !important;
     }
 }
 </style>

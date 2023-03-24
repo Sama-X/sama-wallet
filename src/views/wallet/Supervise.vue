@@ -2,15 +2,17 @@
     <div class="home_view">
         <div class="header">
             <h1>{{ $t('supervise.title') }}</h1>
-            <button @click="tab = 'normal'" :active="tab === `normal`" data-cy="normal">普通用户操作</button>
+            <button @click="tab = 'normal'" :active="tab === `normal`" data-cy="normal">
+                普通用户操作
+            </button>
             <template v-if="supervise.level == 1">
-                <button  @click="tab = 'SPV'" :active="tab === `SPV`" data-cy="SPV">SPV操作</button>
+                <button @click="tab = 'SPV'" :active="tab === `SPV`" data-cy="SPV">SPV操作</button>
             </template>
             <template v-else-if="supervise.level == 2">
-                <button  @click="tab = 'SUP'" :active="tab === `SUP`" data-cy="SUP">SUP操作</button>
+                <button @click="tab = 'SUP'" :active="tab === `SUP`" data-cy="SUP">SUP操作</button>
             </template>
             <template v-else-if="supervise.level == 3">
-                <button  @click="tab = 'SYS'" :active="tab === `SYS`" data-cy="SYS">SYS操作</button>
+                <button @click="tab = 'SYS'" :active="tab === `SYS`" data-cy="SYS">SYS操作</button>
             </template>
             <div style="flex-grow: 1"></div>
         </div>
@@ -25,7 +27,7 @@
     </div>
 </template>
 <script lang="ts">
-import {Vue, Component, Watch} from 'vue-property-decorator'
+import { Vue, Component, Watch } from 'vue-property-decorator'
 import NormalView from '@/components/wallet/supervise/normalView.vue'
 import SpecialView from '@/components/wallet/supervise/specialView.vue'
 import SupView from '@/components/wallet/supervise/supView.vue'
@@ -40,7 +42,6 @@ import SysView from '@/components/wallet/supervise/sysView.vue'
         SysView,
     },
 })
-
 export default class Supervise extends Vue {
     tab = 'normal'
 

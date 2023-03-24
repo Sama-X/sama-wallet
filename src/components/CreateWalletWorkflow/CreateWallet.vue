@@ -9,10 +9,10 @@
                             <div class="img_container">
                                 <img
                                     v-if="$root.theme === 'day'"
-                                    src="@/assets/diamond-secondary.png"
+                                    src="@/assets/diamond-secondary1.png"
                                     alt
                                 />
-                                <img v-else src="@/assets/diamond-secondary-night.svg" alt />
+                                <img v-else src="@/assets/diamond-secondary1.png" alt />
                             </div>
                             <h1>{{ $t('create.generate') }}</h1>
                             <router-link to="/access" class="link">

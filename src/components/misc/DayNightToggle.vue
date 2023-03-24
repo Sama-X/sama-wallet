@@ -1,7 +1,8 @@
 <template>
     <button @click="toggle">
-        <img v-if="val" src="@/assets/theme_toggle/night.svg" />
-        <img v-else src="@/assets/theme_toggle/day.svg" />
+        <!-- <img v-if="val" src="@/assets/theme_toggle/night.svg" /> -->
+        <!-- <img v-else src="@/assets/theme_toggle/day.svg" /> -->
+        <img src="@/assets/theme_toggle/night.svg" />
     </button>
 </template>
 <script>

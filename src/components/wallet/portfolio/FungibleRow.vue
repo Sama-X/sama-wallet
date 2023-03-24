@@ -1,12 +1,14 @@
 <template>
     <div class="asset">
         <div class="icon" :avax="isAvaxToken">
-            <img v-if="iconUrl" :src="iconUrl" />
+            <img v-if="iconUrl" src="@/assets/avax_icon_circle.png" />
+            <!-- <img v-if="iconUrl" :src="iconUrl" /> -->
             <p v-else>?</p>
         </div>
         <p class="name_col not_mobile">
-            {{ name }} ({{ symbol }})
-            <span v-if="!isAvaxToken">ANT</span>
+            <!-- {{ name }} ({{ symbol }}) -->
+            SAMA
+            <!-- <span v-if="!isAvaxToken">ANT</span> -->
         </p>
         <p class="name_col mobile_only">{{ symbol }}</p>
         <router-link :to="sendLink" class="send_col" v-if="isBalance">
@@ -52,7 +54,8 @@ export default class FungibleRow extends Vue {
         if (!this.asset) return null
 
         if (this.isAvaxToken) {
-            return '/img/avax_icon_circle.png'
+            return '@/assets/avax_icon_circle.png'
+            // return '/img/avax_icon_circle.png'
         }
 
         return null

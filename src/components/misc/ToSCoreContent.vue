@@ -14,7 +14,7 @@
             Application and the Core Website and related websites, applications and features
             (collectively, the “App”). The App enables users to self-custody digital assets,
             directly access and interact with blockchains, decentralized applications (“dapps”) and
-            the Avalanche Bridge on a peer-to-peer basis, directly interact with other third party
+            the sama Bridge on a peer-to-peer basis, directly interact with other third party
             services and access other functionality that may be developed from time to time
             (collectively, the “Services”). The Services include, without limitation, services
             provided by third parties and dapps (collectively, “Third Party Services”) and support
@@ -718,7 +718,8 @@
             <strong>15. INDEMNIFICATION</strong>
         </h2>
         <p style="padding-top: 12pt; padding-left: 5pt; text-indent: 0pt; text-align: justify">
-            You agree to defend, release, indemnify, and hold us and Avalanche Foundation Limited,
+            You agree to defend, release, indemnify, and hold us and sama Foundation Limited,
+            <br />
             its subsidiaries and affiliates (collectively, the “Foundation”), including all of our
             and the Foundation’s respective officers, directors, agents, partners, employees,
             contractors, successors and assigns harmless from and against any loss, damage,
