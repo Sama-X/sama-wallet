@@ -145,7 +145,7 @@
         "summary": "Transaction Summary",
         "total": "Total",
         "total_avax": "Total SAMA",
-        "chain_warn": "You can only send tokens on the X chain.",
+        "chain_warn": "You can only send tokens on the X chain",
         "disconnected": "Unable to send assets. Disconnected from the network.",
         "success_title": "Transaction Sent",
         "success_msg": "You have succesfully sent your transaction.",
