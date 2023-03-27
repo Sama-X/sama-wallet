@@ -72,7 +72,7 @@ export default class PrivateKey extends Vue {
     }
     onsuccess() {
         this.isLoading = false
-        this.privatekey = ''
+        // this.privatekey = ''
     }
     onerror(e: any) {
         this.error = e
