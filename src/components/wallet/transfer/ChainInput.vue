@@ -60,23 +60,45 @@ import AvaAsset from '../../../js/AvaAsset'
 @Component
 export default class ChainInput extends Vue {
     addressUrl = ''
-    isLian = '28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD'
+    isLian = '26xtZpN5tohRZhVLwusazxjm7nmJMRqbeAtoRwJxDVpFgdqqqF'
     isAddress = true
     isSuccess = false
     @Model('change', { type: String }) readonly formType!: CurrencyType
     @Prop({ default: false }) disabled!: boolean
 
     set(val: ChainIdType) {
+        console.log(1)
         if (this.disabled) return
         this.$emit('change', val)
     }
 
     get wallet() {
+        console.log(2)
         return this.$store.state.activeWallet
     }
 
     get isEVMSupported() {
+        this.getLian()
         return this.wallet.ethAddress
+    }
+
+    getLian() {
+        axios
+            .post('http://192.168.0.188:9650/ext/bc/P', {
+                jsonrpc: '2.0',
+                method: 'platform.getBlockchains',
+                params: {},
+                id: 1,
+            })
+            .then((res) => {
+                console.log(res, 'hgjkl')
+                for (let i in res.data.result.blockchains) {
+                    if (res.data.result.blockchains[i].name == 'sama2') {
+                        console.log(res.data.result.blockchains[i], '1')
+                        return res.data.result.blockchains[i]
+                    }
+                }
+            })
     }
     receiveFunc() {
         let _this = this
@@ -84,49 +106,57 @@ export default class ChainInput extends Vue {
             _this.isAddress = false
             return false
         } else {
-            axios
-                .post('http://192.168.0.188:9650/ext/bc/' + _this.isLian + '/public', {
-                    jsonrpc: '2.0',
-                    method: 'samavm.transfer',
-                    params: {
-                        to: _this.addressUrl,
-                        units: 1000000,
-                        privKey: 'PrivateKey-ewoqjP7PxY4yr3iLTpLisriqt94hdyDFNgchSxGGztUrTXtNN',
-                    },
-                    id: 1,
-                })
-                .then((res) => {
-                    _this.isAddress = true
-                    _this.addressUrl = ''
-                    _this.initAmout()
-                })
+            let lian = _this.getLian()
+            if (lian) {
+                axios
+                    .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                        jsonrpc: '2.0',
+                        method: 'samavm.transfer',
+                        params: {
+                            to: _this.addressUrl,
+                            units: 1000000,
+                            privKey: 'PrivateKey-ewoqjP7PxY4yr3iLTpLisriqt94hdyDFNgchSxGGztUrTXtNN',
+                        },
+                        id: 1,
+                    })
+                    .then((res) => {
+                        _this.isAddress = true
+                        _this.addressUrl = ''
+                        _this.initAmout()
+                    })
+            }
         }
     }
     async initAmout() {
         const res = await avm.getAssetDescription('AVAX')
         const id = bintools.cb58Encode(res.assetID)
         let _this = this
-        axios
-            .post(
-                'http://192.168.0.188:9650/ext/bc/28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD/public',
-                {
+        let lian = _this.getLian()
+        if (lian) {
+            axios
+                .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
                     jsonrpc: '2.0',
                     method: 'samavm.balance',
                     params: {
                         address: '0x' + _this.wallet.ethAddress,
                     },
                     id: 1,
-                }
-            )
-            .then((resData) => {
-                // _this.samaInfoNumber = resData.data.result.balance
-                _this.isSuccess = true
-                // setTimeout(function(){
-                //     _this.isSuccess = false
-                // },1000)
-                const asset = new AvaAsset(id, res.name, res.symbol, resData.data.result.balance)
-                _this.$store.commit('addAsset', asset)
-            })
+                })
+                .then((resData) => {
+                    // _this.samaInfoNumber = resData.data.result.balance
+                    _this.isSuccess = true
+                    // setTimeout(function(){
+                    //     _this.isSuccess = false
+                    // },1000)
+                    const asset = new AvaAsset(
+                        id,
+                        res.name,
+                        res.symbol,
+                        resData.data.result.balance
+                    )
+                    _this.$store.commit('addAsset', asset)
+                })
+        }
     }
 }
 </script>

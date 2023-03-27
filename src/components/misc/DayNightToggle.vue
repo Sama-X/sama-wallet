@@ -27,24 +27,24 @@ export default {
         },
         toggle() {
             this.val = !this.val
-            if (this.val) {
-                this.setNight()
-            } else {
-                this.setDay()
-            }
+            // if (this.val) {
+            this.setNight()
+            // } else {
+            //     this.setDay()
+            // }
         },
     },
     mounted() {
         let theme = localStorage.getItem('theme')
 
-        if (!theme) {
-            this.setDay()
-            return
-        }
+        // if (!theme) {
+        //     this.setDay()
+        //     return
+        // }
 
-        if (theme === 'night') {
-            this.setNight()
-        }
+        // if (theme === 'night') {
+        this.setNight()
+        // }
     },
 }
 </script>

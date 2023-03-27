@@ -363,28 +363,43 @@ export default class Transfer extends Vue {
         let _this = this
         this.isAjax = true
         this.err = ''
-        let isLian = '28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD'
+        let isLian = ''
         let sumArray: (ITransaction | UTXO)[] = [...this.formOrders, ...this.formNftOrders]
 
         let privKeyObj = this.wallet as SingletonWallet
         axios
-            .post('http://192.168.0.188:9650/ext/bc/' + isLian + '/public', {
+            .post('http://192.168.0.188:9650/ext/bc/P', {
                 jsonrpc: '2.0',
-                method: 'samavm.transfer',
-                params: {
-                    to: this.formAddress,
-                    units: Number(this.memo),
-                    privKey: privKeyObj.ethKeyBech,
-                },
+                method: 'platform.getBlockchains',
+                params: {},
                 id: 1,
             })
             .then((res) => {
-                this.canSendAgain = false
-                // console.log(res,'rrrr')
-                _this.onsuccess(res.data.result.txId)
-                // this.waitTxConfirm(res.data.result.txId)
-                _this.txId = res.data.result.txId
-                _this.initAmout()
+                console.log(res, 'hgjkl')
+                for (let i in res.data.result.blockchains) {
+                    if (res.data.result.blockchains[i].name == 'sama') {
+                        let lian = res.data.result.blockchains[i].id
+                        axios
+                            .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                                jsonrpc: '2.0',
+                                method: 'samavm.transfer',
+                                params: {
+                                    to: this.formAddress,
+                                    units: Number(this.memo),
+                                    privKey: privKeyObj.ethKeyBech,
+                                },
+                                id: 1,
+                            })
+                            .then((res) => {
+                                this.canSendAgain = false
+                                // console.log(res,'rrrr')
+                                _this.onsuccess(res.data.result.txId)
+                                // this.waitTxConfirm(res.data.result.txId)
+                                _this.txId = res.data.result.txId
+                                _this.initAmout()
+                            })
+                    }
+                }
             })
         // let txList: IssueBatchTxInput = {
         //     toAddress: this.formAddress,
@@ -408,21 +423,37 @@ export default class Transfer extends Vue {
         const id = bintools.cb58Encode(res.assetID)
         let _this = this
         axios
-            .post(
-                'http://192.168.0.188:9650/ext/bc/28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD/public',
-                {
-                    jsonrpc: '2.0',
-                    method: 'samavm.balance',
-                    params: {
-                        address: '0x' + _this.wallet.ethAddress,
-                    },
-                    id: 1,
+            .post('http://192.168.0.188:9650/ext/bc/P', {
+                jsonrpc: '2.0',
+                method: 'platform.getBlockchains',
+                params: {},
+                id: 1,
+            })
+            .then((resa) => {
+                for (let i in resa.data.result.blockchains) {
+                    if (resa.data.result.blockchains[i].name == 'sama') {
+                        let lian = resa.data.result.blockchains[i].id
+                        axios
+                            .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                                jsonrpc: '2.0',
+                                method: 'samavm.balance',
+                                params: {
+                                    address: '0x' + _this.wallet.ethAddress,
+                                },
+                                id: 1,
+                            })
+                            .then((resData) => {
+                                // _this.samaInfoNumber = resData.data.result.balance
+                                const asset = new AvaAsset(
+                                    id,
+                                    res.name,
+                                    res.symbol,
+                                    resData.data.result.balance
+                                )
+                                this.$store.commit('addAsset', asset)
+                            })
+                    }
                 }
-            )
-            .then((resData) => {
-                // _this.samaInfoNumber = resData.data.result.balance
-                const asset = new AvaAsset(id, res.name, res.symbol, resData.data.result.balance)
-                this.$store.commit('addAsset', asset)
             })
     }
 

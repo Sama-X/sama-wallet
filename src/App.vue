@@ -31,6 +31,7 @@ import NetworkLoadingBlock from '@/components/misc/NetworkLoadingBlock'
 import UpgradeToAccountModal from '@/components/modals/SaveAccount/UpgradeToAccountModal'
 import LedgerWalletLoading from '@/components/modals/LedgerWalletLoading'
 import UrlBanner from '@/components/misc/UrlBanner'
+import axios from 'axios'
 
 export default {
     components: {
