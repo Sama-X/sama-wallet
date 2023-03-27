@@ -50,7 +50,6 @@ export default class Wallet extends Vue {
 
     checkLogout() {
         let now = Date.now()
-
         // Logout if current time is passed the logout timestamp
         if (now >= this.logoutTimestamp && !this.isLogOut) {
             this.isLogOut = true
@@ -61,7 +60,8 @@ export default class Wallet extends Vue {
     created() {
         this.resetTimer()
         this.intervalId = setInterval(() => {
-            this.checkLogout()
+            // this.checkLogout()
+            this.$router.push(this.$route.path)
         }, 1000)
     }
 

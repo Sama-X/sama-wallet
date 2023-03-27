@@ -26,11 +26,11 @@
             </div>
             <div class="balance_row">
                 <p class="balance" data-cy="wallet_balance" v-if="!balanceTextRight">
-                    {{ balanceTextLeft }} SAMA
+                    {{ samaInfoNumber }} SAMA
                     <!-- {{ samaInfoNumber }}  AVAX -->
                 </p>
                 <p class="balance" data-cy="wallet_balance" v-else>
-                    {{ balanceTextLeft }}
+                    {{ samaInfoNumber }}
                     <!-- {{ samaInfoNumber }} -->
                     <!-- <span>.{{ balanceTextRight }}</span> -->
                     SAMA
@@ -151,6 +151,8 @@ export default class BalanceCard extends Vue {
         let _this = this
         let wallet: WalletType = this.$store.state.activeWallet
         let priviteKey = this.wallet as SingletonWallet
+
+        console.log(priviteKey, 'hjk')
         // find pricate key
         // axios.post('http://192.168.0.188:9650/ext/bc/C/avax',{
         //     "jsonrpc": "2.0",

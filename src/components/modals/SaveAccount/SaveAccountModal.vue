@@ -155,7 +155,7 @@ form {
 
 input {
     background-color: var(--bg-light);
-    color: var(--primary-color);
+    color: white;
     padding: 6px 14px;
 }
 

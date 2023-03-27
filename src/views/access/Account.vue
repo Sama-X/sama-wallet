@@ -168,6 +168,9 @@ a {
     color: var(--error);
     margin: 14px 0px !important;
 }
+.single_line_input {
+    color: white;
+}
 @media only screen and (max-width: main.$mobile_width) {
     h1 {
         font-size: main.$m-size-mobile;

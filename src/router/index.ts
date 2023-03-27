@@ -33,13 +33,13 @@ const ifNotAuthenticated = (to: Route, from: Route, next: Function) => {
     next('/wallet')
 }
 
-const ifAuthenticated = (to: Route, from: Route, next: Function) => {
-    if (store.state.isAuth) {
-        next()
-        return
-    }
-    next('/')
-}
+// const ifAuthenticated = (to: Route, from: Route, next: Function) => {
+//     if (store.state.isAuth) {
+//         next()
+//         return
+//     }
+//     next('/wallet')
+// }
 
 const routes = [
     {
@@ -130,7 +130,7 @@ const routes = [
             },
         ],
         component: Wallet,
-        beforeEnter: ifAuthenticated,
+        // beforeEnter: ifAuthenticated,
     },
 ]
 
