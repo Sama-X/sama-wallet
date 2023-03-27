@@ -6,7 +6,9 @@
             <!-- <button :active="formType === 'C'" @click="set('C')">C</button> -->
         </div>
         <div class="content">
-            <img class="logo router-link-active" src="@/assets/priviteKeyBg.png" />
+            <h6>No Data</h6>
+
+            <!-- <img class="logo router-link-active" src="@/assets/priviteKeyBg.png" />
             <h6>Drops are limited to 1 request in 24 hours.</h6>
             <div>
                 <input
@@ -43,7 +45,7 @@
                 >
                     REQUEST 2 SAMA
                 </button>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -58,7 +60,7 @@ import AvaAsset from '../../../js/AvaAsset'
 @Component
 export default class ChainInput extends Vue {
     addressUrl = ''
-    isLian = '2edki3wxhWVLt8sQD68kPn2ggywXmB98gT7prHKLgNBP9BHD7u'
+    isLian = '28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD'
     isAddress = true
     isSuccess = false
     @Model('change', { type: String }) readonly formType!: CurrencyType
@@ -106,7 +108,7 @@ export default class ChainInput extends Vue {
         let _this = this
         axios
             .post(
-                'http://192.168.0.188:9650/ext/bc/2edki3wxhWVLt8sQD68kPn2ggywXmB98gT7prHKLgNBP9BHD7u/public',
+                'http://192.168.0.188:9650/ext/bc/28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD/public',
                 {
                     jsonrpc: '2.0',
                     method: 'samavm.balance',
@@ -172,8 +174,10 @@ label {
         margin: 10px auto;
     }
     h6 {
-        text-align: left;
+        text-align: center;
+        font-size: 16px;
         margin: 10px 0;
+        color: var(--primary-color-light);
     }
     .redWord {
         height: 48px;

@@ -145,7 +145,7 @@ import { SingletonWallet } from '../../../../js/wallets/SingletonWallet'
 export default class BalanceCard extends Vue {
     isBreakdown = true
     samaInfoNumber = 0
-    isLian = '2edki3wxhWVLt8sQD68kPn2ggywXmB98gT7prHKLgNBP9BHD7u'
+    isLian = '28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD'
 
     created() {
         let _this = this

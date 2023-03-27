@@ -363,7 +363,7 @@ export default class Transfer extends Vue {
         let _this = this
         this.isAjax = true
         this.err = ''
-        let isLian = '2edki3wxhWVLt8sQD68kPn2ggywXmB98gT7prHKLgNBP9BHD7u'
+        let isLian = '28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD'
         let sumArray: (ITransaction | UTXO)[] = [...this.formOrders, ...this.formNftOrders]
 
         let privKeyObj = this.wallet as SingletonWallet
@@ -409,7 +409,7 @@ export default class Transfer extends Vue {
         let _this = this
         axios
             .post(
-                'http://192.168.0.188:9650/ext/bc/2edki3wxhWVLt8sQD68kPn2ggywXmB98gT7prHKLgNBP9BHD7u/public',
+                'http://192.168.0.188:9650/ext/bc/28RQeSNfmiGs1GzRuobzGSM7H61WwrGbiBNzXNXGeCdc8GnUWD/public',
                 {
                     jsonrpc: '2.0',
                     method: 'samavm.balance',
