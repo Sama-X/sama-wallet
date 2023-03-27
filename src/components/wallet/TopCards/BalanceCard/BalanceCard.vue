@@ -151,10 +151,8 @@ export default class BalanceCard extends Vue {
         let _this = this
         let wallet: WalletType = this.$store.state.activeWallet
         let priviteKey = this.wallet as SingletonWallet
-
-        console.log(priviteKey, 'hjk')
         // find pricate key
-        // axios.post('http://192.168.0.188:9650/ext/bc/C/avax',{
+        // axios.post('http://154.40.42.152:9666/ext/bc/C/avax',{
         //     "jsonrpc": "2.0",
         //     "method": "avax.exportKey",
         //     "params":{
@@ -168,19 +166,18 @@ export default class BalanceCard extends Vue {
 
         // })
         axios
-            .post('http://192.168.0.188:9650/ext/bc/P', {
+            .post('http://154.40.42.152:9666/ext/bc/P', {
                 jsonrpc: '2.0',
                 method: 'platform.getBlockchains',
                 params: {},
                 id: 1,
             })
             .then((res) => {
-                console.log(res, 'hgjkl')
                 for (let i in res.data.result.blockchains) {
                     if (res.data.result.blockchains[i].name == 'sama') {
                         let lian = res.data.result.blockchains[i].id
                         axios
-                            .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                            .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
                                 jsonrpc: '2.0',
                                 method: 'samavm.balance',
                                 params: {
@@ -195,7 +192,7 @@ export default class BalanceCard extends Vue {
                 }
             })
         // axios
-        //     .post('http://192.168.0.188:9650/ext/bc/' + lianUrl + '/public', {
+        //     .post('http://154.40.42.152:9666/ext/bc/' + lianUrl + '/public', {
         //         jsonrpc: '2.0',
         //         method: 'samavm.balance',
         //         params: {
@@ -224,19 +221,18 @@ export default class BalanceCard extends Vue {
         let ava = this.$store.getters['Assets/AssetAVA']
         let wallet: WalletType = this.$store.state.activeWallet
         axios
-            .post('http://192.168.0.188:9650/ext/bc/P', {
+            .post('http://154.40.42.152:9666/ext/bc/P', {
                 jsonrpc: '2.0',
                 method: 'platform.getBlockchains',
                 params: {},
                 id: 1,
             })
             .then((res) => {
-                console.log(res, 'hgjkl')
                 for (let i in res.data.result.blockchains) {
                     if (res.data.result.blockchains[i].name == 'sama') {
                         let lian = res.data.result.blockchains[i].id
                         axios
-                            .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                            .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
                                 jsonrpc: '2.0',
                                 method: 'samavm.balance',
                                 params: {
