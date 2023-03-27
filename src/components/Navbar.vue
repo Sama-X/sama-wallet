@@ -9,7 +9,7 @@
         <v-spacer></v-spacer>
 
         <div class="buts_right">
-            <DayNightToggle class="action_but"></DayNightToggle>
+            <!-- <DayNightToggle class="action_but"></DayNightToggle> -->
             <template v-if="isAuth">
                 <button @click="logout">{{ $t('logout.button') }}</button>
             </template>

@@ -88,11 +88,11 @@ export default {
             {
                 vmid: 'og:title',
                 name: 'og:title',
-                content: 'Fastest Performing and Secure DeFi Wallet | sama Wallet',
+                content: 'sama Wallet',
             },
         ],
-        title: 'Fastest Performing and Secure DeFi Wallet',
-        titleTemplate: '%s | sama Wallet',
+        title: 'sama Wallet',
+        titleTemplate: '%s',
     },
 }
 </script>

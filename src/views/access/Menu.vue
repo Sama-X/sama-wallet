@@ -26,7 +26,7 @@
                         night="/img/access_icons/night/keystore.svg"
                     ></ImageDayNight>
                 </router-link>
-                <LedgerButton class="menu_option button_primary"></LedgerButton>
+                <!-- <LedgerButton class="menu_option button_primary"></LedgerButton> -->
                 <!--            <TorusGoogle class="option button_primary" text="Google"></TorusGoogle>-->
             </div>
         </div>
