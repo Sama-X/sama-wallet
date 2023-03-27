@@ -275,4 +275,7 @@ input[type='password'] {
         justify-content: center;
     }
 }
+.input_cont input {
+    color: white !important;
+}
 </style>

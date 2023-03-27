@@ -84,7 +84,7 @@ export default class MnemonicPasswordInput extends Vue {
         border-bottom: 1px solid var(--primary-color-light);
         width: 8ch;
         border-radius: 2px;
-        color: var(--primary-color);
+        color: white;
     }
 }
 </style>
