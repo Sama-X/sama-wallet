@@ -48,7 +48,8 @@ export default class Modal extends Vue {
 .modal_topbar {
     background-color: var(--bg);
     border-bottom: var(--bg);
-    color: var(--primary-color);
+    color: white;
+    // color: var(--primary-color);
     border-bottom: 2px solid var(--bg-wallet);
     position: relative;
     padding: 10px 22px;

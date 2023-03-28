@@ -97,7 +97,8 @@ export default class AccountSettingsModal extends Vue {
     width: 320px;
     max-width: 100%;
     padding: 20px 30px;
-    color: var(--primary-color);
+    color: white;
+    // color: var(--primary-color);
 }
 
 .header {

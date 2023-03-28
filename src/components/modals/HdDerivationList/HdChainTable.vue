@@ -75,7 +75,8 @@ export default class HdChainTable extends Vue {
 .hd_chain_table {
     .list_row:last-of-type {
         .col_addr {
-            color: var(--primary-color) !important;
+            color: white !important;
+            // color: var(--primary-color) !important;
         }
         .col_bal {
             color: var(--primary-color) !important;

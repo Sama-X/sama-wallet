@@ -356,6 +356,9 @@ textarea {
     background-color: var(--bg) !important;
     input {
         color: white !important;
+        &::placeholder {
+            color: white !important;
+          }
         // color: var(--primary-color) !important;
     }
 }
@@ -369,7 +372,8 @@ textarea {
     color: var(--primary-color-light) !important;
 }
 .v-tab--active {
-    color: var(--primary-color) !important;
+    color: white !important;
+    // color: var(--primary-color) !important;
 }
 
 .v-messages {

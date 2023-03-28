@@ -239,7 +239,8 @@ form {
 
 input,
 select {
-    color: var(--primary-color);
+    color: white;
+    // color: var(--primary-color);
     background-color: var(--bg-light);
     border-radius: 4px;
     padding: 6px 6px;
@@ -256,7 +257,8 @@ button {
 .v-btn {
     text-transform: none;
     font-size: 12px !important;
-    color: var(--bg) !important;
+    color: white !important;
+    // color: var(--bg) !important;
 }
 
 .rowGroup {

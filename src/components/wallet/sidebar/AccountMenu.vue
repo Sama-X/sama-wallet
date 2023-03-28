@@ -65,7 +65,8 @@ export default class AccountMenu extends Vue {
     //padding: 4px 8px;
     //border-radius: 4px;
     //background-color: var(--bg-light);
-    color: var(--primary-color);
+    color: white;
+    // color: var(--primary-color);
     display: flex;
     flex-direction: row;
     align-items: center;

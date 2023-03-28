@@ -68,7 +68,8 @@ export default class ExportKeys extends Vue {
 }
 
 .selection_num {
-    color: var(--primary-color);
+    color: white;
+    // color: var(--primary-color);
     text-align: center;
     font-weight: bold;
     font-size: 14px;

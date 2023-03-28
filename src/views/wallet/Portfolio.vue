@@ -128,7 +128,8 @@ export default {
         outline: none;
         border: none !important;
         flex-grow: 1;
-        color: var(--primary-color);
+        color: white;
+        // color: var(--primary-color);
 
         &::placeholder {
             color: #b3b7d3;
