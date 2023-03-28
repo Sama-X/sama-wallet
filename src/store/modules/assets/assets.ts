@@ -372,11 +372,12 @@ const assets_module: Module<AssetsState, RootState> = {
 
         // What is the AVA coin in the network
         async updateAvaAsset({ state, commit }) {
-            const res = await avm.getAssetDescription('AVAX')
-            const id = bintools.cb58Encode(res.assetID)
-            state.AVA_ASSET_ID = id
-            const asset = new AvaAsset(id, res.name, res.symbol, res.denomination)
-            commit('addAsset', asset)
+            return
+            // const res = await avm.getAssetDescription('AVAX')
+            // const id = bintools.cb58Encode(res.assetID)
+            // state.AVA_ASSET_ID = id
+            // const asset = new AvaAsset(id, res.name, res.symbol, res.denomination)
+            // commit('addAsset', asset)
         },
 
         updateBalanceDict({ state, rootState, getters }): IWalletBalanceDict {
@@ -456,20 +457,20 @@ const assets_module: Module<AssetsState, RootState> = {
         async addUnknownAsset({ state, commit }, assetId: string) {
             // get info about the asset
             return
-            const desc = await ava.XChain().getAssetDescription(assetId)
-            const newAsset = new AvaAsset(assetId, desc.name, desc.symbol, desc.denomination)
+            // const desc = await ava.XChain().getAssetDescription(assetId)
+            // const newAsset = new AvaAsset(assetId, desc.name, desc.symbol, desc.denomination)
 
-            await commit('addAsset', newAsset)
-            return desc
+            // await commit('addAsset', newAsset)
+            // return desc
         },
 
         async addUnknownNftFamily({ state, commit }, assetId: string) {
             return
-            const desc = await ava.XChain().getAssetDescription(assetId)
-            const newFam = new AvaNftFamily(assetId, desc.name, desc.symbol)
+            // const desc = await ava.XChain().getAssetDescription(assetId)
+            // const newFam = new AvaNftFamily(assetId, desc.name, desc.symbol)
 
-            await commit('addNftFamily', newFam)
-            return desc
+            // await commit('addNftFamily', newFam)
+            // return desc
         },
     },
     getters: {
