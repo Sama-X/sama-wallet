@@ -130,7 +130,7 @@ export default class MnemonicWallet extends HdWalletCore implements IAvaHdWallet
         const _this = this
         const samaInfoNumber = ''
         axios
-            .post('http://192.168.0.188:9650/ext/bc/P', {
+            .post('http://154.40.42.152:9666/ext/bc/P', {
                 jsonrpc: '2.0',
                 method: 'platform.getBlockchains',
                 params: {},
@@ -141,7 +141,7 @@ export default class MnemonicWallet extends HdWalletCore implements IAvaHdWallet
                     if (res.data.result.blockchains[i].name == 'sama') {
                         const lian = res.data.result.blockchains[i].id
                         axios
-                            .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                            .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
                                 jsonrpc: '2.0',
                                 method: 'samavm.balance',
                                 params: {

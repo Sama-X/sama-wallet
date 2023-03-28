@@ -82,7 +82,7 @@ export default class ChainInput extends Vue {
 
     getLian() {
         axios
-            .post('http://192.168.0.188:9650/ext/bc/P', {
+            .post('http://154.40.42.152:9666/ext/bc/P', {
                 jsonrpc: '2.0',
                 method: 'platform.getBlockchains',
                 params: {},
@@ -105,7 +105,7 @@ export default class ChainInput extends Vue {
             let lian = _this.getLian()
             if (lian) {
                 axios
-                    .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                    .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
                         jsonrpc: '2.0',
                         method: 'samavm.transfer',
                         params: {
@@ -130,7 +130,7 @@ export default class ChainInput extends Vue {
         let lian = _this.getLian()
         if (lian) {
             axios
-                .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
                     jsonrpc: '2.0',
                     method: 'samavm.balance',
                     params: {
