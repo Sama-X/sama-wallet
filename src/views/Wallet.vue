@@ -50,6 +50,7 @@ export default class Wallet extends Vue {
 
     checkLogout() {
         let now = Date.now()
+
         // Logout if current time is passed the logout timestamp
         if (now >= this.logoutTimestamp && !this.isLogOut) {
             this.isLogOut = true

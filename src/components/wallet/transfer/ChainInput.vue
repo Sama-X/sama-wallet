@@ -82,7 +82,7 @@ export default class ChainInput extends Vue {
 
     getLian() {
         axios
-            .post('http://154.40.42.152:9666/ext/bc/P', {
+            .post('http://192.168.0.188:9650/ext/bc/P', {
                 jsonrpc: '2.0',
                 method: 'platform.getBlockchains',
                 params: {},
@@ -105,7 +105,7 @@ export default class ChainInput extends Vue {
             let lian = _this.getLian()
             if (lian) {
                 axios
-                    .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
+                    .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
                         jsonrpc: '2.0',
                         method: 'samavm.transfer',
                         params: {
@@ -124,13 +124,13 @@ export default class ChainInput extends Vue {
         }
     }
     async initAmout() {
-        const res = await avm.getAssetDescription('AVAX')
-        const id = bintools.cb58Encode(res.assetID)
+        // const res = await avm.getAssetDescription('AVAX')
+        // const id = bintools.cb58Encode(res.assetID)
         let _this = this
         let lian = _this.getLian()
         if (lian) {
             axios
-                .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
+                .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
                     jsonrpc: '2.0',
                     method: 'samavm.balance',
                     params: {
@@ -141,16 +141,19 @@ export default class ChainInput extends Vue {
                 .then((resData) => {
                     // _this.samaInfoNumber = resData.data.result.balance
                     _this.isSuccess = true
-                    // setTimeout(function(){
-                    //     _this.isSuccess = false
-                    // },1000)
-                    const asset = new AvaAsset(
-                        id,
-                        res.name,
-                        res.symbol,
-                        resData.data.result.balance
-                    )
-                    _this.$store.commit('addAsset', asset)
+                    // const asset = new AvaAsset(
+                    //     id,
+                    //     res.name,
+                    //     res.symbol,
+                    //     resData.data.result.balance
+                    // )
+                    // const asset = new AvaAsset(
+                    //     '2TGBXcnwx5PqiXWiqxAKUaNSqDguXNh1mxnp82jui68hxJSZAx',
+                    //     'sama',
+                    //     'SAMA',
+                    //     resData.data.result.balance
+                    // )
+                    // _this.$store.commit('addAsset', asset)
                 })
         }
     }

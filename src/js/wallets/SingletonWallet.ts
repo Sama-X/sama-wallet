@@ -188,7 +188,7 @@ class SingletonWallet extends WalletCore implements AvaWalletCore, UnsafeWallet 
         await this.updateUTXOsP()
 
         await this.getStake()
-        await this.getEthBalance()
+        // await this.getEthBalance()
 
         this.isFetchUtxos = false
 

@@ -6,9 +6,7 @@
             <div>
                 <div v-for="order in cleanOrders" :key="order.uuid" class="fungible_row">
                     <p>{{ order.asset.symbol }}</p>
-                    <p style="color: var(--primary-color)">
-                        {{ order.asset.name }}
-                    </p>
+                    <p style="color: var(--primary-color)">{{ order.asset.name }}</p>
                     <p style="text-align: right; color: var(--primary-color)">
                         {{ cleanNum(order.amount, order.asset.denomination) }}
                     </p>

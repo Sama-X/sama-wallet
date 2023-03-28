@@ -23,12 +23,12 @@
                         @click="viewQRModal"
                         class="qr_but"
                     ></button>
-                    <button
+                    <!-- <button
                         v-if="walletType === 'mnemonic'"
                         :tooltip="$t('top.hover2')"
                         @click="viewPrintModal"
                         class="print_but"
-                    ></button>
+                    ></button> -->
                     <button
                         v-if="walletType === 'ledger'"
                         :tooltip="$t('create.verify')"

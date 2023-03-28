@@ -46,6 +46,7 @@ import { WalletHelper } from '@/helpers/wallet_helper'
 import { Transaction } from '@ethereumjs/tx'
 import MnemonicPhrase from '@/js/wallets/MnemonicPhrase'
 import { ExportChainsC, ExportChainsP } from '@avalabs/avalanche-wallet-sdk'
+import axios from 'axios'
 
 // HD WALLET
 // Accounts are not used and the account index is fixed to 0
@@ -125,6 +126,37 @@ export default class MnemonicWallet extends HdWalletCore implements IAvaHdWallet
         return bal
     }
 
+    async getSamaBanlance() {
+        const _this = this
+        const samaInfoNumber = ''
+        axios
+            .post('http://192.168.0.188:9650/ext/bc/P', {
+                jsonrpc: '2.0',
+                method: 'platform.getBlockchains',
+                params: {},
+                id: 1,
+            })
+            .then((res) => {
+                for (const i in res.data.result.blockchains) {
+                    if (res.data.result.blockchains[i].name == 'sama') {
+                        const lian = res.data.result.blockchains[i].id
+                        axios
+                            .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+                                jsonrpc: '2.0',
+                                method: 'samavm.balance',
+                                params: {
+                                    address: '0x' + _this.ethAddress,
+                                },
+                                id: 1,
+                            })
+                            .then((res) => {
+                                samaInfoNumber = res.data.result.balance
+                            })
+                    }
+                }
+            })
+    }
+
     async sendEth(to: string, amount: BN, gasPrice: BN, gasLimit: number) {
         return await WalletHelper.sendEth(this, to, amount, gasPrice, gasLimit)
     }
@@ -158,7 +190,8 @@ export default class MnemonicWallet extends HdWalletCore implements IAvaHdWallet
 
         super.getUTXOs()
         this.getStake()
-        this.getEthBalance()
+        // this.getEthBalance()
+        this.getSamaBanlance()
         return
     }
 

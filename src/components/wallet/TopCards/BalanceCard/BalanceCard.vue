@@ -4,8 +4,9 @@
         <div class="fungible_card">
             <div class="header">
                 <div class="refresh">
-                    <Spinner v-if="isUpdateBalance" class="spinner"></Spinner>
-                    <button v-else @click="updateBalance">
+                    <!-- <Spinner v-if="isUpdateBalance" class="spinner"></Spinner> -->
+                    <!-- <button v-else @click="updateBalance"> -->
+                    <button @click="initBlance(1)">
                         <fa icon="sync" style="background: white"></fa>
                     </button>
                 </div>
@@ -23,6 +24,9 @@
                     </button>
                 </template>
                 <button @click="showUTXOsModal" class="breakdown_toggle">Show UTXOs</button> -->
+                <button @click="showUTXOsModal" class="breakdown_toggle">
+                    <!-- <RedoOutlined /> -->
+                </button>
             </div>
             <div class="balance_row">
                 <p class="balance" data-cy="wallet_balance" v-if="!balanceTextRight">
@@ -37,7 +41,8 @@
                 </p>
                 <div style="display: flex; flex-direction: row">
                     <p class="balance_usd">
-                        <b>$ {{ totalBalanceUSDText }}</b>
+                        <b>$ {{ samaInfoNumber * avaxPriceText }}</b>
+                        <!-- <b>$ {{ totalBalanceUSDText }}</b> -->
                         USD
                     </p>
                     <p class="balance_usd" style="background-color: transparent">
@@ -149,8 +154,9 @@ export default class BalanceCard extends Vue {
 
     created() {
         let _this = this
-        let wallet: WalletType = this.$store.state.activeWallet
         let priviteKey = this.wallet as SingletonWallet
+        // localStorage.setItem('samaInfoNumber', '--')
+        this.initBlance()
         // find pricate key
         // axios.post('http://154.40.42.152:9666/ext/bc/C/avax',{
         //     "jsonrpc": "2.0",
@@ -165,8 +171,43 @@ export default class BalanceCard extends Vue {
         //     console.log(res,'sisisi')
 
         // })
+        // axios
+        //     .post('http://192.168.0.188:9650/ext/bc/P', {
+        //         jsonrpc: '2.0',
+        //         method: 'platform.getBlockchains',
+        //         params: {},
+        //         id: 1,
+        //     })
+        //     .then((res) => {
+        //         for (let i in res.data.result.blockchains) {
+        //             if (res.data.result.blockchains[i].name == 'sama') {
+        //                 let lian = res.data.result.blockchains[i].id
+        //                 axios
+        //                     .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
+        //                         jsonrpc: '2.0',
+        //                         method: 'samavm.balance',
+        //                         params: {
+        //                             address: '0x' + wallet.ethAddress,
+        //                         },
+        //                         id: 1,
+        //                     })
+        //                     .then((res) => {
+        //                         _this.samaInfoNumber = res.data.result.balance
+        //                     })
+        //             }
+        //         }
+        //     })
+    }
+    $refs!: {
+        utxos_modal: UtxosBreakdownModal
+    }
+
+    initBlance(type) {
+        let _this = this
+        let wallet: WalletType = this.$store.state.activeWallet
+        _this.samaInfoNumber = ''
         axios
-            .post('http://154.40.42.152:9666/ext/bc/P', {
+            .post('http://192.168.0.188:9650/ext/bc/P', {
                 jsonrpc: '2.0',
                 method: 'platform.getBlockchains',
                 params: {},
@@ -177,7 +218,7 @@ export default class BalanceCard extends Vue {
                     if (res.data.result.blockchains[i].name == 'sama') {
                         let lian = res.data.result.blockchains[i].id
                         axios
-                            .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
+                            .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
                                 jsonrpc: '2.0',
                                 method: 'samavm.balance',
                                 params: {
@@ -187,25 +228,20 @@ export default class BalanceCard extends Vue {
                             })
                             .then((res) => {
                                 _this.samaInfoNumber = res.data.result.balance
+                                if (type == 1) {
+                                    _this.$store.dispatch('Notifications/add', {
+                                        title: 'update',
+                                        message: 'success',
+                                        type: 'success',
+                                    })
+                                }
+                                localStorage.setItem('samaInfoNumber', _this.samaInfoNumber)
+                                _this.$emit('samaInfoChange', _this.samaInfoNumber)
+                                // localStorage.setItem('samaInfoNumber', 11000)
                             })
                     }
                 }
             })
-        // axios
-        //     .post('http://154.40.42.152:9666/ext/bc/' + lianUrl + '/public', {
-        //         jsonrpc: '2.0',
-        //         method: 'samavm.balance',
-        //         params: {
-        //             address: '0x' + wallet.ethAddress,
-        //         },
-        //         id: 1,
-        //     })
-        //     .then((res) => {
-        //         _this.samaInfoNumber = res.data.result.balance
-        //     })
-    }
-    $refs!: {
-        utxos_modal: UtxosBreakdownModal
     }
 
     updateBalance(): void {
@@ -221,7 +257,7 @@ export default class BalanceCard extends Vue {
         let ava = this.$store.getters['Assets/AssetAVA']
         let wallet: WalletType = this.$store.state.activeWallet
         axios
-            .post('http://154.40.42.152:9666/ext/bc/P', {
+            .post('http://192.168.0.188:9650/ext/bc/P', {
                 jsonrpc: '2.0',
                 method: 'platform.getBlockchains',
                 params: {},
@@ -232,7 +268,7 @@ export default class BalanceCard extends Vue {
                     if (res.data.result.blockchains[i].name == 'sama') {
                         let lian = res.data.result.blockchains[i].id
                         axios
-                            .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
+                            .post('http://192.168.0.188:9650/ext/bc/' + lian + '/public', {
                                 jsonrpc: '2.0',
                                 method: 'samavm.balance',
                                 params: {
@@ -290,7 +326,8 @@ export default class BalanceCard extends Vue {
     }
 
     get avaxPriceText() {
-        return this.priceDict.usd
+        return 1
+        // return this.priceDict.usd
     }
 
     get totalBalanceUSD(): Big {

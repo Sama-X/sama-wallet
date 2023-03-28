@@ -75,7 +75,7 @@ function updateWalletBalanceC() {
     const wallet: null | WalletType = store.state.activeWallet
     if (!wallet) return
     // Refresh the wallet balance
-    wallet.getEthBalance()
+    // wallet.getEthBalance()
 }
 
 export let socketEVM: ethers.providers.WebSocketProvider

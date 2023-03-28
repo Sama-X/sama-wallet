@@ -150,6 +150,7 @@ export default class Fungibles extends Vue {
             })
         }
 
+        // return []
         return balance
     }
 }

@@ -14,13 +14,13 @@ export function connectSocketX(network: AvaNetwork) {
     }
 
     // Setup the X chain socket connection
-    const wsURL = network.getWsUrlX()
-    socketX = new Sockette(wsURL, {
-        onopen: xOnOpen,
-        onclose: xOnClose,
-        onmessage: xOnMessage,
-        onerror: xOnError,
-    })
+    // const wsURL = network.getWsUrlX()
+    // socketX = new Sockette(wsURL, {
+    //     onopen: xOnOpen,
+    //     onclose: xOnClose,
+    //     onmessage: xOnMessage,
+    //     onerror: xOnError,
+    // })
 }
 
 export function updateFilterAddresses(): void {

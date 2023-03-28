@@ -5,7 +5,8 @@
         :connected="status === 'connected'"
         @keydown.esc="closeMenu"
     >
-        <div class="toggle_but" @click="toggleMenu" :testnet="isTestnet">
+        <div class="toggle_but">
+            <!-- <div class="toggle_but" @click="toggleMenu" :testnet="isTestnet"> -->
             <span
                 :style="{
                     backgroundColor: connectionColor,

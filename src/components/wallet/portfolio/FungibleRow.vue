@@ -22,16 +22,17 @@
             </span>
             <br />
             <span class="fiat" v-if="isAvaxToken">
+                <!-- {{ symbol }} -->
                 {{ totalUSD.toLocaleString(2) }}
                 &nbsp;USD
             </span>
         </p>
-        <p class="balance_col" v-else>0</p>
+        <p class="balance_col" v-else>{{ symbol }}</p>
     </div>
 </template>
 <script lang="ts">
 import 'reflect-metadata'
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 
 import AvaAsset from '../../../js/AvaAsset'
 import Hexagon from '@/components/misc/Hexagon.vue'
@@ -48,7 +49,17 @@ import Big from 'big.js'
     },
 })
 export default class FungibleRow extends Vue {
+    samaNumber = localStorage.getItem('samaInfoNumber')
     @Prop() asset!: AvaAsset
+    @Watch('symbol', { deep: true, immediate: true })
+    onSamaNumberChanged(val: string, oldVal: string) {
+        console.log(val, oldVal)
+    }
+    updateBalance(): void {
+        console.log(localStorage.getItem('samaInfoNumber'), '12')
+        this.$store.dispatch('Assets/updateUTXOs')
+        this.$store.dispatch('History/updateTransactionHistory')
+    }
 
     get iconUrl(): string | null {
         if (!this.asset) return null
@@ -103,16 +114,18 @@ export default class FungibleRow extends Vue {
     get name(): string {
         let name = this.asset.name
         // TODO: Remove this hack after network change
-        if (name === 'AVA') return 'AVAX'
+        if (name === 'AVA') return 'SAMA'
         return name
     }
 
-    get symbol(): string {
-        let sym = this.asset.symbol
+    get symbol(): any {
+        let symStr = localStorage.getItem('samaInfoNumber')
+        return symStr
 
+        // let sym = this.asset.symbol
         // TODO: Remove this hack after network change
-        if (sym === 'AVA') return 'AVAX'
-        return sym
+        // if (sym === 'AVA') return 'SAMA'
+        // return sym
     }
 
     get amount() {

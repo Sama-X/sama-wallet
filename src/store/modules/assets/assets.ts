@@ -455,6 +455,7 @@ const assets_module: Module<AssetsState, RootState> = {
         // Adds an unknown asset id to the assets dictionary
         async addUnknownAsset({ state, commit }, assetId: string) {
             // get info about the asset
+            return
             const desc = await ava.XChain().getAssetDescription(assetId)
             const newAsset = new AvaAsset(assetId, desc.name, desc.symbol, desc.denomination)
 
@@ -463,6 +464,7 @@ const assets_module: Module<AssetsState, RootState> = {
         },
 
         async addUnknownNftFamily({ state, commit }, assetId: string) {
+            return
             const desc = await ava.XChain().getAssetDescription(assetId)
             const newFam = new AvaNftFamily(assetId, desc.name, desc.symbol)
 

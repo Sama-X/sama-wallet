@@ -1,7 +1,7 @@
 <template>
     <div class="top_cards">
-        <balance-card class="top_card balance_card"></balance-card>
-        <address-card class="top_card addr_card"></address-card>
+        <balance-card class="top_card balance_card" @samaInfoChange="samaInfoChange"></balance-card>
+        <address-card class="top_card addr_card" :samaInfoValue="samaInfoValue"></address-card>
     </div>
 </template>
 <script>
@@ -9,9 +9,20 @@ import BalanceCard from './TopCards/BalanceCard/BalanceCard'
 import AddressCard from './TopCards/AddressCard/AddressCard'
 
 export default {
+    data() {
+        return {
+            samaInfoValue: '',
+        }
+    },
     components: {
         BalanceCard,
         AddressCard,
+    },
+    methods: {
+        samaInfoChange(e) {
+            console.log(e, 1)
+            this.samaInfoValue = e
+        },
     },
 }
 </script>
