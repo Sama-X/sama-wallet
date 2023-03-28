@@ -9,25 +9,25 @@
                 <ChainInput v-model="formType" :disabled="isConfirm"></ChainInput>
             </FormC>
             <div class="new_order_Form" v-show="formType === 'X'">
-                <div class="lists">
+                <!-- <div class="lists">
                     <ChainInput v-model="formType" :disabled="isConfirm"></ChainInput>
                     <div>
-                        <!-- <tx-list
+                        <tx-list
                             class="tx_list"
                             ref="txList"
                             @change="updateTxList"
                             :disabled="isConfirm"
-                        ></tx-list> -->
-                        <!-- <template> -->
-                        <!-- <template v-if="hasNFT"> -->
+                        ></tx-list>
+                        <template>
+                        <template v-if="hasNFT">
                         <NftList
                             @change="updateNftList"
                             ref="nftList"
                             :disabled="isConfirm"
                         ></NftList>
-                        <!-- </template> -->
+                        </template>
                     </div>
-                </div>
+                </div> -->
                 <div>
                     <div class="to_address">
                         <h4>{{ $t('transfer.to') }}</h4>

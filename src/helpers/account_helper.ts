@@ -48,7 +48,10 @@ export function getLocalStorageAccounts(): iUserAccountEncrypted[] {
 
 export const saveLocalStorageJSONItem = (key: string, data: any) => {
     const formatted = JSON.stringify(data)
+    // window.globalStorage[key].key = formatted
+    // console.log(window.globalStorage[key].key, 'key')
     localStorage.setItem(key, formatted)
+    console.log(localStorage.getItem('accounts'), 'accounts')
 }
 
 export const getIndexByWallets = (wallets: WalletType[]): number | null => {
