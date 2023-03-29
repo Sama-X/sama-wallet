@@ -56,6 +56,7 @@ import { CurrencyType } from '@/components/misc/CurrencySelect/types'
 import axios from 'axios'
 import { ava, avm, isValidAddress, bintools } from '../../../AVA'
 import AvaAsset from '../../../js/AvaAsset'
+import { samaUrl } from '@/samaIp'
 
 @Component
 export default class ChainInput extends Vue {
@@ -81,20 +82,13 @@ export default class ChainInput extends Vue {
     }
 
     getLian() {
-        axios
-            .post('http://154.40.42.152:9666/ext/bc/P', {
-                jsonrpc: '2.0',
-                method: 'platform.getBlockchains',
-                params: {},
-                id: 1,
-            })
-            .then((res) => {
-                for (let i in res.data.result.blockchains) {
-                    if (res.data.result.blockchains[i].name == 'sama2') {
-                        return res.data.result.blockchains[i]
-                    }
+        axios.post(samaUrl + '/get_block_chain').then((res) => {
+            for (let i in res.data.result.blockchains) {
+                if (res.data.result.blockchains[i].name == 'sama') {
+                    return res.data.result.blockchains[i].id
                 }
-            })
+            }
+        })
     }
     receiveFunc() {
         let _this = this
@@ -104,22 +98,19 @@ export default class ChainInput extends Vue {
         } else {
             let lian = _this.getLian()
             if (lian) {
-                axios
-                    .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
-                        jsonrpc: '2.0',
-                        method: 'samavm.transfer',
-                        params: {
-                            to: _this.addressUrl,
-                            units: 1000000,
-                            privKey: 'PrivateKey-ewoqjP7PxY4yr3iLTpLisriqt94hdyDFNgchSxGGztUrTXtNN',
-                        },
-                        id: 1,
-                    })
-                    .then((res) => {
-                        _this.isAddress = true
-                        _this.addressUrl = ''
-                        _this.initAmout()
-                    })
+                let formDataObj = new FormData()
+                formDataObj.append('chain_id', lian)
+                formDataObj.append('address', _this.addressUrl)
+                formDataObj.append(
+                    'priv_key',
+                    'PrivateKey-ewoqjP7PxY4yr3iLTpLisriqt94hdyDFNgchSxGGztUrTXtNN'
+                )
+                formDataObj.append('amount', '1000000')
+                axios.post(samaUrl + '/transfer', formDataObj).then((res) => {
+                    _this.isAddress = true
+                    _this.addressUrl = ''
+                    _this.initAmout()
+                })
             }
         }
     }
@@ -129,32 +120,18 @@ export default class ChainInput extends Vue {
         let _this = this
         let lian = _this.getLian()
         if (lian) {
-            axios
-                .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
-                    jsonrpc: '2.0',
-                    method: 'samavm.balance',
-                    params: {
-                        address: '0x' + _this.wallet.ethAddress,
-                    },
-                    id: 1,
-                })
-                .then((resData) => {
-                    // _this.samaInfoNumber = resData.data.result.balance
-                    _this.isSuccess = true
-                    // const asset = new AvaAsset(
-                    //     id,
-                    //     res.name,
-                    //     res.symbol,
-                    //     resData.data.result.balance
-                    // )
-                    // const asset = new AvaAsset(
-                    //     '2TGBXcnwx5PqiXWiqxAKUaNSqDguXNh1mxnp82jui68hxJSZAx',
-                    //     'sama',
-                    //     'SAMA',
-                    //     resData.data.result.balance
-                    // )
-                    // _this.$store.commit('addAsset', asset)
-                })
+            let formDataObj = new FormData()
+            formDataObj.append('chain_id', lian)
+            formDataObj.append('address', '0x' + _this.wallet.ethAddress)
+            axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
+                _this.isSuccess = true
+            })
+            // const asset = new AvaAsset(
+            //     id,
+            //     res.name,
+            //     res.symbol,
+            //     resData.data.result.balance
+            // )
         }
     }
 }

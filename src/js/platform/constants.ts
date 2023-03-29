@@ -1,4 +1,5 @@
 import { Avalanche } from 'avalanche/src'
+import { samaUrl, samaPort } from '@/samaIp'
 
 export const MINUTE_MS = 60000
 export const HOUR_MS = MINUTE_MS * 60
@@ -6,11 +7,15 @@ export const DAY_MS = HOUR_MS * 24
 export type ChainIdType = 'X' | 'P' | 'C'
 export type KYCType = 'Request' | 'Submit'
 
-export const JSON_SERVER: string = 'http://192.168.0.188:3000'
-export const NODE_SERVER: string = 'http://192.168.0.188:9666'
-export const AVA_LOCAL: string = '192.168.0.188'
+// export const JSON_SERVER: string = 'http://192.168.0.188:3000'
+// export const NODE_SERVER: string = 'http://192.168.0.188:9666'
+// export const AVA_LOCAL: string = '192.168.0.188'
+// export const AVA_PORT: number = 9650
+export const JSON_SERVER: string = samaUrl
+export const NODE_SERVER: string = samaUrl
+export const AVA_LOCAL: string = samaPort
 export const AVA_PORT: number = 9650
-export const AVA_PROTOCOL: string = 'http'
+export const AVA_PROTOCOL: string = 'https'
 export const AVA_LOCAL_ID: number = 1
 export const AVA_NET_ID: number = 8888
 

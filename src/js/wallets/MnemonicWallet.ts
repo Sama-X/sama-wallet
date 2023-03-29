@@ -47,6 +47,7 @@ import { Transaction } from '@ethereumjs/tx'
 import MnemonicPhrase from '@/js/wallets/MnemonicPhrase'
 import { ExportChainsC, ExportChainsP } from '@avalabs/avalanche-wallet-sdk'
 import axios from 'axios'
+import { samaUrl } from '@/samaIp'
 
 // HD WALLET
 // Accounts are not used and the account index is fixed to 0
@@ -129,32 +130,19 @@ export default class MnemonicWallet extends HdWalletCore implements IAvaHdWallet
     async getSamaBanlance() {
         const _this = this
         const samaInfoNumber = ''
-        axios
-            .post('http://154.40.42.152:9666/ext/bc/P', {
-                jsonrpc: '2.0',
-                method: 'platform.getBlockchains',
-                params: {},
-                id: 1,
-            })
-            .then((res) => {
-                for (const i in res.data.result.blockchains) {
-                    if (res.data.result.blockchains[i].name == 'sama') {
-                        const lian = res.data.result.blockchains[i].id
-                        axios
-                            .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
-                                jsonrpc: '2.0',
-                                method: 'samavm.balance',
-                                params: {
-                                    address: '0x' + _this.ethAddress,
-                                },
-                                id: 1,
-                            })
-                            .then((res) => {
-                                samaInfoNumber = res.data.result.balance
-                            })
-                    }
+        const formDataObj = new FormData()
+        axios.post(samaUrl + '/get_block_chain').then((res) => {
+            for (const i in res.data.result.blockchains) {
+                if (res.data.result.blockchains[i].name == 'sama') {
+                    const lian = res.data.result.blockchains[i].id
+                    formDataObj.append('chain_id', lian)
+                    formDataObj.append('address', '0x' + _this.ethAddress)
+                    axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
+                        samaInfoNumber = res.data.result.balance
+                    })
                 }
-            })
+            }
+        })
     }
 
     async sendEth(to: string, amount: BN, gasPrice: BN, gasLimit: number) {

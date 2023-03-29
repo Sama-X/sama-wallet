@@ -170,6 +170,7 @@ import AvaAsset from '../../js/AvaAsset'
 import { TxState } from '@/components/wallet/earn/ChainTransfer/types'
 import { SingletonWallet } from '../../js/wallets/SingletonWallet'
 import axios from 'axios'
+import { samaUrl } from '@/samaIp'
 
 @Component({
     components: {
@@ -367,39 +368,26 @@ export default class Transfer extends Vue {
         let sumArray: (ITransaction | UTXO)[] = [...this.formOrders, ...this.formNftOrders]
 
         let privKeyObj = this.wallet as SingletonWallet
-        axios
-            .post('http://154.40.42.152:9666/ext/bc/P', {
-                jsonrpc: '2.0',
-                method: 'platform.getBlockchains',
-                params: {},
-                id: 1,
-            })
-            .then((res) => {
-                for (let i in res.data.result.blockchains) {
-                    if (res.data.result.blockchains[i].name == 'sama') {
-                        let lian = res.data.result.blockchains[i].id
-                        axios
-                            .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
-                                jsonrpc: '2.0',
-                                method: 'samavm.transfer',
-                                params: {
-                                    to: this.formAddress,
-                                    units: Number(this.memo),
-                                    privKey: privKeyObj.ethKeyBech,
-                                },
-                                id: 1,
-                            })
-                            .then((res) => {
-                                this.canSendAgain = false
-                                // console.log(res,'rrrr')
-                                _this.onsuccess(res.data.result.txId)
-                                // this.waitTxConfirm(res.data.result.txId)
-                                _this.txId = res.data.result.txId
-                                _this.initAmout()
-                            })
-                    }
+        axios.post(samaUrl + '/get_block_chain').then((res) => {
+            for (let i in res.data.result.blockchains) {
+                if (res.data.result.blockchains[i].name == 'sama') {
+                    let lian = res.data.result.blockchains[i].id
+                    let formDataObj = new FormData()
+                    formDataObj.append('chain_id', lian)
+                    formDataObj.append('address', this.formAddress)
+                    formDataObj.append('priv_key', privKeyObj.ethKeyBech)
+                    formDataObj.append('amount', this.memo)
+                    axios.post(samaUrl + '/transfer', formDataObj).then((res) => {
+                        this.canSendAgain = false
+                        // console.log(res,'rrrr')
+                        _this.onsuccess(res.data.result.txId)
+                        // this.waitTxConfirm(res.data.result.txId)
+                        _this.txId = res.data.result.txId
+                        _this.initAmout()
+                    })
                 }
-            })
+            }
+        })
         // let txList: IssueBatchTxInput = {
         //     toAddress: this.formAddress,
         //     memo: Buffer.from(this.formMemo),
@@ -421,39 +409,19 @@ export default class Transfer extends Vue {
         // const res = await avm.getAssetDescription('AVAX')
         // const id = bintools.cb58Encode(res.assetID)
         let _this = this
-        axios
-            .post('http://154.40.42.152:9666/ext/bc/P', {
-                jsonrpc: '2.0',
-                method: 'platform.getBlockchains',
-                params: {},
-                id: 1,
-            })
-            .then((resa) => {
-                for (let i in resa.data.result.blockchains) {
-                    if (resa.data.result.blockchains[i].name == 'sama') {
-                        let lian = resa.data.result.blockchains[i].id
-                        axios
-                            .post('http://154.40.42.152:9666/ext/bc/' + lian + '/public', {
-                                jsonrpc: '2.0',
-                                method: 'samavm.balance',
-                                params: {
-                                    address: '0x' + _this.wallet.ethAddress,
-                                },
-                                id: 1,
-                            })
-                            .then((resData) => {
-                                // _this.samaInfoNumber = resData.data.result.balance
-                                // const asset = new AvaAsset(
-                                //     id,
-                                //     res.name,
-                                //     res.symbol,
-                                //     resData.data.result.balance
-                                // )
-                                // this.$store.commit('addAsset', asset)
-                            })
-                    }
+        axios.post(samaUrl + '/get_block_chain').then((res) => {
+            for (let i in res.data.result.blockchains) {
+                if (res.data.result.blockchains[i].name == 'sama') {
+                    let lian = res.data.result.blockchains[i].id
+                    let formDataObj = new FormData()
+                    formDataObj.append('chain_id', lian)
+                    formDataObj.append('address', '0x' + _this.wallet.ethAddress)
+                    axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
+                        // _this.isSuccess = true
+                    })
                 }
-            })
+            }
+        })
     }
 
     async waitTxConfirm(txId: string) {
