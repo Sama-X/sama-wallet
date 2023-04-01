@@ -41,7 +41,8 @@
                 </p>
                 <div style="display: flex; flex-direction: row">
                     <p class="balance_usd">
-                        <b>$ {{ samaInfoNumber * avaxPriceText }}</b>
+                        <!-- <b>$ {{ samaInfoNumber * avaxPriceText }}</b> -->
+                        <b>$ {{ samaInfoNumber }}</b>
                         <!-- <b>$ {{ totalBalanceUSDText }}</b> -->
                         USD
                     </p>
@@ -176,7 +177,7 @@ export default class BalanceCard extends Vue {
                     formDataObj.append('chain_id', lian)
                     formDataObj.append('address', '0x' + wallet.ethAddress)
                     axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
-                        _this.samaInfoNumber = res.data.result.balance
+                        _this.samaInfoNumber = res.data.result.balance.toLocaleString()
                         if (type == 1) {
                             _this.$store.dispatch('Notifications/add', {
                                 title: 'update',
