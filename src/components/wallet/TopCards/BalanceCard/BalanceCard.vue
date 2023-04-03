@@ -177,7 +177,10 @@ export default class BalanceCard extends Vue {
                     formDataObj.append('chain_id', lian)
                     formDataObj.append('address', '0x' + wallet.ethAddress)
                     axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
-                        _this.samaInfoNumber = res.data.result.balance.toLocaleString()
+                        _this.samaInfoNumber = res.data.result.balance
+                            .toLocaleString()
+                            .replace(/([^,]*),([^,]*)$/g, '$1.$2')
+                        console.log(_this.samaInfoNumber, 'sama')
                         if (type == 1) {
                             _this.$store.dispatch('Notifications/add', {
                                 title: 'update',
