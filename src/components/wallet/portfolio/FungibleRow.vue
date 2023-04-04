@@ -56,7 +56,7 @@ export default class FungibleRow extends Vue {
         console.log(val, oldVal)
     }
     updateBalance(): void {
-        console.log(localStorage.getItem('samaInfoNumber'), '12')
+        // console.log(localStorage.getItem('samaInfoNumber'), '12')
         this.$store.dispatch('Assets/updateUTXOs')
         this.$store.dispatch('History/updateTransactionHistory')
     }

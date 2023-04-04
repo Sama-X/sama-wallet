@@ -35,7 +35,6 @@
                             v-model="addressIn"
                             class="qrIn hover_border"
                             placeholder="xxx"
-                            :disabled="isConfirm"
                         ></qr-input>
                     </div>
                     <div>
@@ -54,14 +53,14 @@
                             v-if="memo || !isConfirm"
                             :disabled="isConfirm"
                         ></textarea> -->
-
-                        <input
+                        <input class="memo" placeholder="Amount" type="number" v-model="memo" />
+                        <!-- <input
                             class="memo"
                             placeholder="Amount"
                             type="number"
                             v-model="memo"
                             :disabled="isConfirm"
-                        />
+                        /> -->
                     </div>
                     <div class="fees">
                         <p>
@@ -255,7 +254,7 @@ export default class Transfer extends Vue {
         if (!isValidAddress(addr)) {
             err.push('Invalid address.')
         }
-
+        var reg = /^\d+[.]?\d{0,3}$/
         let memo = this.memo
         // if (this.memo) {
         //     let buff = Buffer.from(memo)
@@ -272,6 +271,8 @@ export default class Transfer extends Vue {
         // }
         if (!this.memo) {
             err.push('You must set the Amount.')
+        } else if (!reg.test(this.memo)) {
+            err.push('Up to three decimal places after the decimal point')
         }
 
         // Make sure to address matches the bech32 network hrp
@@ -323,8 +324,8 @@ export default class Transfer extends Vue {
             this.isAjax = false
             this.isSuccess = false
             this.isConfirm = false
-            // this.memo = ''
-            // this.addressIn = ''
+            this.memo = ''
+            this.addressIn = ''
             this.txId = ''
         }, 1000)
         this.$store.dispatch('Notifications/add', {
@@ -376,7 +377,7 @@ export default class Transfer extends Vue {
                     formDataObj.append('chain_id', lian)
                     formDataObj.append('address', this.formAddress)
                     formDataObj.append('priv_key', privKeyObj.ethKeyBech)
-                    formDataObj.append('amount', this.memo)
+                    formDataObj.append('amount', Number(this.memo) * 1000)
                     axios.post(samaUrl + '/transfer', formDataObj).then((res) => {
                         this.canSendAgain = false
                         // console.log(res,'rrrr')

@@ -139,6 +139,8 @@ export default class MnemonicWallet extends HdWalletCore implements IAvaHdWallet
                     formDataObj.append('address', '0x' + _this.ethAddress)
                     axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
                         samaInfoNumber = res.data.result.balance
+                        _this.ethBalance = res.data.result
+                        return res.data.result
                     })
                 }
             }

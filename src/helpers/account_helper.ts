@@ -51,7 +51,7 @@ export const saveLocalStorageJSONItem = (key: string, data: any) => {
     // window.globalStorage[key].key = formatted
     // console.log(window.globalStorage[key].key, 'key')
     localStorage.setItem(key, formatted)
-    console.log(localStorage.getItem('accounts'), 'accounts')
+    // console.log(localStorage.getItem('accounts'), 'accounts')
 }
 
 export const getIndexByWallets = (wallets: WalletType[]): number | null => {

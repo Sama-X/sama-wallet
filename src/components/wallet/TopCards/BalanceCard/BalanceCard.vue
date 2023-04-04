@@ -168,7 +168,7 @@ export default class BalanceCard extends Vue {
         let _this = this
         let wallet: WalletType = this.$store.state.activeWallet
         _this.samaInfoNumber = ''
-        console.log(samaUrl, 'samaUrl+')
+        // console.log(samaUrl, 'samaUrl+')
         let formDataObj = new FormData()
         axios.post(samaUrl + '/get_block_chain').then((res) => {
             for (let i in res.data.result.blockchains) {
@@ -180,7 +180,7 @@ export default class BalanceCard extends Vue {
                         _this.samaInfoNumber = res.data.result.balance
                             .toLocaleString()
                             .replace(/([^,]*),([^,]*)$/g, '$1.$2')
-                        console.log(_this.samaInfoNumber, 'sama')
+                        // console.log(_this.samaInfoNumber, 'sama')
                         if (type == 1) {
                             _this.$store.dispatch('Notifications/add', {
                                 title: 'update',
