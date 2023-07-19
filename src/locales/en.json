@@ -128,7 +128,7 @@
             "desc_x_1": "This is your X-Chain address to receive funds.",
             "desc_x_2": "Your address will change after every deposit. You can keep using previous addresses.",
             "desc_p": "This is your P-Chain address to receive staking rewards and cross chain transfers.",
-            "desc_c": "This is your SAMA address. Use it to interact with the ethereum virtual machine."
+            "desc_c": "This is your SAMA address"
         }
     },
     "transfer": {
