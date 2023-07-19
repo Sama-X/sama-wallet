@@ -124,7 +124,7 @@
             "derived": "Derived sama Wallet Address",
             "title_x": "Derived Wallet Address",
             "title_p": "Derived Platform Wallet Address",
-            "title_c": "Derived EVM Wallet Address",
+            "title_c": " SAMA Wallet Address",
             "desc_x_1": "This is your X-Chain address to receive funds.",
             "desc_x_2": "Your address will change after every deposit. You can keep using previous addresses.",
             "desc_p": "This is your P-Chain address to receive staking rewards and cross chain transfers.",
