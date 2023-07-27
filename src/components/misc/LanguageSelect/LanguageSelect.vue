@@ -1,7 +1,7 @@
 <template>
     <div class="sel_locale">
         <country-flag :country="flag" size="small" class="flag"></country-flag>
-        <select v-model="locale" disabled>
+        <select v-model="locale">
             <option v-for="item in items" :key="item.code" :value="item.code">
                 {{ item.nativeName }}
             </option>
@@ -24,20 +24,7 @@ interface FLAG_DICT {
 }
 const FLAGS_OVERRIDE: FLAG_DICT = {
     en: 'us',
-    zh_hant: 'cn',
     zh_hans: 'cn',
-    cs: 'cz',
-    ca: 'es-ca',
-    uk: 'ua',
-    af: 'za',
-    ar: 'ae',
-    da: 'dk',
-    el: 'gr',
-    he: 'il',
-    nb: 'no',
-    sr: 'rs',
-    sv: 'se',
-    ja: 'jp',
 }
 
 @Component({

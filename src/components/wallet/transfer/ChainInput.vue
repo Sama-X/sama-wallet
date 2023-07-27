@@ -62,6 +62,7 @@ import { samaUrl } from '@/samaIp'
 export default class ChainInput extends Vue {
     addressUrl = ''
     isLian = '26xtZpN5tohRZhVLwusazxjm7nmJMRqbeAtoRwJxDVpFgdqqqF'
+    lian: string = ''
     isAddress = true
     isSuccess = false
     @Model('change', { type: String }) readonly formType!: CurrencyType
@@ -70,6 +71,13 @@ export default class ChainInput extends Vue {
     set(val: ChainIdType) {
         if (this.disabled) return
         this.$emit('change', val)
+    }
+
+    created() {
+        this.getLian()
+        setTimeout(() => {
+            this.initAmout()
+        }, 3000)
     }
 
     get wallet() {
@@ -85,31 +93,30 @@ export default class ChainInput extends Vue {
         axios.post(samaUrl + '/get_block_chain').then((res) => {
             for (let i in res.data.result.blockchains) {
                 if (res.data.result.blockchains[i].name == 'sama') {
-                    return res.data.result.blockchains[i].id
+                    this.lian = res.data.result.blockchains[i].id
+                    return
                 }
             }
         })
     }
     receiveFunc() {
-        let _this = this
         if (!this.addressUrl) {
-            _this.isAddress = false
+            this.isAddress = false
             return false
         } else {
-            let lian = _this.getLian()
-            if (lian) {
+            if (this.lian) {
                 let formDataObj = new FormData()
-                formDataObj.append('chain_id', lian)
-                formDataObj.append('address', _this.addressUrl)
+                formDataObj.append('chain_id', this.lian)
+                formDataObj.append('address', this.addressUrl)
                 formDataObj.append(
                     'priv_key',
                     'PrivateKey-ewoqjP7PxY4yr3iLTpLisriqt94hdyDFNgchSxGGztUrTXtNN'
                 )
                 formDataObj.append('amount', '1000000')
                 axios.post(samaUrl + '/transfer', formDataObj).then((res) => {
-                    _this.isAddress = true
-                    _this.addressUrl = ''
-                    _this.initAmout()
+                    this.isAddress = true
+                    this.addressUrl = ''
+                    this.initAmout()
                 })
             }
         }
@@ -117,14 +124,12 @@ export default class ChainInput extends Vue {
     async initAmout() {
         // const res = await avm.getAssetDescription('AVAX')
         // const id = bintools.cb58Encode(res.assetID)
-        let _this = this
-        let lian = _this.getLian()
-        if (lian) {
+        if (this.lian) {
             let formDataObj = new FormData()
-            formDataObj.append('chain_id', lian)
-            formDataObj.append('address', '0x' + _this.wallet.ethAddress)
+            formDataObj.append('chain_id', this.lian)
+            formDataObj.append('address', '0x' + this.wallet.ethAddress)
             axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
-                _this.isSuccess = true
+                this.isSuccess = true
             })
             // const asset = new AvaAsset(
             //     id,

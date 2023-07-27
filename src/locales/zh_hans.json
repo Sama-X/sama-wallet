@@ -25,7 +25,11 @@
         "title3": "编辑网络",
         "custom": "添加自定义",
         "cancel": "取消",
-        "add": "添加网络"
+        "add": "添加网络",
+        "not_mainnet": "没有主网",
+        "blocker": {
+            "desc": "连接到新网络，请稍候。"
+        }
     },
     "access": {
         "title": "你想如何访问你的钱包？",
@@ -36,6 +40,7 @@
         "json_error": "无法解析JSON文件。",
         "keystore_error": "不支持此密钥存储文件版本。",
         "password_error": "无效密码。",
+        "but_private_key": "私钥",
         "mnemonic": {
             "title": "输入你的助记词\n",
             "subtitle": "每输入一个单词后添加一个空格区分单词。",
@@ -51,7 +56,8 @@
             "send": "发送",
             "earn": "收益",
             "advanced": "高级选项",
-            "supervise":"监管"
+            "supervise":"监管",
+            "export": "导出"
         },
         "address_card": {},
         "collectibles": {
@@ -103,7 +109,14 @@
         },
         "address": {
             "derived": "派生sama钱包地址",
-            "desc": "这是你接收资金的地址。每次存款后你的地址都会改变。"
+            "desc": "这是你接收资金的地址。每次存款后你的地址都会改变。",
+            "title_x": "派生sama钱包地址",
+            "title_p": "派生平台钱包地址",
+            "title_c": "sama钱包地址",
+            "desc_x_1": "这是你接收资金的地址。",
+            "desc_x_2": "每次存款后你的地址都会改变。你可以继续使用以前的地址。",
+            "desc_p": "这是你接收质押奖励和跨链转账的地址。",
+            "desc_c": "这是你的sama地址"
         }
     },
     "transfer": {
@@ -156,7 +169,16 @@
         "remove_success_title": "密钥已移除",
         "remove_success_msg": "私钥和资产已从钱包移除。",
         "password_validation": "密码长度必须至少9个字符。",
-        "password_validation2": "密码不匹配。"
+        "password_validation2": "密码不匹配。",
+        "account_slow_warning": "账户中的密钥过多可能需要很长时间才能加载。",
+        "save_account": {
+            "title": "保存账户",
+            "desc": "使用密码对你的钱包进行编码，并在此浏览器上安全存储。",
+            "submit": "保存",
+            "placeholder_1": "账户名称",
+            "placeholder_2": "密码",
+            "placeholder_3": "确认密码"
+        }
     },
     "portfolio": {
         "assets": "资产",
@@ -420,6 +442,18 @@
             "cancel2": "（之前的钱包会被忘记。）",
             "err1": "无效密码。",
             "err2": "无法读取钱包数据。"
+        },
+        "ledger": {
+            "desc": "请在你的ledger设备上确认这些操作。"
+        },
+        "ledger_upgrade": {
+            "done": "完成",
+            "upgrade": "升级",
+            "title": "连接出现问题？",
+            "desc": "我们无法连接到你的设备。请确保你已经打开了sama应用并升级到最新版本。"
+        },
+        "tokenlist": {
+            "title": "代币列表"
         }
     },
     "nav": {

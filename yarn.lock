@@ -2743,10 +2743,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/hdkey@0.7.1":
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/@types/hdkey/-/hdkey-0.7.1.tgz#9bc63ebbe96b107b277b65ea7a95442a677d0d61"
-  integrity sha512-4Kkr06hq+R8a9EzVNqXGOY2x1xA7dhY6qlp6OvaZ+IJy1BCca1Cv126RD9X7CMJoXoLo8WvAizy8gQHpqW6K0Q==
+"@types/hdkey@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.npmmirror.com/@types/hdkey/-/hdkey-2.0.1.tgz#ab46597562d977b229704c7f19949953b936b6a3"
+  integrity sha512-4s6jhP0BT3sWBaRo0BfA3BpFllQvuRlXUzIqnuvSNmPhmMCZYjhrDe31nJb8kJLc0ZVdqj9Ep9eH2RGBNCK9Sw==
   dependencies:
     "@types/node" "*"
 
@@ -5055,9 +5055,9 @@ caniuse-api@^3.0.0:
     lodash.uniq "^4.5.0"
 
 caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001109, caniuse-lite@^1.0.30001219:
-  version "1.0.30001354"
-  resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001354.tgz"
-  integrity sha512-mImKeCkyGDAHNywYFA4bqnLAzTUvVkqPvhY4DV47X+Gl2c5Z8c3KNETnXp14GQt11LvxE8AwjzGxJ+rsikiOzg==
+  version "1.0.30001517"
+  resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001517.tgz"
+  integrity sha512-Vdhm5S11DaFVLlyiKu4hiUTkpZu+y1KA/rZZqVQfOD5YdDT/eQKlkt7NaE0WGOFgX32diqt9MiP9CAiFeRklaA==
 
 canvas-renderer@~2.1.1:
   version "2.1.1"
@@ -5751,15 +5751,15 @@ core-js-compat@^3.6.5, core-js-compat@^3.8.0:
     browserslist "^4.16.1"
     semver "7.0.0"
 
-core-js@3.4.4:
-  version "3.4.4"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.4.4.tgz#e3d422f8a51adc4cae2bfa04cef26a5ccc046d29"
-  integrity sha512-vKea1DrcLA80Hrfc7AQgfoGvEaByfR5mH08t+zuWOWY94TFBmabdEL56mUbcijvadG9RxsXR2gUUFrfj4/iTcA==
-
 core-js@^2.4.0:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
+
+core-js@^3.29.0:
+  version "3.30.0"
+  resolved "https://registry.npmmirror.com/core-js/-/core-js-3.30.0.tgz#64ac6f83bc7a49fd42807327051701d4b1478dea"
+  integrity sha512-hQotSSARoNh1mYPi9O2YaWeiq/cEB95kOrFb4NCrO4RIFt1qqNpKsaE+vy/L3oiqvND5cThqXzUU3r9F7Efztg==
 
 core-js@^3.6.4, core-js@^3.6.5:
   version "3.8.3"

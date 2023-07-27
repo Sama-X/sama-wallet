@@ -480,7 +480,7 @@ html[data-theme='day'] {
 }
 
 html[data-theme='night'] {
-    --bg: #242729;
+    --bg: #1c1c1c;
     --bg-1: 36, 39, 41;
     --bg-light: #2e3234;
     --bg-light-1: 46, 50, 52;
@@ -495,8 +495,8 @@ html[data-theme='night'] {
     --info: #4c8caf;
     --info-1: 76, 140, 175;
 
-    --bg-wallet: #181b1d;
-    --bg-wallet-light: #242729;
+    --bg-wallet: #1c1c1c;
+    --bg-wallet-light: #1c1c1c;
 
     --warning: #d49534;
 }

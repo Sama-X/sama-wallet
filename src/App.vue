@@ -49,6 +49,7 @@ export default {
     async created() {
         // Init language preference
         let locale = localStorage.getItem('lang')
+        console.log('locale = ', locale)
         if (locale) {
             this.$root.$i18n.locale = locale
         }

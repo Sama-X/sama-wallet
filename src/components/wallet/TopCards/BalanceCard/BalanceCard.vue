@@ -155,20 +155,17 @@ export default class BalanceCard extends Vue {
     isLian = ''
 
     created() {
-        let _this = this
         let priviteKey = this.wallet as SingletonWallet
         // localStorage.setItem('samaInfoNumber', '--')
-        this.initBlance()
+        this.initBlance(1)
     }
     $refs!: {
         utxos_modal: UtxosBreakdownModal
     }
 
-    initBlance(type) {
-        let _this = this
+    initBlance(type: number) {
         let wallet: WalletType = this.$store.state.activeWallet
-        _this.samaInfoNumber = ''
-        // console.log(samaUrl, 'samaUrl+')
+
         let formDataObj = new FormData()
         axios.post(samaUrl + '/get_block_chain').then((res) => {
             for (let i in res.data.result.blockchains) {
@@ -177,20 +174,19 @@ export default class BalanceCard extends Vue {
                     formDataObj.append('chain_id', lian)
                     formDataObj.append('address', '0x' + wallet.ethAddress)
                     axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
-                        _this.samaInfoNumber = res.data.result.balance
+                        this.samaInfoNumber = res.data.result.balance
                             .toLocaleString()
                             .replace(/([^,]*),([^,]*)$/g, '$1.$2')
-                        // console.log(_this.samaInfoNumber, 'sama')
+
                         if (type == 1) {
-                            _this.$store.dispatch('Notifications/add', {
+                            this.$store.dispatch('Notifications/add', {
                                 title: 'update',
                                 message: 'success',
                                 type: 'success',
                             })
                         }
-                        localStorage.setItem('samaInfoNumber', _this.samaInfoNumber)
-                        _this.$emit('samaInfoChange', _this.samaInfoNumber)
-                        // localStorage.setItem('samaInfoNumber', 11000)
+                        localStorage.setItem('samaInfoNumber', this.samaInfoNumber + '')
+                        this.$emit('samaInfoChange', this.samaInfoNumber)
                     })
                 }
             }
@@ -206,22 +202,22 @@ export default class BalanceCard extends Vue {
         this.$refs.utxos_modal.open()
     }
     get ava_asset(): AvaAsset | null {
-        let _this = this
         let ava = this.$store.getters['Assets/AssetAVA']
-        let wallet: WalletType = this.$store.state.activeWallet
-        let formDataObj = new FormData()
-        axios.post(samaUrl + '/get_block_chain').then((res) => {
-            for (let i in res.data.result.blockchains) {
-                if (res.data.result.blockchains[i].name == 'sama') {
-                    let lian = res.data.result.blockchains[i].id
-                    formDataObj.append('chain_id', lian)
-                    formDataObj.append('address', '0x' + wallet.ethAddress)
-                    axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
-                        return (ava.denomination = res.data.result.balance)
-                    })
-                }
-            }
-        })
+        // console.log('ava = ', ava)
+        // let wallet: WalletType = this.$store.state.activeWallet
+        // let formDataObj = new FormData()
+        // axios.post(samaUrl + '/get_block_chain').then((res) => {
+        //     for (let i in res.data.result.blockchains) {
+        //         if (res.data.result.blockchains[i].name == 'sama') {
+        //             let lian = res.data.result.blockchains[i].id
+        //             formDataObj.append('chain_id', lian)
+        //             formDataObj.append('address', '0x' + wallet.ethAddress)
+        //             // axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
+        //             //     return (ava.denomination = res.data.result.balance)
+        //             // })
+        //         }
+        //     }
+        // })
         return ava
     }
 

@@ -61,8 +61,8 @@ export default class Wallet extends Vue {
     created() {
         this.resetTimer()
         this.intervalId = setInterval(() => {
-            // this.checkLogout()
-            this.$router.push(this.$route.path)
+            this.checkLogout()
+            // this.$router.push(this.$route.path)
         }, 1000)
     }
 

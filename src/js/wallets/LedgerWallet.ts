@@ -1,7 +1,6 @@
+// @ts-nocheck
 // import AppBtc from "@ledgerhq/hw-app-btc";
-//@ts-ignore
 import AppAvax from '@obsidiansystems/hw-app-avalanche'
-//@ts-ignore
 import Eth from '@ledgerhq/hw-app-eth'
 
 import EthereumjsCommon from '@ethereumjs/common'

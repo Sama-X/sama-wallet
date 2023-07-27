@@ -377,12 +377,10 @@ export default class Transfer extends Vue {
                     formDataObj.append('chain_id', lian)
                     formDataObj.append('address', this.formAddress)
                     formDataObj.append('priv_key', privKeyObj.ethKeyBech)
-                    formDataObj.append('amount', Number(this.memo) * 1000)
+                    formDataObj.append('amount', String(parseInt(this.memo || '0') * 1000))
                     axios.post(samaUrl + '/transfer', formDataObj).then((res) => {
                         this.canSendAgain = false
-                        // console.log(res,'rrrr')
                         _this.onsuccess(res.data.result.txId)
-                        // this.waitTxConfirm(res.data.result.txId)
                         _this.txId = res.data.result.txId
                         _this.initAmout()
                     })
