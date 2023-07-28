@@ -17,34 +17,23 @@
                 <p class="addr_text" data-cy="wallet_address">
                     {{ activeAddress }}
                 </p>
-                <div class="buts">
-                    <button
-                        :tooltip="$t('top.hover1')"
-                        @click="viewQRModal"
-                        class="qr_but"
-                    ></button>
-                    <!-- <button
-                        v-if="walletType === 'mnemonic'"
-                        :tooltip="$t('top.hover2')"
-                        @click="viewPrintModal"
-                        class="print_but"
-                    ></button> -->
-                    <button
-                        v-if="walletType === 'ledger'"
-                        :tooltip="$t('create.verify')"
-                        @click="verifyLedgerAddress"
-                        class="ledger_but"
-                    ></button>
-                    <CopyText
-                        :tooltip="$t('top.hover3')"
-                        :value="activeAddress"
-                        class="copy_but"
-                    ></CopyText>
-                </div>
             </div>
         </div>
         <div class="bottom_tabs">
-            <ChainSelect v-model="chainNow"></ChainSelect>
+            <div class="buts">
+                <button :tooltip="$t('top.hover1')" @click="viewQRModal" class="qr_but"></button>
+                <button
+                    v-if="walletType === 'ledger'"
+                    :tooltip="$t('create.verify')"
+                    @click="verifyLedgerAddress"
+                    class="ledger_but"
+                ></button>
+                <CopyText
+                    :tooltip="$t('top.hover3')"
+                    :value="activeAddress"
+                    class="copy_but"
+                ></CopyText>
+            </div>
         </div>
     </div>
 </template>
@@ -271,6 +260,8 @@ export default class AddressCard extends Vue {
     align-items: center;
     color: var(--primary-color-light);
     justify-content: flex-end;
+    padding-right: 30px;
+    padding-bottom: 30px;
 
     > * {
         font-size: 16px;
@@ -279,7 +270,7 @@ export default class AddressCard extends Vue {
         outline: none;
         width: 18px;
         height: 18px;
-        opacity: 0.6;
+        opacity: 0.8;
 
         background-size: contain;
         background-position: center;
@@ -290,7 +281,7 @@ export default class AddressCard extends Vue {
 }
 
 .qr_but {
-    background-image: url('/img/qr_icon.png');
+    background-image: url('/img/qr_icon.svg');
 }
 .print_but {
     background-image: url('/img/faucet_icon.png');
@@ -299,7 +290,7 @@ export default class AddressCard extends Vue {
     background-image: url('/img/ledger_icon.png');
 }
 .copy_but {
-    color: var(--primary-color);
+    color: #fff;
 }
 
 .col_qr {
@@ -313,7 +304,7 @@ export default class AddressCard extends Vue {
 
 @include main.night-mode {
     .qr_but {
-        background-image: url('/img/qr_icon_night.svg');
+        background-image: url('/img/qr_icon.svg');
     }
     .print_but {
         background-image: url('/img/print_icon_night.svg');
@@ -330,8 +321,9 @@ export default class AddressCard extends Vue {
 .addr_info {
     margin: 19px !important;
     // margin-bottom: 0 !important;
-    background-color: var(--bg-light);
-    font-size: 13px;
+    background: #262626;
+    border-radius: 4px;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
     padding: 12px 16px;
@@ -356,10 +348,10 @@ $qr_width: 110px;
     }
 
     .bottom_rest {
-        padding-top: 4px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-self: baseline;
     }
 }
 
@@ -374,12 +366,13 @@ $qr_width: 110px;
 }
 
 .subtitle {
-    font-size: 0.7rem;
+    font-size: 12px;
     color: var(--primary-color-light);
 }
 
 .addr_text {
-    font-size: 15px;
+    margin-top: 10px !important;
+    font-size: 14px;
     word-break: break-all;
     color: white;
     // color: var(--primary-color);

@@ -1,8 +1,8 @@
 <template>
     <div class="copyBut" @click="copy">
         <!--        <fa icon="copy"></fa>-->
-        <img v-if="$root.theme === 'day'" src="/img/copy_icon.png" />
-        <img v-else src="/img/copy_night.svg" />
+        <img v-if="$root.theme === 'day'" src="/img/copy_icon.svg" />
+        <img v-else src="/img/copy_icon.svg" />
         <p class="text">
             <slot></slot>
         </p>
