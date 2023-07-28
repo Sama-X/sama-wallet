@@ -44,15 +44,16 @@ export default {
 @use "../../main";
 
 .wallet_sidebar {
-    width: 246px;
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     z-index: 1000;
+    overflow: visible !important;
 
     .stick {
+        width: 246px;
         display: flex;
         flex-direction: column;
         height: 100%;
-        background: #1c1c1c;
+        background: var(--bg-wallet);
     }
     .alert_icon {
         color: #f00;

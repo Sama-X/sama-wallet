@@ -1,22 +1,38 @@
 <template>
-    <div class="wallet_view" ref="wallet_view">
-        <UpdateKeystoreModal v-if="isManageWarning"></UpdateKeystoreModal>
-        <transition name="fade" mode="out-in">
-            <sidebar class="panel sidenav"></sidebar>
-        </transition>
-        <div class="wallet_main">
-            <top-info class="wallet_top"></top-info>
-            <transition name="page_fade" mode="out-in">
-                <keep-alive
-                    :exclude="['cross_chain', 'activity', 'advanced', 'earn', 'manage', 'studio']"
-                >
-                    <router-view id="wallet_router" :key="$route.path"></router-view>
-                </keep-alive>
+    <div class="wallet_container">
+        <div class="wallet_view" ref="wallet_view">
+            <UpdateKeystoreModal v-if="isManageWarning"></UpdateKeystoreModal>
+            <transition name="fade" mode="out-in">
+                <sidebar class="panel sidenav"></sidebar>
             </transition>
+            <div class="wallet_main">
+                <div class="top_panel">
+                    <ConfirmLogout ref="logout"></ConfirmLogout>
+                    <div class="panel_nav">
+                        <!-- <DayNightToggle class="hover_but"></DayNightToggle> -->
+                        <network-menu class="net_menu"></network-menu>
+                        <button @click="logout" class="logout">
+                            {{ $t('logout.button') }}
+                        </button>
+                    </div>
+                </div>
+                <div class="body_panel">
+                    <div class="body_left_panel">
+                        <top-info class="wallet_top"></top-info>
+                        <transition name="page_fade" mode="out-in">
+                            <keep-alive
+                                :exclude="['cross_chain', 'activity', 'advanced', 'earn', 'manage', 'studio']"
+                            >
+                                <router-view id="wallet_router" :key="$route.path"></router-view>
+                            </keep-alive>
+                        </transition>
+                    </div>
+                    <transition name="page_fade" mode="out-in">
+                        <main-panel class="panel right_panel"></main-panel>
+                    </transition>
+                </div>
+            </div>
         </div>
-        <transition name="fade" mode="out-in">
-            <main-panel class="panel"></main-panel>
-        </transition>
     </div>
 </template>
 
@@ -26,6 +42,8 @@ import TopInfo from '@/components/wallet/TopInfo.vue'
 import Sidebar from '@/components/wallet/Sidebar.vue'
 import MainPanel from '@/components/SidePanels/MainPanel.vue'
 import UpdateKeystoreModal from '@/components/modals/UpdateKeystore/UpdateKeystoreModal.vue'
+import ConfirmLogout from '@/components/modals/ConfirmLogout.vue'
+import NetworkMenu from '@/components/NetworkSettings/NetworkMenu.vue'
 
 const TIMEOUT_DURATION = 60 * 7 // in seconds
 const TIMEOUT_DUR_MS = TIMEOUT_DURATION * 1000
@@ -36,6 +54,8 @@ const TIMEOUT_DUR_MS = TIMEOUT_DURATION * 1000
         MainPanel,
         TopInfo,
         UpdateKeystoreModal,
+        ConfirmLogout,
+        NetworkMenu,
     },
 })
 export default class Wallet extends Vue {
@@ -108,17 +128,25 @@ export default class Wallet extends Vue {
     get hasVolatileWallets() {
         return this.$store.state.volatileWallets.length > 0
     }
+
+    logout() {
+        // @ts-ignore
+        this.$refs.logout.open()
+    }
 }
 </script>
 
 <style lang="scss" scoped>
 @use '../main';
 
+.wallet_container {
+    height: 100%;
+    background-color: var(--bg-wallet);
+}
 .wallet_view {
     padding-bottom: 0;
     display: grid;
-    grid-template-columns: 200px 1fr 300px;
-    column-gap: 15px;
+    grid-template-columns: max-content 1fr;
     height: 100%;
     background-color: var(--bg-wallet);
 }
@@ -132,18 +160,57 @@ export default class Wallet extends Vue {
     height: 100%;
 }
 
+.top_panel {
+    background-color: var(--bg-wallet-light);
+    height: 88px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    .logout {
+        margin-left: auto;
+    }
+    .panel_nav {
+        display: grid;
+        grid-template-columns: max-content max-content 1fr;
+        padding: 24px 16px;
+        font-size: 14px;
+
+        > * {
+            outline: none !important;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+    }
+}
+
 .wallet_main {
-    height: 100%;
     display: grid;
     grid-template-rows: max-content 1fr;
-    grid-gap: 15px;
-    padding-top: 8px;
+    grid-gap: 20px;
+
+    .body_panel {
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        grid-gap: 20px;
+        padding: 0 30px;
+        padding-bottom: 23px;
+        .body_left_panel {
+            display: grid;
+            grid-template-rows: max-content 1fr;
+            grid-gap: 20px;
+        }
+    }
+}
+
+.right_panel {
+    border-radius: 8px;
 }
 
 #wallet_router {
     padding: 22px 20px;
     background-color: var(--bg-wallet-light);
-    border-radius: 4px;
+    border-radius: 8px;
 }
 
 .page_fade-enter-active,
@@ -172,12 +239,12 @@ export default class Wallet extends Vue {
 
 @include main.medium-device {
     .wallet_view {
-        grid-template-columns: 180px 1fr 240px !important;
-        column-gap: 9px;
+        .body_panel {
+            grid-template-columns: 1fr 240px !important;
+        }
     }
 
     .wallet_main {
-        grid-gap: 9px;
     }
 
     #wallet_router {

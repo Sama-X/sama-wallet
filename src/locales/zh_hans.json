@@ -407,6 +407,7 @@
         "button": "选择文件"
     },
     "transactions": {
+        "title": "交易历史",
         "notx": "在区块链浏览器上未发现此地址的交易。",
         "loading": "正在加载交易历史…",
         "warn_loading": "该列表可能不完整且无序。",

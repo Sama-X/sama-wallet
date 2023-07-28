@@ -2,7 +2,7 @@
     <div class="tx_history_panel">
         <div class="history_block" :disabled="!isActivityPage"></div>
         <div class="header">
-            <h2>Transactions</h2>
+            <h2>{{ $t('transactions.title') }}</h2>
             <Spinner v-if="isUpdating" class="spinner"></Spinner>
         </div>
         <div class="empty" v-if="!isExplorer">
@@ -10,11 +10,12 @@
             <p>{{ $t('transactions.error_api_desc') }}</p>
         </div>
         <div class="empty" v-else-if="isEmpty && !isUpdating">
+            <img src="@/assets/empty.svg" />
             <p>{{ $t('transactions.notx') }}</p>
         </div>
-        <!--        <div v-else-if="isUpdating">-->
-        <!--            <p class="empty">{{ $t('transactions.loading') }}</p>-->
-        <!--        </div>-->
+        <div class="empty" v-else-if="isUpdating">
+            <p>{{ $t('transactions.loading') }}</p>
+        </div>
         <div class="list no_scroll_bar" v-else>
             <tx-history-row
                 v-for="tx in transactions"
@@ -34,7 +35,6 @@ import Spinner from '@/components/misc/Spinner.vue'
 import TxHistoryRow from '@/components/SidePanels/TxHistoryRow.vue'
 import { ITransactionData } from '@/store/modules/history/types'
 import { AvaNetwork } from '@/js/AvaNetwork'
-import { ITransaction } from '@/components/wallet/transfer/types'
 
 @Component({
     components: {
@@ -59,7 +59,8 @@ export default class TransactionHistoryPanel extends Vue {
         return false
     }
     get isUpdating(): boolean {
-        return this.$store.state.History.isUpdating
+        return false
+        // return this.$store.state.History.isUpdating
     }
     get transactions(): ITransactionData[] {
         let res: ITransactionData[] = this.$store.state.History.transactions
@@ -108,9 +109,12 @@ export default class TransactionHistoryPanel extends Vue {
     align-items: center;
     border-bottom: 1px solid var(--bg-light);
     padding: 8px 16px;
+    height: 75px;
 
     h2 {
-        font-weight: normal;
+        font-family: PingFang SC;
+        font-size: 20px;
+        font-weight: 600;
     }
 
     a {
@@ -136,6 +140,16 @@ export default class TransactionHistoryPanel extends Vue {
     font-size: 12px;
     text-align: center;
     padding: 30px;
+    border-radius: 8px;
+    height: 100%;
+
+    img {
+        margin-top: 128px;
+        width: 110px;
+        height: 70px;
+        flex-shrink: 0;
+        margin-bottom: 40px;
+    }
 }
 
 .tx_row {

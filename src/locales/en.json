@@ -647,6 +647,7 @@
         "button": "Select File"
     },
     "transactions": {
+        "title": "Transactions",
         "notx": "No transactions found on the explorer.",
         "rewarded": "Rewarded",
         "not_rewarded": "Not Rewarded",
