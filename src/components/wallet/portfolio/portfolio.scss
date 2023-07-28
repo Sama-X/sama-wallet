@@ -11,14 +11,15 @@
   }
 
   button {
+    background: var(--bg);
     border: 1px solid var(--primary-color-light);
-    border-radius: 22px;
-    padding: 8px 24px;
+    border-radius: 8px;
+    padding: 13px 50px;
     border-color: var(--secondary-color);
     color: var(--secondary-color);
     &:hover {
       opacity: 0.6;
-      //border-color: var(--secondary-color);
+      border-color: var(--secondary-color);
       //color: var(--secondary-color);
     }
   }

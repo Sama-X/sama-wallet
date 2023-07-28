@@ -17,8 +17,7 @@
             </div>
         </div>
         <div class="coming_soon" v-else>
-            <!--            <img v-if="$root.theme === 'day'" src="@/assets/nft_preview.png" />-->
-            <!--            <img v-else src="@/assets/nft_preview_night.png" />-->
+            <img class="empty" src="@/assets/empty.svg" />
             <p>{{ $t('portfolio.nobalance_nft') }}</p>
             <div class="add_token_row">
                 <button @click="showModal">Add Collectible</button>
@@ -157,9 +156,16 @@ $flip_dur: 0.6s;
 .coming_soon {
     padding-top: 60px;
     text-align: center;
+
     img {
         width: 100%;
         max-width: 560px;
+    }
+
+    .empty {
+        width: 110.833px;
+        height: 70px;
+        flex-shrink: 0;
     }
 
     p {

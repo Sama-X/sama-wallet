@@ -13,6 +13,7 @@
         </div>
         <div v-show="networkStatus === 'connected'" style="flex-grow: 1">
             <div v-if="walletBalances.length === 0" class="empty">
+                <img src="@/assets/empty.svg" />
                 <p>{{ $t('portfolio.nobalance') }}</p>
             </div>
             <div class="scrollable no_scroll_bar" v-else>
@@ -211,6 +212,12 @@ export default class Fungibles extends Vue {
 .empty {
     padding: 30px;
     text-align: center;
+    img {
+        width: 110px;
+        height: 70px;
+        margin-top: 40px;
+        margin-bottom: 30px;
+    }
 }
 
 .faucet {
