@@ -1,26 +1,27 @@
 <template>
     <div class="home_view">
         <div class="header">
-            <h1>{{ $t('portfolio.assets') }}</h1>
-            <div>
-                <button
-                    @click="tab = 'fungibles'"
-                    :active="tab === `fungibles`"
-                    data-cy="wallet_fungible"
-                >
-                    {{ $t('portfolio.assets1') }}
-                </button>
-                <button
-                    @click="tab = 'collectibles'"
-                    :active="tab === `collectibles`"
-                    data-cy="wallet_nft"
-                >
-                    {{ $t('portfolio.assets2') }}
-                </button>
+            <div class="left_header">
+                <h1>{{ $t('portfolio.assets') }}</h1>
+                <div class="tabs">
+                    <button
+                        @click="tab = 'fungibles'"
+                        :active="tab === `fungibles`"
+                        data-cy="wallet_fungible"
+                    >
+                        {{ $t('portfolio.assets1') }}
+                    </button>
+                    <button
+                        @click="tab = 'collectibles'"
+                        :active="tab === `collectibles`"
+                        data-cy="wallet_nft"
+                    >
+                        {{ $t('portfolio.assets2') }}
+                    </button>
+                </div>
             </div>
-            <div style="flex-grow: 1"></div>
             <div class="search hover_border">
-                <img v-if="$root.theme === 'day'" src="@/assets/search.png" />
+                <img v-if="$root.theme === 'day'" src="@/assets/search.svg" />
                 <img v-else src="@/assets/search_night.svg" />
                 <input :placeholder="$t('portfolio.search')" v-model="search" />
             </div>
@@ -72,13 +73,27 @@ export default {
 }
 .header {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     border-bottom: 2px solid transparent;
     flex-wrap: nowrap;
     white-space: nowrap;
 
+    .left_header {
+        display: flex;
+        flex-direction: column;
+        margin-right: 30px;
+        justify-content: center;
+        width: 100%;
+        .tabs {
+            padding-left: 20px;
+        }
+    }
+
     h1 {
-        font-weight: normal;
+        color: #fff;
+        font-family: PingFang SC;
+        font-size: 28px;
+        font-weight: 600;
         margin-right: 30px;
     }
 
@@ -99,8 +114,7 @@ export default {
 }
 
 .search {
-    background-color: var(--bg-light);
-    border-radius: 4px;
+    background-color: var(--bg);
     /*flex-grow: 1;*/
     height: 46px;
     padding: 5px;
@@ -109,22 +123,21 @@ export default {
     font-size: 13px;
     flex-basis: 420px;
     flex-shrink: 1;
-    border: 1px solid transparent;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 
     $icon_w: 36px;
 
     img {
         border-radius: 4px;
         padding: 10px 0px;
-        background-color: var(--bg-wallet-light);
-        /*height: 100%;*/
         height: $icon_w;
         width: $icon_w;
         object-fit: contain;
     }
 
     input {
-        padding: 0px 16px;
+        padding: 0px 2px;
         outline: none;
         border: none !important;
         flex-grow: 1;
