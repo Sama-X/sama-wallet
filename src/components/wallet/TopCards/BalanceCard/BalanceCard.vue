@@ -4,10 +4,9 @@
         <div class="fungible_card">
             <div class="header">
                 <div class="refresh">
-                    <!-- <Spinner v-if="isUpdateBalance" class="spinner"></Spinner> -->
-                    <!-- <button v-else @click="updateBalance"> -->
-                    <button @click="initBlance(1)">
-                        <fa icon="sync" style="background: white"></fa>
+                    <Spinner v-if="isUpdateBalance" class="spinner"></Spinner>
+                    <button v-else @click="initBlance(1)">
+                        <img src="@/assets/sync.svg" alt="refresh" />
                     </button>
                 </div>
                 <h4>{{ $t('top.title2') }}</h4>
@@ -17,92 +16,31 @@
                         {{ $t('top.balance.show') }}
                     </button>
                 </template>
-                <!-- <template v-else>
-                    <button class="breakdown_toggle" @click="toggleBreakdown">
-                        <fa icon="eye-slash"></fa>
-                        {{ $t('top.balance.hide') }}
-                    </button>
-                </template>
-                <button @click="showUTXOsModal" class="breakdown_toggle">Show UTXOs</button> -->
                 <button @click="showUTXOsModal" class="breakdown_toggle">
                     <!-- <RedoOutlined /> -->
                 </button>
             </div>
             <div class="balance_row">
                 <p class="balance" data-cy="wallet_balance" v-if="!balanceTextRight">
-                    {{ samaInfoNumber }} SAMA
-                    <!-- {{ samaInfoNumber }}  AVAX -->
+                    {{ samaInfoNumber }} DND
                 </p>
                 <p class="balance" data-cy="wallet_balance" v-else>
                     {{ samaInfoNumber }}
-                    <!-- {{ samaInfoNumber }} -->
-                    <!-- <span>.{{ balanceTextRight }}</span> -->
-                    SAMA
+                    DND
                 </p>
-                <div style="display: flex; flex-direction: row">
-                    <p class="balance_usd">
-                        <!-- <b>$ {{ samaInfoNumber * avaxPriceText }}</b> -->
-                        <b>$ {{ samaInfoNumber }}</b>
-                        <!-- <b>$ {{ totalBalanceUSDText }}</b> -->
-                        USD
-                    </p>
-                    <p class="balance_usd" style="background-color: transparent">
-                        <b>1 SAMA</b>
-                        =
-                        <b>${{ avaxPriceText }}</b>
-                        USD
-                    </p>
-                </div>
             </div>
-            <!--            <button class="expand_but">Show Breakdown<fa icon="list-ol"></fa></button>-->
-            <!-- <div class="alt_info">
-                <div class="alt_non_breakdown" v-if="!isBreakdown">
-                    <div>
-                        <label>{{ $t('top.balance.available') }}</label>
-                        <p>{{ unlockedText }} AVAX</p>
-                    </div>
-                    <div v-if="hasLocked">
-                        <label>{{ $t('top.locked') }}</label>
-                        <p>{{ balanceTextLocked }} AVAX</p>
-                    </div>
-                    <div v-if="hasMultisig">
-                        <label>Multisig</label>
-                        <p>{{ balanceTextMultisig }} AVAX</p>
-                    </div>
-                    <div>
-                        <label>{{ $t('top.balance.stake') }}</label>
-                        <p>{{ stakingText }} AVAX</p>
-                    </div>
-                </div>
-                <div class="alt_breakdown" v-else>
-                    <div>
-                        <label>{{ $t('top.balance.available') }} (X)</label>
-                        <p>{{ avmUnlocked | cleanAvaxBN }} AVAX</p>
-                        <label>{{ $t('top.balance.available') }} (P)</label>
-                        <p>{{ platformUnlocked | cleanAvaxBN }} AVAX</p>
-                        <label>{{ $t('top.balance.available') }} (C)</label>
-                        <p>{{ evmUnlocked | cleanAvaxBN }} AVAX</p>
-                    </div>
-                    <div v-if="hasLocked">
-                        <label>{{ $t('top.balance.locked') }} (X)</label>
-                        <p>{{ avmLocked | cleanAvaxBN }} AVAX</p>
-                        <label>{{ $t('top.balance.locked') }} (P)</label>
-                        <p>{{ platformLocked | cleanAvaxBN }} AVAX</p>
-                        <label>{{ $t('top.balance.locked_stake') }} (P)</label>
-                        <p>{{ platformLockedStakeable | cleanAvaxBN }} AVAX</p>
-                    </div>
-                    <div v-if="hasMultisig">
-                        <label>Multisig (X)</label>
-                        <p>{{ avmMultisig | cleanAvaxBN }} AVAX</p>
-                        <label>Multisig (P)</label>
-                        <p>{{ platformMultisig | cleanAvaxBN }} AVAX</p>
-                    </div>
-                    <div>
-                        <label>{{ $t('top.balance.stake') }}</label>
-                        <p>{{ stakingText }} AVAX</p>
-                    </div>
-                </div>
-            </div> -->
+            <div class="balance_desc">
+                <p class="balance_usd">
+                    <b>$ {{ samaInfoNumber }}</b>
+                    USD
+                </p>
+                <p class="balance_usd" style="background-color: transparent">
+                    <b>1 DND</b>
+                    =
+                    <b>${{ avaxPriceText }}</b>
+                    USD
+                </p>
+            </div>
         </div>
         <NftCol class="nft_card"></NftCol>
     </div>
@@ -155,42 +93,56 @@ export default class BalanceCard extends Vue {
     isLian = ''
 
     created() {
-        let priviteKey = this.wallet as SingletonWallet
-        // localStorage.setItem('samaInfoNumber', '--')
-        this.initBlance(1)
+        this.initLian()
+        setTimeout(() => {
+            this.initBlance(0)
+        }, 3000)
     }
     $refs!: {
         utxos_modal: UtxosBreakdownModal
     }
 
-    initBlance(type: number) {
-        let wallet: WalletType = this.$store.state.activeWallet
-
-        let formDataObj = new FormData()
+    initLian() {
         axios.post(samaUrl + '/get_block_chain').then((res) => {
             for (let i in res.data.result.blockchains) {
                 if (res.data.result.blockchains[i].name == 'sama') {
                     let lian = res.data.result.blockchains[i].id
-                    formDataObj.append('chain_id', lian)
-                    formDataObj.append('address', '0x' + wallet.ethAddress)
-                    axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
-                        this.samaInfoNumber = res.data.result.balance
-                            .toLocaleString()
-                            .replace(/([^,]*),([^,]*)$/g, '$1.$2')
-
-                        if (type == 1) {
-                            this.$store.dispatch('Notifications/add', {
-                                title: 'update',
-                                message: 'success',
-                                type: 'success',
-                            })
-                        }
-                        localStorage.setItem('samaInfoNumber', this.samaInfoNumber + '')
-                        this.$emit('samaInfoChange', this.samaInfoNumber)
-                    })
+                    this.isLian = lian
+                    return
                 }
             }
         })
+    }
+
+    initBlance(type: number) {
+        let wallet: WalletType = this.$store.state.activeWallet
+        wallet.isFetchUtxos = true
+        let formDataObj = new FormData()
+        formDataObj.append('chain_id', this.isLian)
+        formDataObj.append('address', '0x' + wallet.ethAddress)
+
+        axios
+            .post(`${samaUrl}/get_blance`, formDataObj)
+            .then((res) => {
+                this.samaInfoNumber = res.data.result.balance
+                    .toLocaleString()
+                    .replace(/([^,]*),([^,]*)$/g, '$1.$2')
+
+                if (type == 1) {
+                    this.$store.dispatch('Notifications/add', {
+                        title: 'update',
+                        message: 'update balance',
+                        type: 'success',
+                    })
+                }
+                localStorage.setItem('samaInfoNumber', this.samaInfoNumber + '')
+                this.$emit('samaInfoChange', this.samaInfoNumber)
+            })
+            .finally(() => {
+                setTimeout(() => {
+                    wallet.isFetchUtxos = false
+                }, 2000)
+            })
     }
 
     updateBalance(): void {
@@ -462,8 +414,7 @@ export default class BalanceCard extends Vue {
 }
 .fungible_card {
     height: 100%;
-    display: grid !important;
-    grid-template-rows: max-content 1fr max-content;
+    display: flex !important;
     flex-direction: column;
 }
 
@@ -474,11 +425,14 @@ export default class BalanceCard extends Vue {
     /*max-width: 460px;*/
 }
 .header {
+    height: 52px;
     display: flex;
+    align-items: center;
 
     h4 {
         margin-left: 12px;
         flex-grow: 1;
+        font-size: 20px;
     }
 }
 h4 {
@@ -490,27 +444,29 @@ h4 {
 }
 
 .balance_row {
-    align-self: center;
+    align-items: center;
+    margin-top: 12px;
 }
 .balance {
-    font-size: 2.4em;
+    font-size: 48px;
     white-space: normal;
-    /*font-weight: bold;*/
-    font-family: Rubik !important;
+    font-weight: 500;
+}
 
-    span {
-        font-size: 0.8em;
-        /*color: var(--primary-color-light);*/
-    }
+.balance_desc {
+    display: flex;
+    flex-direction: row;
+    margin-top: 18px;
 }
 
 .balance_usd {
+    border-radius: 4px;
     width: max-content;
-    background: var(--bg-light);
-    color: var(--primary-color-light);
-    font-size: 13px;
-    padding: 1px 6px;
-    border-radius: 3px;
+    background: #262626;
+    color: rgba(255, 255, 255, 0.6);
+    font-family: PingFang SC;
+    font-size: 16px;
+    padding: 7px 28px;
     margin-right: 6px !important;
 }
 
