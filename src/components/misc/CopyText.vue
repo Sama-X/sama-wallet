@@ -1,7 +1,7 @@
 <template>
     <div class="copyBut" @click="copy">
-        <!--        <fa icon="copy"></fa>-->
-        <img v-if="$root.theme === 'day'" src="/img/copy_icon.svg" />
+        <img v-if="icon" :src="icon" />
+        <img v-else-if="$root.theme === 'day'" src="/img/copy_icon.svg" />
         <img v-else src="/img/copy_icon.svg" />
         <p class="text">
             <slot></slot>
@@ -13,6 +13,7 @@
 export default {
     props: {
         value: String,
+        icon: String,
     },
     methods: {
         copy() {

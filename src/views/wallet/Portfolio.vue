@@ -130,14 +130,15 @@ export default {
 
     img {
         border-radius: 4px;
-        padding: 10px 0px;
+        padding: 6px 0px;
         height: $icon_w;
         width: $icon_w;
         object-fit: contain;
     }
 
     input {
-        padding: 0px 2px;
+        margin-left: 6px;
+        padding: 0px;
         outline: none;
         border: none !important;
         flex-grow: 1;

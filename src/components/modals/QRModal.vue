@@ -1,9 +1,11 @@
 <template>
-    <modal ref="modal" :title="$t('modal.qr.title')">
+    <modal class="qr_modal" ref="modal" :title="$t('modal.qr.title')">
         <div class="qr_body">
             <canvas ref="qr"></canvas>
             <p>{{ address }}</p>
-            <CopyText :value="address" class="copyBut">{{ $t('modal.qr.copy') }}</CopyText>
+            <CopyText :value="address" icon="/img/copy_icon_gold.svg" class="copyBut">
+                {{ $t('modal.qr.copy') }}
+            </CopyText>
         </div>
     </modal>
 </template>
@@ -78,12 +80,21 @@ export default class QRModal extends Vue {
 }
 </script>
 <style scoped lang="scss">
+.qr_modal {
+    .modal_title {
+        color: #fff;
+        font-family: PingFang SC;
+        font-size: 20px;
+        font-weight: 500;
+    }
+}
 .qr_body {
     padding: 30px;
     text-align: center;
 }
 
 .qr_body p {
+    margin-top: 30px !important;
     word-break: break-all;
     text-align: center;
 }
@@ -93,8 +104,7 @@ canvas {
 }
 
 .copyBut {
-    /*width: 20px;*/
-    /*height: 20px;*/
+    color: var(--secondary-color);
     margin: 15px auto;
     margin-bottom: 0;
     opacity: 0.6;
@@ -102,7 +112,5 @@ canvas {
     &:hover {
         opacity: 1;
     }
-    /*display: block;*/
-    /*margin: 0px auto;*/
 }
 </style>

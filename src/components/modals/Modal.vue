@@ -6,7 +6,7 @@
                 <div class="modal_topbar">
                     <h4 class="modal_title">{{ title }}</h4>
                     <button class="modalClose" @click="close" v-if="can_close">
-                        <fa icon="times"></fa>
+                        <img src="@/assets/close.svg" />
                     </button>
                 </div>
                 <slot></slot>
@@ -68,6 +68,10 @@ export default class Modal extends Vue {
     font-size: 22px;
     font-weight: lighter;
     opacity: 0.5;
+    img {
+        width: 16px;
+        height: 16px;
+    }
     &:hover {
         opacity: 1;
     }
