@@ -49,22 +49,6 @@
                         >
                             <img src="@/assets/trash_can_dark.svg" style="height: 16px" />
                         </Tooltip>
-                        <Tooltip
-                            v-if="walletType !== 'singleton'"
-                            :text="$t('keys.hd_addresses')"
-                            class="row_but circle"
-                            @click.native="showPastAddresses"
-                        >
-                            <fa icon="list-ol"></fa>
-                        </Tooltip>
-                        <Tooltip
-                            v-if="walletType === 'mnemonic'"
-                            :text="$t('keys.export_key')"
-                            class="row_but circle"
-                            @click.native="showExportModal"
-                        >
-                            <fa icon="upload"></fa>
-                        </Tooltip>
                         <div class="text_buts">
                             <button v-if="walletType == 'mnemonic'" @click="showModal">
                                 {{ $t('keys.view_key') }}

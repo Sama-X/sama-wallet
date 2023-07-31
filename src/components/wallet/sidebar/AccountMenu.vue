@@ -10,7 +10,7 @@
         <template v-else>
             <SaveAccountModal ref="save_modal"></SaveAccountModal>
             <button class="save_account" @click="save">
-                <fa icon="exclamation-triangle" class="volatile_alert"></fa>
+                <img src="~@/assets/download_gold.svg" />
                 Save Account
             </button>
         </template>
@@ -81,9 +81,14 @@ export default class AccountMenu extends Vue {
 }
 
 .save_account {
-    color: var(--warning);
+    color: var(--secondary-color);
     &:hover {
         opacity: 0.5;
+    }
+    img {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
     }
 }
 </style>
