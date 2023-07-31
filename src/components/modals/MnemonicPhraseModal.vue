@@ -39,10 +39,10 @@ export default class MnemonicPhraseModal extends Vue {
 
 .mnemonic_modal_body {
     /*width: 600px;*/
-    max-width: 400px;
+    max-width: 480px;
     width: 100%;
-    padding: 30px;
-    background-color: var(--bg-light);
+    padding: 20px;
+    background-color: var(--bg);
 }
 
 .copyBut {
@@ -60,11 +60,14 @@ export default class MnemonicPhraseModal extends Vue {
 }
 
 .warning_text {
-    background-color: var(--secondary-color);
-    color: #fff;
-    margin-top: 15px !important;
-    padding: 4px 14px;
-    border-radius: 3px;
+    border: 1px solid var(--secondary-color);
+    margin-top: 20px !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: var(--secondary-color);
+    font-family: PingFang SC;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 @include main.mobile-device {

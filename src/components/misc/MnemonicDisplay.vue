@@ -43,6 +43,7 @@ export default class MnemonicDisplay extends Vue {
 @use "../../main";
 
 .mnemonic_display {
+    padding: 0px 15px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 6px;
@@ -55,7 +56,7 @@ export default class MnemonicDisplay extends Vue {
     overflow: hidden;
     font-weight: 700;
 
-    background-color: var(--bg);
+    background-color: var(--bg-night);
 
     > * {
         padding: 16px 6px;

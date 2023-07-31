@@ -3,8 +3,10 @@
         <div class="singleton_modal_body">
             <p>This extended public key is used to derive all your X and P chain addresses.</p>
             <p class="key_raw">
-                Path:
-                <b>m/44'/9000'/0'</b>
+                <span>
+                    Path:
+                    <b>m/44'/9000'/0'</b>
+                </span>
                 <br />
                 <br />
                 {{ xpub }}
@@ -40,7 +42,7 @@ export default class XpubModal extends Vue {
 .singleton_modal_body {
     width: 520px;
     max-width: 100%;
-    padding: 10px 20px;
+    padding: 20px;
 }
 
 .key_raw {
@@ -50,12 +52,21 @@ export default class XpubModal extends Vue {
     margin: 15px 0px !important;
     border-radius: 2px;
     padding: 6px 12px;
+
+    span {
+        font-size: 16px;
+    }
 }
 
 .warning_text {
-    background-color: var(--secondary-color);
-    color: #fff;
-    padding: 4px 14px;
-    border-radius: 3px;
+    border: 1px solid var(--secondary-color);
+    margin-top: 30px !important;
+    margin-bottom: 20px !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: var(--secondary-color);
+    font-family: PingFang SC;
+    font-size: 12px;
+    font-weight: 500;
 }
 </style>
