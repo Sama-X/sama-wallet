@@ -28,24 +28,14 @@
         <XpubModal :xpub="xpubXP" v-if="isHDWallet" ref="modal_xpub"></XpubModal>
         <div class="rows">
             <div class="header">
-                <template v-if="is_default">
-                    <img src="@/assets/key_active.svg" class="key_logo" />
-                </template>
-                <template v-else>
-                    <img
-                        v-if="$root.theme === 'day'"
-                        src="@/assets/key_inactive.svg"
-                        class="key_logo"
-                    />
-                    <img v-else src="@/assets/key_inactive_night.png" class="key_logo" />
-                </template>
                 <div class="header_cols">
                     <div class="detail">
                         <p class="addressVal">
                             <b>{{ walletTitle }}</b>
                         </p>
-                        <Tooltip :text="$t('keys.tooltip')" v-if="isVolatile">
-                            <fa icon="exclamation-triangle" class="volatile_alert"></fa>
+                        <Tooltip :text="$t('keys.tooltip')">
+                            <!-- v-if="isVolatile" -->
+                            <img src="@/assets/warning.svg" class="volatile_alert" />
                         </Tooltip>
                     </div>
                     <div class="buts">
@@ -92,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="header">
+            <!-- <div class="header">
                 <div></div>
                 <div>
                     <p v-if="Object.keys(balances).length === 0" class="balance_empty">
@@ -108,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -363,6 +353,9 @@ export default class KeyRow extends Vue {
                 color: var(--secondary-color);
             }
         }
+        button + button {
+            margin-top: 10px;
+        }
     }
 }
 
@@ -393,7 +386,7 @@ export default class KeyRow extends Vue {
 
 .header {
     display: grid;
-    grid-template-columns: 32px 1fr;
+    grid-template-columns: auto;
     grid-gap: 14px;
     /*align-items: center;*/
 }
@@ -405,7 +398,6 @@ export default class KeyRow extends Vue {
 }
 
 .detail {
-    overflow: auto;
     display: flex;
     align-items: center;
 
@@ -421,7 +413,7 @@ export default class KeyRow extends Vue {
     text-overflow: ellipsis;
     white-space: nowrap;
     font-family: monospace;
-    font-size: 15px;
+    font-size: 12px;
 
     span {
         font-weight: normal;
@@ -462,13 +454,14 @@ export default class KeyRow extends Vue {
 }
 
 .balance_empty {
-    color: var(--primary-color);
+    color: #999;
 }
 
 .volatile_alert {
-    color: var(--warning);
-    font-size: 15px;
-    margin-left: 6px;
+    width: 16px;
+    height: 16px;
+    margin-left: 12px;
+    vertical-align: middle;
 }
 
 @include main.mobile-device {

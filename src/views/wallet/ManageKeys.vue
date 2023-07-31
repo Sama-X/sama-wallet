@@ -5,24 +5,35 @@
                 <header>
                     <h1>{{ $t('keys.title') }}</h1>
                     <div class="button_container" v-if="canEncryptWallet">
-                        <button
+                        <!-- <button 
                             v-if="!account"
                             @click="openSaveAccount"
                             class="save_account ava_button_secondary"
                         >
-                            <fa icon="exclamation-triangle"></fa>
+                            <img src="~@/assets/download.svg" />
+                            {{ $t('keys.button1') }}
+                        </button> -->
+                        <button @click="openSaveAccount" class="save_account ava_button_secondary">
+                            <img src="~@/assets/download.svg" />
                             {{ $t('keys.button1') }}
                         </button>
-                        <button
+                        <!-- <button
                             v-if="hasVolatile && account"
                             @click="openAccountSettings"
                             class="save_account ava_button_secondary"
                         >
-                            <fa icon="exclamation-triangle"></fa>
+                            <img src="~@/assets/download.svg" />
+                            {{ $t('keys.button1') }}
+                        </button> -->
+                        <button
+                            @click="openAccountSettings"
+                            class="save_account ava_button_secondary"
+                        >
+                            <img src="~@/assets/download.svg" />
                             {{ $t('keys.button1') }}
                         </button>
                         <button class="but_primary ava_button_secondary" @click="exportKeys">
-                            <fa icon="upload"></fa>
+                            <img src="~@/assets/upload.svg" />
                             {{ $t('keys.button3') }}
                         </button>
                         <SaveAccountModal ref="account_modal"></SaveAccountModal>
@@ -114,6 +125,20 @@ export default class ManageKeys extends Vue {
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    img {
+        width: 16px;
+        height: 16px;
+        margin-right: 10px;
+    }
+
+    .ava_button_secondary {
+        display: flex;
+        align-items: center;
+        color: #fff;
+        font-family: PingFang SC;
+        font-size: 16px;
+    }
 }
 header {
     display: flex;
@@ -122,11 +147,13 @@ header {
 }
 
 h1 {
-    font-weight: lighter;
+    color: #fff;
+    font-family: PingFang SC;
+    font-size: 28px;
+    font-weight: 600;
 }
 
 .save_account {
-    color: var(--warning);
 }
 
 @include main.mobile-device {

@@ -94,15 +94,16 @@ hr {
 }
 
 .label {
-    font-size: 13px;
-    color: #999;
-    font-weight: bold;
-    padding: 2px 10px;
+    color: #fff;
+    font-family: PingFang SC;
+    font-size: 16px;
+    font-weight: 600;
 }
 .key_row {
     background-color: var(--bg-light);
-    padding: 15px;
+    padding: 24px 20px;
     border-radius: 8px;
+    margin-top: 20px;
     margin-bottom: 10px;
     transition-duration: 0.2s;
 }
