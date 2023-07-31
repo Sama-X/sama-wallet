@@ -61,19 +61,17 @@ export default class ExportKeys extends Vue {
 @use '../../main';
 
 .export_body {
-    padding: 30px;
+    padding: 20px;
     width: 100%;
-    max-width: 450px;
+    max-width: 480px;
     min-height: 315px;
 }
 
 .selection_num {
-    color: white;
-    // color: var(--primary-color);
-    text-align: center;
-    font-weight: bold;
-    font-size: 14px;
-    padding-bottom: 14px;
+    color: #fff;
+    font-family: PingFang SC;
+    font-size: 16px;
+    padding-left: 20px;
 }
 
 .explain {

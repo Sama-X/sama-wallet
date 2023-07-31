@@ -11,7 +11,6 @@
                 outlined
                 dense
                 class="formIn"
-                height="40"
             ></v-text-field>
             <label>Confirm Password</label>
             <v-text-field
@@ -22,7 +21,6 @@
                 outlined
                 dense
                 class="formIn"
-                height="40"
             ></v-text-field>
             <p class="err">{{ err }}</p>
             <v-btn
@@ -97,9 +95,21 @@ export default class ExportWallet extends Vue {
 </script>
 <style lang="scss">
 .export_wallet {
+    > p {
+        margin: 0px 20px !important;
+    }
+    form > label {
+        margin: 0px 20px !important;
+    }
+    padding-top: 10px;
     .formIn {
+        margin: 16px 20px !important;
         .v-input__slot {
-            background-color: var(--bg-light) !important;
+            background-color: var(--bg-night) !important;
+        }
+
+        .v-text-field__slot input::placeholder {
+            color: rgba(255, 255, 255, 0.6) !important;
         }
 
         .v-text-field__details {
@@ -108,6 +118,19 @@ export default class ExportWallet extends Vue {
 
         fieldset {
             border: none;
+        }
+    }
+    .button_primary {
+        border-radius: 8px;
+        flex-shrink: 0;
+        height: 50px !important;
+        border: 1px solid var(--secondary-color);
+        margin-top: 30px !important;
+        margin-bottom: 10px;
+        font-size: 16px;
+        &:hover {
+            opacity: 1 !important;
+            background-color: var(--secondary-color) !important;
         }
     }
 }
@@ -124,21 +147,22 @@ export default class ExportWallet extends Vue {
 @use '../../../light_theme';
 
 .export_wallet {
-    font-size: 12px;
+    font-size: 14px;
+    font-family: PingFang SC;
 }
 .explain {
-    color: var(--primary-color-light);
+    color: rgba(255, 255, 255, 0.6);
     margin-bottom: 20px !important;
 }
 
 label {
-    color: var(--primary-color-light);
+    color: #fff;
 }
 
 .formIn {
-    background-color: var(--bg-light);
-    font-size: 12px;
-    border-radius: 2px;
+    background-color: var(--bg-night) !important;
+    font-size: 14px;
+    border-radius: 4px;
 }
 
 .button_primary {

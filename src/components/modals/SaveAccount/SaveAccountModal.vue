@@ -6,12 +6,12 @@
                     <div class="flex-row" style="justify-content: center">
                         <Identicon :value="baseAddresses.join('')"></Identicon>
                     </div>
-                    <p>{{ $t('keys.save_account.desc') }}</p>
+                    <p class="remember_desc">{{ $t('keys.save_account.desc') }}</p>
 
                     <input
                         v-model="accountName"
                         :name="$t('keys.save_account.placeholder_1')"
-                        placeholder="Account Name"
+                        :placeholder="$t('keys.save_account.placeholder_1')"
                         :disabled="existsInLocalStorage"
                     />
                     <input
@@ -25,7 +25,7 @@
                         v-model="password_confirm"
                     />
                     <p class="err">{{ err }}</p>
-                    <p class="err small" style="text-align: center">
+                    <p class="err small err_warning">
                         Clearing your browser cache will remove this account. Make sure you have
                         your
                         <b>{{ walletType == 'mnemonic' ? 'mnemonic phrase' : 'private key' }}</b>
@@ -139,42 +139,71 @@ export default class SaveAccountModal extends Vue {
 @use '../../../main';
 
 .remember_modal {
-    width: 320px;
+    width: 480px;
     max-width: 100%;
-    padding: 12px 30px;
-}
+    padding: 12px 20px;
 
-form {
-    display: flex;
-    flex-direction: column;
+    .remember_desc {
+        color: #fff;
+        font-family: PingFang SC;
+        font-size: 16px;
+    }
 
-    > * {
-        margin: 6px 0px;
+    .button_primary {
+        height: 50px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        border: 1px solid var(--secondary-color);
+        margin: 10px 0px 30px 0;
+        &:hover {
+            background-color: var(--secondary-color);
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+
+        > *:last-child {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+        }
+
+        > * {
+            margin: 6px 20px !important;
+        }
+    }
+
+    input {
+        background-color: var(--bg-night);
+        color: rgba($color: #fff, $alpha: 0.6);
+        padding: 6px 14px;
+        border-radius: 4px;
+    }
+
+    .cancel_but {
+        color: #999;
+        font-size: 0.9rem;
+    }
+
+    .password {
+        background-color: var(--bg-night);
+        color: var(--primary-color);
+        padding: 6px 14px;
+    }
+
+    .submit {
+        margin-top: 30px;
+    }
+
+    .err {
+        color: var(--error);
+    }
+    .err_warning {
+        color: var(--secondary-color) !important;
+        font-family: PingFang SC;
+        font-size: 14px;
     }
 }
 
-input {
-    background-color: var(--bg-light);
-    color: white;
-    padding: 6px 14px;
-}
-
-.cancel_but {
-    color: #999;
-    font-size: 0.9rem;
-}
-
-.password {
-    background-color: var(--bg-light);
-    color: var(--primary-color);
-    padding: 6px 14px;
-}
-
-.submit {
-    margin-top: 30px;
-}
-
-.err {
-    color: var(--error);
-}
 </style>

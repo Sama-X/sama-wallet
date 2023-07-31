@@ -5,27 +5,16 @@
                 <header>
                     <h1>{{ $t('keys.title') }}</h1>
                     <div class="button_container" v-if="canEncryptWallet">
-                        <!-- <button 
+                        <button
                             v-if="!account"
                             @click="openSaveAccount"
                             class="save_account ava_button_secondary"
                         >
                             <img src="~@/assets/download.svg" />
                             {{ $t('keys.button1') }}
-                        </button> -->
-                        <button @click="openSaveAccount" class="save_account ava_button_secondary">
-                            <img src="~@/assets/download.svg" />
-                            {{ $t('keys.button1') }}
                         </button>
-                        <!-- <button
-                            v-if="hasVolatile && account"
-                            @click="openAccountSettings"
-                            class="save_account ava_button_secondary"
-                        >
-                            <img src="~@/assets/download.svg" />
-                            {{ $t('keys.button1') }}
-                        </button> -->
                         <button
+                            v-if="hasVolatile && account"
                             @click="openAccountSettings"
                             class="save_account ava_button_secondary"
                         >
