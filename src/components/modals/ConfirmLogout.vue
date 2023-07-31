@@ -5,9 +5,7 @@
                 {{ $t('logout.confirmation') }}
             </p>
 
-            <div
-                style="display: flex; flex-direction: column; align-items: center; margin-top: 14px"
-            >
+            <div class="logout_panel">
                 <v-btn class="ava_button button_primary" @click="submit" :loading="isLoading">
                     {{ $t('logout.button_conf') }}
                 </v-btn>
@@ -59,10 +57,34 @@ export default class ConfirmLogout extends Vue {
 </script>
 <style scoped lang="scss">
 .confirm_body {
-    /*width: 600px;*/
     width: 400px;
     max-width: 100%;
     padding: 30px;
-    /*background-color: var(--bg-light);*/
+
+    p {
+        padding: 60px 0px;
+    }
+
+    .logout_panel {
+        display: flex;
+        align-items: space-between;
+    }
+    .logout_panel button {
+        height: 50px;
+        flex-shrink: 0;
+        flex: 1;
+        padding: 0;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1) !important;
+
+        &:hover {
+            background: var(--secondary-color) !important;
+            opacity: 1;
+        }
+
+        &:last-child {
+            margin-left: 20px;
+        }
+    }
 }
 </style>
