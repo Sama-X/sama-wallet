@@ -33,8 +33,7 @@
                         <p class="addressVal">
                             <b>{{ walletTitle }}</b>
                         </p>
-                        <Tooltip :text="$t('keys.tooltip')">
-                            <!-- v-if="isVolatile" -->
+                        <Tooltip :text="$t('keys.tooltip')" v-if="isVolatile">
                             <img src="@/assets/warning.svg" class="volatile_alert" />
                         </Tooltip>
                     </div>

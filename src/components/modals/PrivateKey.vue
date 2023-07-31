@@ -47,15 +47,19 @@ export default class PrivateKey extends Vue {
     text-align: center;
     word-break: break-all;
     background-color: var(--bg);
-    margin: 15px 0px !important;
+    margin: 60px 0px !important;
     border-radius: 2px;
     padding: 6px 12px;
 }
 
 .warning_text {
-    background-color: var(--secondary-color);
-    color: #fff;
-    padding: 4px 14px;
-    border-radius: 3px;
+    border: 1px solid var(--secondary-color);
+    margin-bottom: 30px !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: var(--secondary-color);
+    font-family: PingFang SC;
+    font-size: 12px;
+    font-weight: 500;
 }
 </style>
