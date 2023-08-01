@@ -22,16 +22,16 @@
             </div>
             <div class="balance_row">
                 <p class="balance" data-cy="wallet_balance" v-if="!balanceTextRight">
-                    {{ samaInfoNumber }} DND
+                    {{ showDND(samaInfoNumber) }} DND
                 </p>
                 <p class="balance" data-cy="wallet_balance" v-else>
-                    {{ samaInfoNumber }}
+                    {{ showDND(samaInfoNumber) }}
                     DND
                 </p>
             </div>
             <div class="balance_desc">
                 <p class="balance_usd">
-                    <b>$ {{ samaInfoNumber }}</b>
+                    <b>$ {{ showDND(samaInfoNumber) }}</b>
                     USD
                 </p>
                 <p class="balance_usd" style="background-color: transparent">
@@ -49,7 +49,6 @@
 import 'reflect-metadata'
 import { Vue, Component, Prop, Ref, Watch } from 'vue-property-decorator'
 import AvaAsset from '@/js/AvaAsset'
-import MnemonicWallet from '@/js/wallets/MnemonicWallet'
 import Spinner from '@/components/misc/Spinner.vue'
 import NftCol from './NftCol.vue'
 import Tooltip from '@/components/misc/Tooltip.vue'
@@ -62,16 +61,8 @@ import { priceDict } from '@/store/types'
 import { WalletType } from '@/js/wallets/types'
 import UtxosBreakdownModal from '@/components/modals/UtxosBreakdown/UtxosBreakdownModal.vue'
 import axios from 'axios'
-import {
-    AvaSingle,
-    JSON_SERVER,
-    HPlatformVMAPI,
-    Password,
-    UserName,
-    ConvertPrefix,
-} from '@/js/platform'
-import { SingletonWallet } from '../../../../js/wallets/SingletonWallet'
-import { samaUrl } from '@/samaIp'
+
+import { samaUrl, dndUnit } from '@/samaIp'
 
 @Component({
     components: {
@@ -89,7 +80,7 @@ import { samaUrl } from '@/samaIp'
 })
 export default class BalanceCard extends Vue {
     isBreakdown = true
-    samaInfoNumber = 0
+    samaInfoNumber: Big = Big(0)
     isLian = ''
 
     created() {
@@ -105,7 +96,7 @@ export default class BalanceCard extends Vue {
     initLian() {
         axios.post(samaUrl + '/get_block_chain').then((res) => {
             for (let i in res.data.result.blockchains) {
-                if (res.data.result.blockchains[i].name == 'sama') {
+                if (res.data.result.blockchains[i].name == 'lq') {
                     let lian = res.data.result.blockchains[i].id
                     this.isLian = lian
                     return
@@ -116,6 +107,7 @@ export default class BalanceCard extends Vue {
 
     initBlance(type: number) {
         let wallet: WalletType = this.$store.state.activeWallet
+        if (!wallet) return
         wallet.isFetchUtxos = true
         let formDataObj = new FormData()
         formDataObj.append('chain_id', this.isLian)
@@ -124,9 +116,8 @@ export default class BalanceCard extends Vue {
         axios
             .post(`${samaUrl}/get_blance`, formDataObj)
             .then((res) => {
-                this.samaInfoNumber = res.data.result.balance
-                    .toLocaleString()
-                    .replace(/([^,]*),([^,]*)$/g, '$1.$2')
+                const balance = res.data.result.balance
+                this.samaInfoNumber = Big(balance)
 
                 if (type == 1) {
                     this.$store.dispatch('Notifications/add', {
@@ -145,31 +136,11 @@ export default class BalanceCard extends Vue {
             })
     }
 
-    updateBalance(): void {
-        this.$store.dispatch('Assets/updateUTXOs')
-        this.$store.dispatch('History/updateTransactionHistory')
-    }
-
     showUTXOsModal() {
         this.$refs.utxos_modal.open()
     }
     get ava_asset(): AvaAsset | null {
         let ava = this.$store.getters['Assets/AssetAVA']
-        // console.log('ava = ', ava)
-        // let wallet: WalletType = this.$store.state.activeWallet
-        // let formDataObj = new FormData()
-        // axios.post(samaUrl + '/get_block_chain').then((res) => {
-        //     for (let i in res.data.result.blockchains) {
-        //         if (res.data.result.blockchains[i].name == 'sama') {
-        //             let lian = res.data.result.blockchains[i].id
-        //             formDataObj.append('chain_id', lian)
-        //             formDataObj.append('address', '0x' + wallet.ethAddress)
-        //             // axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
-        //             //     return (ava.denomination = res.data.result.balance)
-        //             // })
-        //         }
-        //     }
-        // })
         return ava
     }
 
@@ -399,6 +370,9 @@ export default class BalanceCard extends Vue {
     get hasMultisig(): boolean {
         return !this.avmMultisig.isZero() || !this.platformMultisig.isZero()
     }
+    showDND(value: Big) {
+        return value.div(new Big(10).pow(9)).toLocaleString(9).toLocaleString()
+    }
 }
 </script>
 <style scoped lang="scss">
@@ -448,7 +422,7 @@ h4 {
     margin-top: 12px;
 }
 .balance {
-    font-size: 48px;
+    font-size: 36px;
     white-space: normal;
     font-weight: 500;
 }
@@ -556,79 +530,6 @@ h4 {
 
     &:hover {
         color: var(--secondary-color);
-    }
-}
-
-@include main.medium-device {
-    .balance_card {
-        display: block;
-        //grid-template-columns: 1fr 120px;
-    }
-
-    .balance {
-        font-size: 1.8rem !important;
-    }
-
-    .balance_usd {
-        font-size: 11px;
-    }
-    .nft_col {
-        display: none;
-    }
-
-    .alt_info {
-        font-size: 12px;
-    }
-}
-
-@include main.mobile-device {
-    .balance_card {
-        grid-template-columns: none;
-        display: block !important;
-    }
-
-    .nft_col {
-        display: none;
-    }
-
-    .nft_card {
-        padding: 0;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid var(--primary-color-light);
-        border-left: none;
-    }
-
-    .balance {
-        font-size: 2em !important;
-    }
-
-    .where_info {
-    }
-
-    .alt_info {
-        > div {
-            text-align: left;
-            grid-template-columns: none;
-            column-gap: 0;
-        }
-
-        .alt_non_breakdown,
-        .alt_breakdown {
-            > div {
-                padding: 8px 0;
-                border-right: none;
-                border-bottom: 1px solid var(--bg-light);
-
-                &:last-of-type {
-                    border: none;
-                }
-            }
-        }
-    }
-
-    .alt_non_breakdown {
-        display: none !important;
     }
 }
 </style>

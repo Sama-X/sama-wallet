@@ -143,7 +143,6 @@ export default new Vuex.Store({
             store.dispatch('Assets/updateAvaAsset')
             store.dispatch('Platform/update')
             router.push('/wallet')
-            store.dispatch('Assets/updateUTXOs')
         },
 
         // TODO: Parts can be shared with the logout function below
@@ -263,7 +262,6 @@ export default new Vuex.Store({
 
             dispatch('Assets/updateAvaAsset')
             commit('updateActiveAddress')
-            dispatch('History/updateTransactionHistory')
             updateFilterAddresses()
         },
 

@@ -250,7 +250,7 @@ export default class Transfer extends Vue {
         this.memo = ''
 
         // Clear transactions list
-        this.$refs.txList.reset()
+        // this.$refs.txList.reset()
 
         // Clear NFT list
         if (this.hasNFT) {
@@ -272,12 +272,6 @@ export default class Transfer extends Vue {
             message: this.$t('transfer.success_msg'),
             type: 'success',
         })
-
-        // Update the user's balance
-        this.$store.dispatch('Assets/updateUTXOs').then(() => {
-            this.updateSendAgainLock()
-        })
-        this.$store.dispatch('History/updateTransactionHistory')
     }
 
     updateSendAgainLock() {

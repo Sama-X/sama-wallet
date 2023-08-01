@@ -159,7 +159,7 @@ export default class NewCollectibleFamily extends Vue {
 
         setTimeout(() => {
             this.$store.dispatch('Assets/updateUTXOs')
-            this.$store.dispatch('History/updateTransactionHistory')
+            // this.$store.dispatch('History/updateTransactionHistory')
         }, 3000)
     }
 

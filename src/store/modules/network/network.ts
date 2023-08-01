@@ -6,7 +6,6 @@ import { ava, avm, bintools, cChain, infoApi, pChain } from '@/AVA'
 import { AvaNetwork } from '@/js/AvaNetwork'
 import { explorer_api } from '@/explorer_api'
 import { BN } from 'avalanche'
-import { getPreferredHRP } from 'avalanche/dist/utils'
 import router from '@/router'
 import { web3 } from '@/evm'
 import { setSocketNetwork } from '../../../providers'
@@ -113,20 +112,20 @@ const network_module: Module<NetworkState, RootState> = {
             commit('History/clear', null, { root: true })
 
             // Query the network to get network id
-            const chainIdX = await infoApi.getBlockchainID('X')
-            const chainIdP = await infoApi.getBlockchainID('P')
-            const chainIdC = await infoApi.getBlockchainID('C')
+            // const chainIdX = await infoApi.getBlockchainID('X')
+            // const chainIdP = await infoApi.getBlockchainID('P')
+            // const chainIdC = await infoApi.getBlockchainID('C')
 
-            avm.refreshBlockchainID(chainIdX)
-            avm.setBlockchainAlias('X')
-            pChain.refreshBlockchainID(chainIdP)
-            pChain.setBlockchainAlias('P')
-            cChain.refreshBlockchainID(chainIdC)
-            cChain.setBlockchainAlias('C')
+            // avm.refreshBlockchainID(chainIdX)
+            // avm.setBlockchainAlias('X')
+            // pChain.refreshBlockchainID(chainIdP)
+            // pChain.setBlockchainAlias('P')
+            // cChain.refreshBlockchainID(chainIdC)
+            // cChain.setBlockchainAlias('C')
 
-            avm.getAVAXAssetID(true)
-            pChain.getAVAXAssetID(true)
-            cChain.getAVAXAssetID(true)
+            // avm.getAVAXAssetID(true)
+            // pChain.getAVAXAssetID(true)
+            // cChain.getAVAXAssetID(true)
 
             state.selectedNetwork = net
             dispatch('saveSelectedNetwork')
@@ -135,14 +134,14 @@ const network_module: Module<NetworkState, RootState> = {
             explorer_api.defaults.baseURL = net.explorerUrl
 
             // Set web3 Network Settings
-            const web3Provider = `${net.protocol}://${net.ip}:${net.port}/ext/bc/C/rpc`
-            web3.setProvider(web3Provider)
+            // const web3Provider = `${net.protocol}://${net.ip}:${net.port}/ext/bc/C/rpc`
+            // web3.setProvider(web3Provider)
 
             // Set socket connections
-            setSocketNetwork(net)
+            // setSocketNetwork(net)
 
             commit('Assets/removeAllAssets', null, { root: true })
-            await dispatch('Assets/updateAvaAsset', null, { root: true })
+            // await dispatch('Assets/updateAvaAsset', null, { root: true })
 
             // If authenticated
             if (rootState.isAuth) {
@@ -154,48 +153,58 @@ const network_module: Module<NetworkState, RootState> = {
                 }
             }
 
-            await dispatch('Assets/onNetworkChange', net, { root: true })
-            dispatch('Assets/updateUTXOs', null, { root: true })
-            dispatch('Platform/update', null, { root: true })
-            dispatch('Platform/updateMinStakeAmount', null, { root: true })
+            // await dispatch('Assets/onNetworkChange', net, { root: true })
+            // dispatch('Assets/updateUTXOs', null, { root: true })
+            // dispatch('Platform/update', null, { root: true })
+            // dispatch('Platform/updateMinStakeAmount', null, { root: true })
             dispatch('updateTxFee')
             // Update tx history
-            dispatch('History/updateTransactionHistory', null, { root: true })
+            // dispatch('History/updateTransactionHistory', null, { root: true })
 
             // Set the SDK Network
-            const sdkNetConf = await getConfigFromUrl(net.getFullURL())
-            await setNetworkAsync({
-                ...sdkNetConf,
-                explorerURL: net.explorerUrl,
-                explorerSiteURL: net.explorerSiteUrl,
-            })
+            // const sdkNetConf = await getConfigFromUrl(net.getFullURL())
+            // await setNetworkAsync({
+            //     ...sdkNetConf,
+            //     explorerURL: net.explorerUrl,
+            //     explorerSiteURL: net.explorerSiteUrl,
+            // })
             // state.isConnected = true;
-            state.status = 'connected'
+            setTimeout(() => {
+                state.status = 'connected'
+            }, 2000)
             return true
         },
 
         async updateTxFee({ state }) {
-            const txFee = await infoApi.getTxFee()
-            state.txFee = txFee.txFee
-            avm.setTxFee(txFee.txFee)
+            const txFee = new BN(0.00045662)
+            state.txFee = txFee
+            avm.setTxFee(txFee)
         },
 
         async init({ state, commit, dispatch }) {
+            // const mainnet = new AvaNetwork(
+            //     'Testnet',
+            //     'https://api.avax.network:443',
+            //     1,
+            //     'https://explorerapi.avax.network',
+            //     'https://explorer.avax.network',
+            //     true
+            // )
             const mainnet = new AvaNetwork(
                 'Testnet',
-                'https://api.avax.network:443',
+                'https://bridge.sama.network',
                 1,
-                'https://explorerapi.avax.network',
-                'https://explorer.avax.network',
+                'https://bridge.sama.network',
+                'https://bridge.sama.network',
                 true
             )
 
-            // const fuji = new AvaNetwork(
-            //     'Fuji',
-            //     'https://api.avax-test.network:443',
-            //     5,
-            //     'https://explorerapi.avax-test.network',
-            //     'https://explorer.avax-test.network',
+            // const sama = new AvaNetwork(
+            //     'SAMA',
+            //     'https://bridge.sama.network:443',
+            //     6,
+            //     'https://bridge.sama.network:443',
+            //     'https://bridge.sama.network:443',
             //     true
             // )
 
@@ -207,7 +216,7 @@ const network_module: Module<NetworkState, RootState> = {
             }
 
             commit('addNetwork', mainnet)
-            // commit('addNetwork', fuji)
+            // commit('addNetwork', sama)
 
             try {
                 const isSet = await dispatch('loadSelectedNetwork')

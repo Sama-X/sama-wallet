@@ -18,6 +18,9 @@
                     >
                         {{ $t('portfolio.assets2') }}
                     </button>
+                    <button @click="tab = 'stake'" :active="tab === `stake`" data-cy="wallet_stake">
+                        {{ $t('portfolio.assets3') }}
+                    </button>
                 </div>
             </div>
             <div class="search hover_border">
@@ -38,6 +41,7 @@
                     key="collectibles"
                     :search="search"
                 ></collectibles>
+                <stake v-show="tab === `stake`" key="stake"></stake>
             </transition-group>
         </div>
     </div>
@@ -45,6 +49,7 @@
 <script>
 import Fungibles from '@/components/wallet/portfolio/Fungibles'
 import Collectibles from '@/components/wallet/portfolio/Collectibles'
+import Stake from '@/components/wallet/portfolio/Stake'
 export default {
     name: 'WalletHome',
     data() {
@@ -56,6 +61,7 @@ export default {
     components: {
         Fungibles,
         Collectibles,
+        Stake,
     },
     watch: {
         tab() {

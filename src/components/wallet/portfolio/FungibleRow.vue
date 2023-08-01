@@ -58,7 +58,7 @@ export default class FungibleRow extends Vue {
     updateBalance(): void {
         // console.log(localStorage.getItem('samaInfoNumber'), '12')
         this.$store.dispatch('Assets/updateUTXOs')
-        this.$store.dispatch('History/updateTransactionHistory')
+        // this.$store.dispatch('History/updateTransactionHistory')
     }
 
     get iconUrl(): string | null {

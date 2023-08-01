@@ -58,20 +58,22 @@ const platform_module: Module<PlatformState, RootState> = {
         async update({ dispatch }) {
             dispatch('updateValidators')
             dispatch('updateValidatorsPending')
-            dispatch('updateCurrentSupply')
+            // dispatch('updateCurrentSupply')
         },
 
         async updateValidators({ state, commit }) {
-            const res = (await pChain.getCurrentValidators()) as GetValidatorsResponse
-            const validators = res.validators
+            // const res = (await pChain.getCurrentValidators()) as GetValidatorsResponse
+            // const validators = res.validators
 
-            commit('setValidators', validators)
+            commit('setValidators', [])
         },
 
         async updateValidatorsPending({ state, commit }) {
-            const res = (await pChain.getPendingValidators()) as GetPendingValidatorsResponse
-            const validators = res.validators
-            const delegators = res.delegators
+            // const res = (await pChain.getPendingValidators()) as GetPendingValidatorsResponse
+            // const validators = res.validators
+            // const delegators = res.delegators
+            const validators = []
+            const delegators = []
 
             //@ts-ignore
             state.validatorsPending = validators

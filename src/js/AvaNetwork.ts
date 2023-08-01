@@ -63,17 +63,7 @@ class AvaNetwork {
     // Checks if this network endpoint allows credentials
     async updateCredentials() {
         try {
-            const res = await axios.post(
-                this.url + '/ext/info',
-                {
-                    jsonrpc: '2.0',
-                    id: 1,
-                    method: 'info.getNetworkID',
-                },
-                {
-                    withCredentials: true,
-                }
-            )
+            const res = await axios.post(this.url + '/get_block_chain')
             this.withCredentials = true
         } catch (e) {
             this.withCredentials = false

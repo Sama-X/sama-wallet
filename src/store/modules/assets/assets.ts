@@ -335,7 +335,7 @@ const assets_module: Module<AssetsState, RootState> = {
             await wallet.getUTXOs()
             dispatch('onUtxosUpdated')
             dispatch('updateERC20Balances')
-            dispatch('ERC721/updateWalletBalance')
+            // dispatch('ERC721/updateWalletBalance')
             commit('updateActiveAddress', null, { root: true })
         },
 
@@ -606,48 +606,6 @@ const assets_module: Module<AssetsState, RootState> = {
             }
 
             if (!wallet) return balances
-
-            const utxoSet: PlatformUTXOSet = wallet.getPlatformUTXOSet()
-
-            const now = UnixNow()
-
-            // The only type of asset is AVAX on the P chain
-
-            const utxos = utxoSet.getAllUTXOs()
-            for (let n = 0; n < utxos.length; n++) {
-                const utxo = utxos[n]
-                const utxoOut = utxo.getOutput()
-                const outId = utxoOut.getOutputID()
-                const threshold = utxoOut.getThreshold()
-
-                // If its multisig utxo
-                if (threshold > 1) {
-                    balances.multisig.iadd((utxoOut as AmountOutput).getAmount())
-                    continue
-                }
-
-                const isStakeableLock = outId === PlatformVMConstants.STAKEABLELOCKOUTID
-
-                let locktime
-                if (isStakeableLock) {
-                    locktime = (utxoOut as StakeableLockOut).getStakeableLocktime()
-                } else {
-                    locktime = (utxoOut as AmountOutput).getLocktime()
-                }
-
-                // If normal unlocked utxo (includes stakeable lock that is in the past)
-                if (locktime.lte(now)) {
-                    balances.available.iadd((utxoOut as AmountOutput).getAmount())
-                }
-                // If locked utxo
-                else if (!isStakeableLock) {
-                    balances.locked.iadd((utxoOut as AmountOutput).getAmount())
-                }
-                // If stakeable lock utxo
-                else if (isStakeableLock) {
-                    balances.lockedStakeable.iadd((utxoOut as AmountOutput).getAmount())
-                }
-            }
 
             return balances
         },
