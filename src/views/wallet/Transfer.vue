@@ -9,25 +9,6 @@
                 <ChainInput v-model="formType" :disabled="isConfirm"></ChainInput>
             </FormC>
             <div class="new_order_Form" v-show="formType === 'X'">
-                <!-- <div class="lists">
-                    <ChainInput v-model="formType" :disabled="isConfirm"></ChainInput>
-                    <div>
-                        <tx-list
-                            class="tx_list"
-                            ref="txList"
-                            @change="updateTxList"
-                            :disabled="isConfirm"
-                        ></tx-list>
-                        <template>
-                        <template v-if="hasNFT">
-                        <NftList
-                            @change="updateNftList"
-                            ref="nftList"
-                            :disabled="isConfirm"
-                        ></NftList>
-                        </template>
-                    </div>
-                </div> -->
                 <div>
                     <div class="to_address">
                         <h4>{{ $t('transfer.to') }}</h4>
@@ -38,34 +19,13 @@
                         ></qr-input>
                     </div>
                     <div>
-                        <!--                        <template v-if="isConfirm && formMemo.length > 0">-->
-                        <!--                            <h4>Memo (Optional)</h4>-->
-                        <!--                            <p class="confirm_val">{{ formMemo }}</p>-->
-                        <!--                        </template>-->
                         <h4>Amount</h4>
-                        <!-- <h4 v-if="memo || !isConfirm">{{ $t('transfer.memo') }}</h4> -->
-                        <!-- <textarea
-                            class="memo"
-                            maxlength="256"
-                            placeholder="Memo"
-                            autocomplete="off"
-                            v-model="memo"
-                            v-if="memo || !isConfirm"
-                            :disabled="isConfirm"
-                        ></textarea> -->
                         <input class="memo" placeholder="Amount" type="number" v-model="memo" />
-                        <!-- <input
-                            class="memo"
-                            placeholder="Amount"
-                            type="number"
-                            v-model="memo"
-                            :disabled="isConfirm"
-                        /> -->
                     </div>
                     <div class="fees">
                         <p>
                             {{ $t('transfer.fee_tx') }}
-                            <span>{{ txFee.toLocaleString(9) }} SAMA</span>
+                            <span>{{ txFee.toLocaleString(9) }} DND</span>
                         </p>
                         <p>
                             {{ $t('transfer.total_avax') }}
@@ -113,27 +73,6 @@
                                 Cancel
                             </v-btn>
                         </template>
-                        <!-- <template v-else-if="isSuccess">
-                            <p style="color: var(--success)">
-                                <fa icon="check-circle"></fa>
-                                Transaction Sent
-                            </p>
-                            <label style="word-break: break-all">
-                                <b>ID:</b>
-                                {{ txId }}
-                            </label>
-                            <v-btn
-                                depressed
-                                style="margin-top: 14px"
-                                class="button_primary"
-                                :ripple="false"
-                                @click="startAgain"
-                                block
-                                :disabled="!canSendAgain"
-                            >
-                                Start Again{{isConfirm}}{{isSuccess}}
-                            </v-btn>
-                        </template> -->
                     </div>
                 </div>
             </div>
@@ -663,7 +602,7 @@ h4 {
 
 .new_order_Form {
     display: grid;
-    grid-template-columns: 1fr 1fr 300px;
+    grid-template-columns: auto;
     column-gap: 45px;
 }
 
@@ -757,7 +696,7 @@ label {
 
 @include main.medium-device {
     .new_order_Form {
-        grid-template-columns: 1fr 1fr 220px;
+        grid-template-columns: auto;
         column-gap: 25px;
     }
 }

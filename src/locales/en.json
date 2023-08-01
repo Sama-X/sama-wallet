@@ -5,15 +5,15 @@
     "address": "Address",
     "add_pk": "Add Private Key",
     "home": {
-        "desc": "DND Wallet is a simple, secure, non-custodial wallet for storing DND assets.",
+        "desc": "GOLDSTREAM Wallet is a simple, secure, non-custodial wallet for storing DND assets.",
         "access": {
             "title": "Welcome Back!",
-            "desc": "Access your existing DND wallet here.",
+            "desc": "Access your existing GOLDSTREAM wallet here.",
             "submit": "Access Wallet"
         },
         "create": {
-            "title": "New to DND Wallet?",
-            "desc": "Create a new wallet to send, receive and swap DND assets.",
+            "title": "New to GOLDSTREAM Wallet?",
+            "desc": "Create a new wallet to send, receive and swap GOLDSTREAM assets.",
             "submit": "Create New Wallet"
         }
     },
@@ -78,18 +78,18 @@
         }
     },
     "create": {
-        "generate": "Generate a new key phrase to setup your DND Wallet.",
+        "generate": "Generate a new key phrase to setup your GOLDSTREAM Wallet.",
         "but_have": "Already have a wallet?",
         "submit": "Generate Key Phrase",
         "cancel": "Cancel",
         "mnemonic_title": "This is your key phrase.",
-        "mnemonic_desc": "Use these 24 words in sequential order to recover your DND Wallet",
+        "mnemonic_desc": "Use these 24 words in sequential order to recover your GOLDSTREAM Wallet",
         "attention": "Attention!",
-        "warning": "Store this key phrase in a secure location. Anyone with this key phrase can access your DND Wallet. There is no way to recover lost key phrases.",
+        "warning": "Store this key phrase in a secure location. Anyone with this key phrase can access your GOLDSTREAM Wallet. There is no way to recover lost key phrases.",
         "confirm": "I wrote down my key phrase in a secure location.",
         "regenerate": "Regenerate",
         "success_title": "Your GOLDSTREAM wallet is ready!",
-        "success_desc": "It's time to access your DND Wallet.",
+        "success_desc": "It's time to access your GOLDSTREAM Wallet.",
         "success_submit": "Access Wallet",
         "verify": "Verify",
         "verifytitle": "Verify Mnemonic",
@@ -98,7 +98,7 @@
         "error_word": "The mnemonic phrase you entered for word not match the actual phrase."
     },
     "top": {
-        "title1": "Derived DND Wallet Address",
+        "title1": "Derived GOLDSTREAM Wallet Address",
         "title2": "Balance",
         "title3": "Subnet",
         "title4": "Network",
@@ -121,10 +121,10 @@
             "collectibles": "Collectibles"
         },
         "address": {
-            "derived": "Derived DND Wallet Address",
+            "derived": "Derived GOLDSTREAM Wallet Address",
             "title_x": "Derived Wallet Address",
             "title_p": "Derived Platform Wallet Address",
-            "title_c": " DND Wallet Address",
+            "title_c": " GOLDSTREAM Wallet Address",
             "desc_x_1": "This is your X-Chain address to receive funds.",
             "desc_x_2": "Your address will change after every deposit. You can keep using previous addresses.",
             "desc_p": "This is My DND address",

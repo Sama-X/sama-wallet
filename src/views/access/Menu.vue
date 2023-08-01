@@ -8,22 +8,22 @@
                 <router-link to="/access/privatekey" class="menu_option button_primary">
                     {{ $t('access.but_private_key') }}
                     <ImageDayNight
-                        day="/img/access_icons/day/privatekey.svg"
-                        night="/img/access_icons/night/privatekey.svg"
+                        day="/img/access_icons/right.svg"
+                        night="/img/access_icons/right.svg"
                     ></ImageDayNight>
                 </router-link>
                 <router-link to="/access/mnemonic" class="menu_option button_primary">
                     {{ $t('access.but_mnemonic') }}
                     <ImageDayNight
-                        day="/img/access_icons/day/mnemonic.svg"
-                        night="/img/access_icons/night/mnemonic.svg"
+                        day="/img/access_icons/right.svg"
+                        night="/img/access_icons/right.svg"
                     ></ImageDayNight>
                 </router-link>
                 <router-link to="/access/keystore" class="menu_option button_primary">
                     {{ $t('access.but_keystore') }}
                     <ImageDayNight
-                        day="/img/access_icons/day/keystore.svg"
-                        night="/img/access_icons/night/keystore.svg"
+                        day="/img/access_icons/right.svg"
+                        night="/img/access_icons/right.svg"
                     ></ImageDayNight>
                 </router-link>
                 <!-- <LedgerButton class="menu_option button_primary"></LedgerButton> -->
