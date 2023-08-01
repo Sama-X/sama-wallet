@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="copied_panel">
         <v-checkbox :label="explain" v-model="value" @change="change" class="checkbox"></v-checkbox>
     </div>
 </template>
@@ -26,8 +26,14 @@ export default {
 
 <style lang="scss">
 @use "../../main";
-
+.copied_panel {
+    margin-top: 36px;
+}
 .checkbox {
+    .v-input--selection-controls__input > .primary--text {
+        color: var(--secondary-color) !important;
+        caret-color: var(--secondary-color) !important;
+    }
     .v-label,
     .v-label,
     .theme--light {

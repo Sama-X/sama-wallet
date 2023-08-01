@@ -37,24 +37,25 @@ button {
     white-space: nowrap;
     font-weight: bold;
     font-size: 14px;
+    width: 128px;
     padding: 4px 14px;
-    border: 1px solid transparent;
-    color: var(--primary-color-light);
+    height: 42px;
+    color: #fff;
     background-color: var(--bg-wallet);
-    border-radius: 4px;
+    font-family: PingFang SC;
+    border-radius: 8px;
     margin-right: 6px;
     margin-bottom: 6px;
     transition-duration: 0.2s;
     font-family: Inconsolata, monospace;
 
-    //&:hover {
-    //    border-color: var(--bg-light);
-    //}
+    &:hover {
+        background-color: #292929;
+    }
 
     &[active] {
-        color: var(--bg-wallet);
-        //border-color: #285599;
-        background-color: var(--primary-color);
+        border: 1px solid #999;
+        background-color: #292929;
     }
 }
 

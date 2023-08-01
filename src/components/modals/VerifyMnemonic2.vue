@@ -143,7 +143,14 @@ export default class VerifyMnemoni2 extends Vue {
     padding: 30px;
     text-align: center;
     max-width: 100%;
-    width: 450px;
+    width: 480px;
+
+    .ava_button {
+        height: 50px;
+        width: 218px;
+        border-radius: 8px;
+        background-color: var(--secondary-color) !important;
+    }
 }
 
 .but_primary {
@@ -153,7 +160,8 @@ export default class VerifyMnemoni2 extends Vue {
 }
 
 .err {
-    height: 60px;
+    height: max-content;
+    padding: 10px 0 20px 0;
     margin: 0px auto;
     text-align: center;
     color: var(--error);
@@ -161,5 +169,8 @@ export default class VerifyMnemoni2 extends Vue {
 
 .question_row {
     margin-bottom: 14px;
+    p {
+        margin: 20px 0 !important;
+    }
 }
 </style>

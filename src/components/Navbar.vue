@@ -2,8 +2,8 @@
     <div id="nav">
         <ConfirmLogout ref="logout"></ConfirmLogout>
         <router-link to="/" class="logo">
-            <img v-if="$root.theme === 'day'" src="@/assets/wallet_logo.png" />
-            <img v-else src="@/assets/wallet_logo_dark.png" />
+            <img v-if="$root.theme === 'day'" src="@/assets/logo.svg" />
+            <img v-else src="@/assets/logo.svg" />
             <span class="slogan">GOLDSTREAM</span>
         </router-link>
         <v-spacer></v-spacer>
@@ -12,14 +12,6 @@
             <!-- <DayNightToggle class="action_but"></DayNightToggle> -->
             <template v-if="isAuth">
                 <button @click="logout">{{ $t('logout.button') }}</button>
-            </template>
-            <template v-else>
-                <router-link to="/access" class="action_but" data-cy="access">
-                    {{ $t('nav.access') }}
-                </router-link>
-                <router-link to="/create" class="action_but" data-cy="create">
-                    {{ $t('nav.create') }}
-                </router-link>
             </template>
             <network-menu></network-menu>
             <LanguageSelect class="lang_web"></LanguageSelect>
@@ -133,22 +125,29 @@ button {
 }
 
 #nav {
+    background: var(--bg);
     .logo {
         display: flex;
         align-items: center;
-        color: var(--primary-color-light) !important;
-        font-size: 11px;
-        font-weight: 700;
+        color: #fff;
+        font-family: PingFang SC;
+        font-size: 18px;
+        font-weight: 600;
 
         &:hover {
             opacity: 0.7;
         }
 
         img {
-            height: 30px;
-            max-height: none !important;
+            height: 28px;
+            width: 32px;
             object-fit: contain;
             margin-right: 5px;
+        }
+
+        .slogan {
+            color: #fff;
+            margin-left: 16px;
         }
     }
 }

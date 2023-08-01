@@ -283,7 +283,7 @@ export default new Vuex.Store({
 
                 const utcDate = new Date()
                 const dateString = utcDate.toISOString().replace(' ', '_')
-                const filename = `AVAX_${dateString}.json`
+                const filename = `GOLDSTREAM_${dateString}.json`
 
                 const blob = new Blob([text], {
                     type: 'application/json',

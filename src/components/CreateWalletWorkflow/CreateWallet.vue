@@ -7,12 +7,8 @@
                         <!-- PHASE 1 -->
                         <div v-if="!keyPhrase" class="stage_1">
                             <div class="img_container">
-                                <img
-                                    v-if="$root.theme === 'day'"
-                                    src="@/assets/diamond-secondary1.png"
-                                    alt
-                                />
-                                <img v-else src="@/assets/diamond-secondary1.png" alt />
+                                <img v-if="$root.theme === 'day'" src="@/assets/logo.svg" alt />
+                                <img v-else src="@/assets/logo.svg" alt />
                             </div>
                             <h1>{{ $t('create.generate') }}</h1>
                             <router-link to="/access" class="link">
@@ -33,9 +29,9 @@
                         </div>
                         <!-- PHASE 2 -->
                         <div v-else class="stage_2">
-                            <div class="cols">
+                            <div class="cols" :class="{ verify_success: isVerified }">
                                 <!-- LEFT -->
-                                <div class="mneumonic_disp_col">
+                                <div class="mneumonic_disp_col" v-if="!isVerified">
                                     <div class="mnemonic_disp">
                                         <mnemonic-display
                                             :phrase="keyPhrase"
@@ -46,15 +42,7 @@
                                 </div>
                                 <!-- RIGHT -->
                                 <div class="phrase_disp_col">
-                                    <template v-if="!isVerified">
-                                        <img
-                                            v-if="$root.theme === 'day'"
-                                            src="@/assets/keyphrase.png"
-                                            alt
-                                        />
-                                        <img v-else src="@/assets/keyphrase_night.svg" alt />
-                                    </template>
-                                    <template v-else>
+                                    <template v-if="isVerified">
                                         <img src="@/assets/success.svg" alt />
                                     </template>
                                     <header v-if="!isVerified">
@@ -67,7 +55,6 @@
                                         <h1>
                                             {{ $t('create.success_title') }}
                                         </h1>
-                                        <p>{{ $t('create.success_desc') }}</p>
                                     </header>
                                     <p class="warn" v-if="!isVerified">
                                         <span class="label">{{ $t('create.attention') }}</span>
@@ -105,10 +92,6 @@
                                                     >
                                                         {{ $t('create.success_submit') }}
                                                     </button>
-                                                    <router-link to="/" class="link">
-                                                        Cancel
-                                                    </router-link>
-                                                    <ToS style="margin: 30px 0 !important"></ToS>
                                                 </div>
                                             </transition>
                                         </div>
@@ -292,6 +275,29 @@ a {
     column-gap: 60px;
 }
 
+.verify_success {
+    display: flex;
+    .phrase_disp_col {
+        align-items: center;
+        justify-content: center;
+    }
+    header {
+        margin-top: 40px;
+        text-align: center;
+    }
+    .submit {
+        justify-content: center;
+    }
+    .access {
+        margin-top: 60px;
+        width: 218px;
+        height: 50px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background-color: var(--secondary-color) !important;
+    }
+}
+
 .mneumonic_disp_col {
     .mnemonic_disp {
         max-width: 560px;
@@ -310,8 +316,9 @@ a {
     }
 
     .mnemonic_display {
-        background-color: var(--bg-light);
-        padding: 14px;
+        background-color: var(--bg);
+        padding: 36px 24px;
+        border-radius: 8px;
     }
 
     .verified {
@@ -347,35 +354,44 @@ a {
     }
 
     header {
+        color: #fff;
+        font-family: PingFang SC;
         h1 {
-            margin-top: 10px;
-            font-size: main.$xl-size;
-            line-height: 1.25em;
-            font-weight: 400;
+            font-size: 28px;
+            font-weight: 600;
         }
 
         p {
-            color: main.$primary-color-light;
+            font-size: 16px;
         }
     }
 
     .warn {
-        margin-top: main.$vertical-padding !important;
+        margin-top: 36px !important;
 
         span {
             display: block;
-            font-size: main.$s-size;
-            font-weight: 700;
             text-transform: uppercase;
+            color: #fff;
+            font-family: PingFang SC;
+            font-size: 16px;
 
             &.label {
-                color: main.$secondary-color;
+                color: var(--secondary-color);
                 text-transform: uppercase;
+                margin-bottom: 16px;
             }
 
             &.description {
-                color: main.$primary-color-light !important;
+                color: #fff;
             }
+        }
+    }
+
+    .verify_cont {
+        button {
+            margin-top: 20px;
+            border-radius: 8px;
         }
     }
 

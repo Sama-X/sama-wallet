@@ -65,17 +65,19 @@ export default class Menu extends Vue {}
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    h1 {
+        color: #fff;
+        font-family: PingFang SC;
+        font-size: 28px;
+        font-weight: 600;
+    }
 }
 
 img {
     width: main.$img-size;
     height: main.$img-size;
     margin-bottom: main.$vertical-padding;
-}
-
-h1 {
-    font-size: main.$l-size;
-    font-weight: 400;
 }
 
 hr {

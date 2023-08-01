@@ -61,12 +61,13 @@ export default class LanguageSelect extends Vue {
         let messages = this.$root.$i18n.messages
         for (var langCode in messages) {
             let data = langMap[langCode]
-
-            res.push({
-                code: langCode,
-                name: data.name,
-                nativeName: data.nativeName,
-            })
+            if (['en', 'zh_hans'].includes(langCode)) {
+                res.push({
+                    code: langCode,
+                    name: data.name,
+                    nativeName: data.nativeName,
+                })
+            }
         }
         return res
     }

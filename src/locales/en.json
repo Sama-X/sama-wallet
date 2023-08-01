@@ -88,7 +88,7 @@
         "warning": "Store this key phrase in a secure location. Anyone with this key phrase can access your DND Wallet. There is no way to recover lost key phrases.",
         "confirm": "I wrote down my key phrase in a secure location.",
         "regenerate": "Regenerate",
-        "success_title": "Congratulations!",
+        "success_title": "Your GOLDSTREAM wallet is ready!",
         "success_desc": "It's time to access your DND Wallet.",
         "success_submit": "Access Wallet",
         "verify": "Verify",

@@ -101,6 +101,7 @@ export default {
 @use "./main";
 
 .main_cols {
+    background: var(--bg-home);
     &[wallet_view] {
         height: 100vh;
 

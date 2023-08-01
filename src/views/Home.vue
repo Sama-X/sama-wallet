@@ -11,10 +11,10 @@
                                     <div class="img_container">
                                         <img
                                             v-if="$root.theme === 'day'"
-                                            src="@/assets/diamond-primary1.png"
+                                            src="@/assets/logo.svg"
                                             alt
                                         />
-                                        <img v-else src="@/assets/diamond-primary1.png" alt />
+                                        <img v-else src="@/assets/logo.svg" alt />
                                     </div>
                                     <h2>{{ $t('home.access.title') }}</h2>
                                     <p>{{ $t('home.access.desc') }}</p>
@@ -34,10 +34,10 @@
                                     <div class="img_container">
                                         <img
                                             v-if="$root.theme === 'day'"
-                                            src="@/assets/diamond-secondary1.png"
+                                            src="@/assets/logo.svg"
                                             alt
                                         />
-                                        <img v-else src="@/assets/diamond-secondary1.png" alt />
+                                        <img v-else src="@/assets/logo.svg" alt />
                                     </div>
                                     <h2>{{ $t('home.create.title') }}</h2>
                                     <p>{{ $t('home.create.desc') }}</p>
@@ -78,7 +78,7 @@ export default class Home extends Vue {}
 
 .home {
     padding-top: 100px;
-    /*background-color: #fff;*/
+    background-color: var(--bg-night);
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -95,6 +95,7 @@ export default class Home extends Vue {}
         flex-direction: column;
         align-content: center;
         justify-content: center;
+        background: var(--bg-night);
 
         h1 {
             text-align: center;
@@ -114,7 +115,7 @@ export default class Home extends Vue {}
                 border-radius: 2px;
                 align-items: flex-start;
                 justify-content: space-between;
-                background-color: var(--bg-light);
+                background-color: var(--bg);
                 padding: 60px 90px main.$container-padding main.$container-padding;
 
                 header {

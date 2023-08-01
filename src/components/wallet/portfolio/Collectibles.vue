@@ -19,9 +19,9 @@
         <div class="coming_soon" v-else>
             <img class="empty" src="@/assets/empty.svg" />
             <p>{{ $t('portfolio.nobalance_nft') }}</p>
-            <div class="add_token_row">
+            <!-- <div class="add_token_row">
                 <button @click="showModal">Add Collectible</button>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
