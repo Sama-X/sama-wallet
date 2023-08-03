@@ -7,9 +7,8 @@ import { AvaNetwork } from '@/js/AvaNetwork'
 import { explorer_api } from '@/explorer_api'
 import { BN } from 'avalanche'
 import router from '@/router'
-import { web3 } from '@/evm'
-import { setSocketNetwork } from '../../../providers'
-import { getConfigFromUrl, setNetworkAsync } from '@avalabs/avalanche-wallet-sdk'
+import axios from 'axios'
+
 const network_module: Module<NetworkState, RootState> = {
     namespaced: true,
     state: {
@@ -192,10 +191,10 @@ const network_module: Module<NetworkState, RootState> = {
             // )
             const mainnet = new AvaNetwork(
                 'Testnet',
-                'https://bridge.sama.network',
+                'http://192.168.0.108:8800',
                 1,
-                'https://bridge.sama.network',
-                'https://bridge.sama.network',
+                'http://192.168.0.108:8800',
+                'http://192.168.0.108:8800',
                 true
             )
 

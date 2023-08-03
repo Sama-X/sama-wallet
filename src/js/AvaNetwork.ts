@@ -9,7 +9,7 @@ class AvaNetwork {
     port: number
     ip: string
     networkId: number
-    // chainId: string;
+    chainId: string
     url: string
     explorerUrl: string | undefined
     explorerSiteUrl: string | undefined
@@ -64,7 +64,13 @@ class AvaNetwork {
     async updateCredentials() {
         try {
             const res = await axios.post(this.url + '/get_block_chain')
-            this.withCredentials = true
+            for (const i in res.data.result.blockchains) {
+                if (res.data.result.blockchains[i].name == 'lq') {
+                    this.chainId = res.data.result.blockchains[i].id
+                    this.withCredentials = true
+                    return
+                }
+            }
         } catch (e) {
             this.withCredentials = false
         }

@@ -108,7 +108,7 @@ import AvaAsset from '../../js/AvaAsset'
 import { TxState } from '@/components/wallet/earn/ChainTransfer/types'
 import { SingletonWallet } from '../../js/wallets/SingletonWallet'
 import axios from 'axios'
-import { samaUrl } from '@/samaIp'
+import { AvaNetwork } from '@/js/AvaNetwork'
 
 @Component({
     components: {
@@ -298,27 +298,19 @@ export default class Transfer extends Vue {
         let _this = this
         this.isAjax = true
         this.err = ''
-        let isLian = ''
         let sumArray: (ITransaction | UTXO)[] = [...this.formOrders, ...this.formNftOrders]
 
         let privKeyObj = this.wallet as SingletonWallet
-        axios.post(samaUrl + '/get_block_chain').then((res) => {
-            for (let i in res.data.result.blockchains) {
-                if (res.data.result.blockchains[i].name == 'sama') {
-                    let lian = res.data.result.blockchains[i].id
-                    let formDataObj = new FormData()
-                    formDataObj.append('chain_id', lian)
-                    formDataObj.append('address', this.formAddress)
-                    formDataObj.append('priv_key', privKeyObj.ethKeyBech)
-                    formDataObj.append('amount', String(parseInt(this.memo || '0') * 1000))
-                    axios.post(samaUrl + '/transfer', formDataObj).then((res) => {
-                        this.canSendAgain = false
-                        _this.onsuccess(res.data.result.txId)
-                        _this.txId = res.data.result.txId
-                        _this.initAmout()
-                    })
-                }
-            }
+        let formDataObj = new FormData()
+        formDataObj.append('chain_id', this.network.chainId)
+        formDataObj.append('address', this.formAddress)
+        formDataObj.append('priv_key', privKeyObj.ethKeyBech)
+        formDataObj.append('amount', String(parseInt(this.memo || '0') * 1000))
+        axios.post(this.network.url + '/transfer', formDataObj).then((res) => {
+            this.canSendAgain = false
+            _this.onsuccess(res.data.result.txId)
+            _this.txId = res.data.result.txId
+            _this.initAmout()
         })
         // let txList: IssueBatchTxInput = {
         //     toAddress: this.formAddress,
@@ -340,20 +332,12 @@ export default class Transfer extends Vue {
     async initAmout() {
         // const res = await avm.getAssetDescription('AVAX')
         // const id = bintools.cb58Encode(res.assetID)
-        let _this = this
-        axios.post(samaUrl + '/get_block_chain').then((res) => {
-            for (let i in res.data.result.blockchains) {
-                if (res.data.result.blockchains[i].name == 'sama') {
-                    let lian = res.data.result.blockchains[i].id
-                    let formDataObj = new FormData()
-                    formDataObj.append('chain_id', lian)
-                    formDataObj.append('address', '0x' + _this.wallet.ethAddress)
-                    axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
-                        // _this.isSuccess = true
-                    })
-                }
-            }
-        })
+        // let formDataObj = new FormData()
+        // formDataObj.append('chain_id', this.network.chainId)
+        // formDataObj.append('address', '0x' + this.wallet.ethAddress)
+        // axios.post(this.network.url + '/get_blance', formDataObj).then((res) => {
+        //     // _this.isSuccess = true
+        // })
     }
 
     async waitTxConfirm(txId: string) {
@@ -373,6 +357,10 @@ export default class Transfer extends Vue {
             this.txState = TxState.success
             this.onsuccess(txId)
         }
+    }
+
+    get network(): AvaNetwork {
+        return this.$store.state.Network.selectedNetwork
     }
 
     get networkStatus(): string {

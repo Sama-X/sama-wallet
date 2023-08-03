@@ -61,8 +61,7 @@ import { priceDict } from '@/store/types'
 import { WalletType } from '@/js/wallets/types'
 import UtxosBreakdownModal from '@/components/modals/UtxosBreakdown/UtxosBreakdownModal.vue'
 import axios from 'axios'
-
-import { samaUrl, dndUnit } from '@/samaIp'
+import { AvaNetwork } from '@/js/AvaNetwork'
 
 @Component({
     components: {
@@ -81,10 +80,8 @@ import { samaUrl, dndUnit } from '@/samaIp'
 export default class BalanceCard extends Vue {
     isBreakdown = true
     samaInfoNumber: Big = Big(0)
-    isLian = ''
 
     created() {
-        this.initLian()
         setTimeout(() => {
             this.initBlance(0)
         }, 3000)
@@ -93,16 +90,8 @@ export default class BalanceCard extends Vue {
         utxos_modal: UtxosBreakdownModal
     }
 
-    initLian() {
-        axios.post(samaUrl + '/get_block_chain').then((res) => {
-            for (let i in res.data.result.blockchains) {
-                if (res.data.result.blockchains[i].name == 'lq') {
-                    let lian = res.data.result.blockchains[i].id
-                    this.isLian = lian
-                    return
-                }
-            }
-        })
+    get network(): AvaNetwork {
+        return this.$store.state.Network.selectedNetwork
     }
 
     initBlance(type: number) {
@@ -110,11 +99,11 @@ export default class BalanceCard extends Vue {
         if (!wallet) return
         wallet.isFetchUtxos = true
         let formDataObj = new FormData()
-        formDataObj.append('chain_id', this.isLian)
+        formDataObj.append('chain_id', this.network.chainId)
         formDataObj.append('address', '0x' + wallet.ethAddress)
 
         axios
-            .post(`${samaUrl}/get_blance`, formDataObj)
+            .post(`${this.network.url}/get_blance`, formDataObj)
             .then((res) => {
                 const balance = res.data.result.balance
                 this.samaInfoNumber = Big(balance)

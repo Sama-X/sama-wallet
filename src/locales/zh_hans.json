@@ -194,6 +194,17 @@
         "nobalance_nft": "你没有任何收藏品。",
         "noaddresses": "你没有任何过去的地址。"
     },
+    "stake": {
+        "error_network": "无法显示资产。与网络断开连接。",
+        "stake_type": "质押",
+        "stake_amount": "质押数量",
+        "stake_expired_time": "到期时间",
+        "expect_reward": "预计奖励",
+        "claim": "领取奖励",
+        "stake_work_node": "工作节点",
+        "price": "价格",
+        "stake_validate_node": "验证节点"
+    },
     "earn": {
         "title": "赚钱",
         "desc": "你可以通过质押你的现有代币赚取更多AVAX。",

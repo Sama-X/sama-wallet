@@ -353,6 +353,17 @@
             "expand": "Expand"
         }
     },
+    "stake": {
+        "error_network": "Unable to display assets. Disconnected from the network.",
+        "stake_type": "Stake Type",
+        "stake_amount": "Stake Amount",
+        "stake_expired_time": "Expired Time",
+        "expect_reward": "Expected Reward",
+        "claim": "Claim",
+        "stake_work_node": "Work Node",
+        "price": "Price",
+        "stake_validate_node": "Validate Node"
+    },
     "earn": {
         "title": "Earn",
         "desc": "You can earn more AVAX by staking your existing tokens.",

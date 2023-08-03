@@ -1,30 +1,38 @@
 <template>
     <div class="stake_view">
         <div v-show="networkStatus !== 'connected'" class="empty">
-            <p>{{ $t('portfolio.error_network') }}</p>
+            <p>{{ $t('stake.error_network') }}</p>
         </div>
         <div class="stake_content" v-show="networkStatus === 'connected'">
             <div class="role" v-if="currentRole != null">
                 <div class="role_left">
-                    <div class="role_item">质押: {{ currentRole }}</div>
-                    <div class="role_item">质押数量: {{ showDND(stakeAmount) }} DND</div>
+                    <div class="role_item">{{ $t('stake.stake_type') }}: {{ currentRole }}</div>
                     <div class="role_item">
-                        质押到期时间: {{ stakeExpireTime.toLocaleString() }}
+                        {{ $t('stake.stake_amount') }}: {{ showDND(stakeAmount) }} DND
+                    </div>
+                    <div class="role_item">
+                        {{ $t('stake.stake_expired_time') }}: {{ stakeExpireTime.toLocaleString() }}
                     </div>
                 </div>
                 <div class="role_right">
-                    <div>预计收益: {{ showDND(stakeReward) }} DND</div>
-                    <button :disabled="stakeReward.lte(0)" @click="claim">领取奖励</button>
+                    <div>{{ $t('stake.expect_reward') }}: {{ showDND(stakeReward) }} DND</div>
+                    <button :disabled="stakeReward.lte(0)" @click="claim">
+                        {{ $t('stake.claim') }}
+                    </button>
                 </div>
             </div>
             <div class="role" v-else>
                 <div>
-                    <button @click="stake('7')">成为工作节点</button>
-                    <span class="price">&nbsp;价格: {{ showDND(workerFee) }} DND</span>
+                    <button @click="stake('7')">{{ $t('stake.stake_work_node') }}</button>
+                    <span class="price">
+                        &nbsp;{{ $t('stake.price') }}: {{ showDND(workerFee) }} DND
+                    </span>
                 </div>
                 <div>
-                    <button @click="stake('6')">成为验证节点</button>
-                    <span class="price">&nbsp;价格: {{ showDND(validtorFee) }} DND</span>
+                    <button @click="stake('6')">{{ $t('stake.stake_validate_node') }}</button>
+                    <span class="price">
+                        &nbsp;{{ $t('stake.price') }}: {{ showDND(validtorFee) }} DND
+                    </span>
                 </div>
             </div>
         </div>
@@ -32,14 +40,14 @@
 </template>
 <script lang="ts">
 import { bnToBig } from '@/helpers/helper'
+import { AvaNetwork } from '@/js/AvaNetwork'
 import { SingletonWallet } from '@/js/wallets/SingletonWallet'
 import { WalletType } from '@/js/wallets/types'
-import { samaUrl } from '@/samaIp'
 import { BN } from 'avalanche'
 import axios from 'axios'
 import Big from 'big.js'
 import 'reflect-metadata'
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component } from 'vue-property-decorator'
 
 @Component({
     components: {},
@@ -51,30 +59,26 @@ export default class Stake extends Vue {
     stakeReward: Big = bnToBig(new BN(0))
     stakeAmount: Big = bnToBig(new BN(0))
     stakeExpireTime: Date = null
-    chainID: string = null
 
     created() {
-        this.initLian()
-        setTimeout(() => {
-            this.getStakeRole()
-        }, 3000)
-    }
-
-    initLian() {
-        axios.post(samaUrl + '/get_block_chain').then((res) => {
-            for (let i in res.data.result.blockchains) {
-                if (res.data.result.blockchains[i].name == 'lq') {
-                    let lian = res.data.result.blockchains[i].id
-                    this.chainID = lian
-                    return
-                }
-            }
-        })
+        this.getStakeRole()
     }
 
     get networkStatus(): string {
         let stat = this.$store.state.Network.status
         return stat
+    }
+
+    get network(): AvaNetwork {
+        return this.$store.state.Network.selectedNetwork
+    }
+
+    get chainID(): string {
+        return this.network.chainId
+    }
+
+    get chainURL(): string {
+        return this.network.url
     }
 
     get activeWallet(): WalletType | null {
@@ -89,7 +93,7 @@ export default class Stake extends Vue {
         let formDataObj = new FormData()
         formDataObj.append('chain_id', this.chainID)
         formDataObj.append('address', '0x' + wallet.ethAddress)
-        axios.post(samaUrl + '/get_staker', formDataObj).then((res) => {
+        axios.post(this.chainURL + '/get_staker', formDataObj).then((res) => {
             if (res.data.error) {
                 this.$store.dispatch('Notifications/add', {
                     title: '获取质押失败',
@@ -127,7 +131,7 @@ export default class Stake extends Vue {
         formDataObj.append('chain_id', this.chainID)
         formDataObj.append('priv_key', privKeyObj.ethKey)
         formDataObj.append('staker_type', stakeType)
-        axios.post(samaUrl + '/staker', formDataObj).then((res) => {
+        axios.post(this.chainURL + '/staker', formDataObj).then((res) => {
             if (res.data.error) {
                 this.$store.dispatch('Notifications/add', {
                     title: '质押失败',
@@ -157,7 +161,7 @@ export default class Stake extends Vue {
         formDataObj.append('chain_id', this.chainID)
         formDataObj.append('address', '0x' + wallet.ethAddress)
         formDataObj.append('staker_type', staker_type)
-        axios.post(samaUrl + '/calc_reward', formDataObj).then((res) => {
+        axios.post(this.chainURL + '/calc_reward', formDataObj).then((res) => {
             if (res.data.error) {
                 this.$store.dispatch('Notifications/add', {
                     title: '计算奖励失败',
@@ -182,7 +186,7 @@ export default class Stake extends Vue {
         let formDataObj = new FormData()
         formDataObj.append('chain_id', this.chainID)
         formDataObj.append('priv_key', privKeyObj.ethKey)
-        axios.post(samaUrl + '/claim', formDataObj).then((res) => {
+        axios.post(this.chainURL + '/claim', formDataObj).then((res) => {
             if (res.data.error) {
                 this.$store.dispatch('Notifications/add', {
                     title: '领取奖励失败',
