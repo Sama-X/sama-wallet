@@ -53,11 +53,8 @@
                             <button v-if="walletType == 'mnemonic'" @click="showModal">
                                 {{ $t('keys.view_key') }}
                             </button>
-                            <button v-if="walletType == 'singleton'" @click="showPrivateKeyModal">
-                                {{ $t('keys.view_priv_key') }}
-                            </button>
                             <button v-if="walletType !== 'ledger'" @click="showPrivateKeyCModal">
-                                {{ $t('keys.view_priv_key_c') }}
+                                {{ $t('keys.view_priv_key') }}
                             </button>
                             <button v-if="isHDWallet" @click="showXpub">Show XPUB</button>
                         </div>
