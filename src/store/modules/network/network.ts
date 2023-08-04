@@ -191,10 +191,10 @@ const network_module: Module<NetworkState, RootState> = {
             // )
             const mainnet = new AvaNetwork(
                 'Testnet',
-                'http://192.168.0.108:8800',
+                'https://bridge.sigtacchain.com',
                 1,
-                'http://192.168.0.108:8800',
-                'http://192.168.0.108:8800',
+                'https://bridge.sigtacchain.com',
+                'https://bridge.sigtacchain.com',
                 true
             )
 
