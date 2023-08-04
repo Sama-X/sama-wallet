@@ -100,9 +100,9 @@ export default class Stake extends Vue {
             const stakes = data.stakes || []
             for (let staker of stakes) {
                 if (staker.stakerType == 7) {
-                    this.currentRole = '工作节点'
+                    this.currentRole = String(this.$t('stake.stake_work_node'))
                 } else if (staker.stakerType == 6) {
-                    this.currentRole = '验证节点'
+                    this.currentRole = String(this.$t('stake.stake_validate_node'))
                 }
                 this.stakeAmount = new Big(staker.stakeAmount)
                 let expireTime = new Date(staker.stakeTime * 1000)
@@ -129,14 +129,14 @@ export default class Stake extends Vue {
         axios.post(this.chainURL + '/staker', formDataObj).then((res) => {
             if (res.data.error) {
                 this.$store.dispatch('Notifications/add', {
-                    title: '质押失败',
+                    title: 'Failure',
                     message: res.data.error.message,
                     type: 'error',
                 })
             } else {
                 this.$store.dispatch('Notifications/add', {
-                    title: '质押成功',
-                    message: '质押成功',
+                    title: 'Success',
+                    message: 'Stake Success',
                     type: 'success',
                 })
             }
@@ -149,7 +149,7 @@ export default class Stake extends Vue {
             return
         }
         let staker_type = '6'
-        if (this.currentRole == '工作节点') {
+        if (this.currentRole == String(this.$t('stake.stake_work_node'))) {
             staker_type = '7'
         }
         let formDataObj = new FormData()
@@ -159,7 +159,7 @@ export default class Stake extends Vue {
         axios.post(this.chainURL + '/calc_reward', formDataObj).then((res) => {
             if (res.data.error) {
                 this.$store.dispatch('Notifications/add', {
-                    title: '计算奖励失败',
+                    title: 'Failure',
                     message: res.data.error.message,
                     type: 'error',
                 })
@@ -184,14 +184,14 @@ export default class Stake extends Vue {
         axios.post(this.chainURL + '/claim', formDataObj).then((res) => {
             if (res.data.error) {
                 this.$store.dispatch('Notifications/add', {
-                    title: '领取奖励失败',
+                    title: 'Failure',
                     message: res.data.error.message,
                     type: 'error',
                 })
             } else {
                 this.$store.dispatch('Notifications/add', {
-                    title: '领取奖励成功',
-                    message: '领取奖励成功',
+                    title: 'Success',
+                    message: 'Claim Success',
                     type: 'success',
                 })
             }
