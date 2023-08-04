@@ -59,7 +59,6 @@
                             </v-btn>
                         </template>
                         <template v-else-if="isConfirm && !isSuccess">
-                            <p class="err">{{ err }}</p>
                             <v-btn
                                 depressed
                                 class="button_secondary"
@@ -279,10 +278,11 @@ export default class Transfer extends Vue {
 
         let privKeyObj = this.wallet as SingletonWallet
         let formDataObj = new FormData()
+        let amount = Big(this.memo).times(1_000_000_000)
         formDataObj.append('chain_id', this.network.chainId)
         formDataObj.append('address', this.formAddress)
         formDataObj.append('priv_key', privKeyObj.ethKeyBech)
-        formDataObj.append('amount', String(parseInt(this.memo || '0') * 1_000_000_000))
+        formDataObj.append('amount', amount.toString())
         axios
             .post(this.network.url + '/transfer', formDataObj)
             .then((res) => {
