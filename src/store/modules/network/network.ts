@@ -168,14 +168,12 @@ const network_module: Module<NetworkState, RootState> = {
             //     explorerSiteURL: net.explorerSiteUrl,
             // })
             // state.isConnected = true;
-            setTimeout(() => {
-                state.status = 'connected'
-            }, 2000)
+            state.status = 'connected'
             return true
         },
 
         async updateTxFee({ state }) {
-            const txFee = new BN(0.00045662)
+            const txFee = new BN(45662)
             state.txFee = txFee
             avm.setTxFee(txFee)
         },

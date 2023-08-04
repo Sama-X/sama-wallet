@@ -96,7 +96,7 @@ export default class Stake extends Vue {
         formDataObj.append('chain_id', this.chainID)
         formDataObj.append('address', '0x' + wallet.ethAddress)
         axios.post(this.chainURL + '/get_staker', formDataObj).then((res) => {
-            const data = res.data.result
+            const data = res.data.result || {}
             const stakes = data.stakes || []
             for (let staker of stakes) {
                 if (staker.stakerType == 7) {

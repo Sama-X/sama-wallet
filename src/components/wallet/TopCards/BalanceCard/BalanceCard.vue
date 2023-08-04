@@ -368,7 +368,7 @@ export default class BalanceCard extends Vue {
 @use '../../../../main';
 .balance_card {
     display: grid;
-    grid-template-columns: 1fr 230px;
+    grid-template-columns: auto;
     column-gap: 20px;
 }
 
@@ -411,7 +411,7 @@ h4 {
     margin-top: 12px;
 }
 .balance {
-    font-size: 36px;
+    font-size: 32px;
     white-space: normal;
     font-weight: 500;
 }
@@ -429,7 +429,7 @@ h4 {
     color: rgba(255, 255, 255, 0.6);
     font-family: PingFang SC;
     font-size: 16px;
-    padding: 7px 28px;
+    padding: 7px 12px;
     margin-right: 6px !important;
 }
 

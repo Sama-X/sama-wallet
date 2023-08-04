@@ -16,16 +16,23 @@
                             v-model="addressIn"
                             class="qrIn hover_border"
                             placeholder="xxx"
+                            :disabled="isConfirm"
                         ></qr-input>
                     </div>
                     <div>
                         <h4>Amount</h4>
-                        <input class="memo" placeholder="Amount" type="number" v-model="memo" />
+                        <input
+                            class="memo"
+                            placeholder="Amount"
+                            type="number"
+                            :disabled="isConfirm"
+                            v-model="memo"
+                        />
                     </div>
                     <div class="fees">
                         <p>
                             {{ $t('transfer.fee_tx') }}
-                            <span>{{ txFee.toLocaleString(9) }} DND</span>
+                            <span>{{ showDND(txFee) }} DND</span>
                         </p>
                         <p>
                             {{ $t('transfer.total_avax') }}
@@ -44,6 +51,7 @@
                                 class="button_secondary"
                                 :ripple="false"
                                 @click="confirm"
+                                :loading="isChecking"
                                 :disabled="!canSend"
                                 block
                             >
@@ -125,12 +133,12 @@ export default class Transfer extends Vue {
     formType: ChainIdType = 'X'
     showAdvanced: boolean = false
     isAjax: boolean = false
+    isChecking: boolean = false
     addressIn: string = ''
     memo: string = ''
     orders: ITransaction[] = []
     nftOrders: UTXO[] = []
     formErrors: string[] = []
-    err = ''
 
     formAddress: string = ''
     formOrders: ITransaction[] = []
@@ -162,7 +170,7 @@ export default class Transfer extends Vue {
     }
 
     cancelConfirm() {
-        this.err = ''
+        this.formErrors = []
         this.formMemo = ''
         this.formOrders = []
         this.formNftOrders = []
@@ -179,80 +187,49 @@ export default class Transfer extends Vue {
     }
 
     formCheck() {
+        this.isChecking = true
         this.formErrors = []
         let err = []
 
         let addr = this.addressIn
 
-        let chain = addr.split('-')
-
-        // if (chain[0] !== 'X') {
-        //     err.push('Invalid address. You can only send to other X addresses.')
-        // }
-
         if (!isValidAddress(addr)) {
             err.push('Invalid address.')
         }
-        var reg = /^\d+[.]?\d{0,3}$/
-        let memo = this.memo
-        // if (this.memo) {
-        //     let buff = Buffer.from(memo)
-        //     let size = buff.length
-        //     if (size > 256) {
-        //         err.push('You can have a maximum of 256 characters in your memo.')
-        //     }
+        var reg = /^\d+[.]?\d{0,9}$/
 
-        //     // Make sure memo isnt mnemonic
-        //     let isMnemonic = bip39.validateMnemonic(memo)
-        //     if (isMnemonic) {
-        //         err.push('You should not put a mnemonic phrase into the Memo field.')
-        //     }
-        // }
         if (!this.memo) {
             err.push('You must set the Amount.')
         } else if (!reg.test(this.memo)) {
-            err.push('Up to three decimal places after the decimal point')
+            err.push('Up to nine decimal places after the decimal')
         }
 
-        // Make sure to address matches the bech32 network hrp
-        let hrp = ava.getHRP()
-        // if (!addr.includes(hrp)) {
-        //     err.push('Not a valid address for this network.')
-        // }
-
         this.formErrors = err
+        this.isChecking = false
         if (err.length === 0) {
-            // this.send();
             return true
         } else {
+            this.$store.dispatch('Notifications/add', {
+                text: err.join('<br>'),
+                type: 'error',
+            })
             return false
         }
     }
 
+    showDND(value: Big) {
+        return value.div(new Big(10).pow(9)).toLocaleString(9).toLocaleString()
+    }
+
     startAgain() {
         this.clearForm()
-        this.addressIn = ''
-        this.txId = ''
-        this.isSuccess = false
-        // this.cancelConfirm()
-        this.isAjax = false
-        this.memo = ''
-        this.canSendAgain = false
-        this.isConfirm = true
-        // this.orders = []
-        // this.nftOrders = []
-        // this.formOrders = []
-        // this.formNftOrders = []
+        this.cancelConfirm()
     }
 
     clearForm() {
         this.addressIn = ''
         this.memo = ''
 
-        // Clear transactions list
-        // this.$refs.txList.reset()
-
-        // Clear NFT list
         if (this.hasNFT) {
             this.$refs.nftList.clear()
         }
@@ -285,8 +262,10 @@ export default class Transfer extends Vue {
     }
 
     onerror(err: any) {
-        this.err = err
+        this.formErrors = [err]
         this.isAjax = false
+        this.isConfirm = false
+        console.log('isConfirm', this.isConfirm)
         this.$store.dispatch('Notifications/add', {
             title: this.$t('transfer.error_title'),
             message: this.$t('transfer.error_msg'),
@@ -297,8 +276,7 @@ export default class Transfer extends Vue {
     submit() {
         let _this = this
         this.isAjax = true
-        this.err = ''
-        let sumArray: (ITransaction | UTXO)[] = [...this.formOrders, ...this.formNftOrders]
+        this.formErrors = []
 
         let privKeyObj = this.wallet as SingletonWallet
         let formDataObj = new FormData()
@@ -306,38 +284,23 @@ export default class Transfer extends Vue {
         formDataObj.append('address', this.formAddress)
         formDataObj.append('priv_key', privKeyObj.ethKeyBech)
         formDataObj.append('amount', String(parseInt(this.memo || '0') * 1_000_000_000))
-        axios.post(this.network.url + '/transfer', formDataObj).then((res) => {
-            this.canSendAgain = false
-            _this.onsuccess(res.data.result.txId)
-            _this.txId = res.data.result.txId
-            _this.initAmout()
-        })
-        // let txList: IssueBatchTxInput = {
-        //     toAddress: this.formAddress,
-        //     memo: Buffer.from(this.formMemo),
-        //     orders: sumArray,
-        // }
-
-        // this.$store
-        //     .dispatch('issueBatchTx', txList)
-        //     .then((res) => {
-        //         this.canSendAgain = false
-        //         this.waitTxConfirm(res)
-        //         this.txId = res
-        //     })
-        //     .catch((err) => {
-        //         this.onerror(err)
-        //     })
+        axios
+            .post(this.network.url + '/transfer', formDataObj)
+            .then((res) => {
+                this.canSendAgain = false
+                if (res.data.error) {
+                    _this.onerror(res.data.error.message)
+                    return
+                }
+                _this.onsuccess(res.data.result.txId)
+                _this.txId = res.data.result.txId
+            })
+            .catch((err) => {
+                _this.onerror(err)
+            })
     }
     async initAmout() {
-        // const res = await avm.getAssetDescription('AVAX')
-        // const id = bintools.cb58Encode(res.assetID)
-        // let formDataObj = new FormData()
-        // formDataObj.append('chain_id', this.network.chainId)
-        // formDataObj.append('address', '0x' + this.wallet.ethAddress)
-        // axios.post(this.network.url + '/get_blance', formDataObj).then((res) => {
-        //     // _this.isSuccess = true
-        // })
+        console.log('object')
     }
 
     async waitTxConfirm(txId: string) {
@@ -426,7 +389,7 @@ export default class Transfer extends Vue {
 
     get txFee(): Big {
         let fee = avm.getTxFee()
-        return bnToBig(fee, 9)
+        return bnToBig(fee)
     }
 
     get totalUSD(): Big {
