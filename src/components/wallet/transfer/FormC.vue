@@ -58,7 +58,7 @@
             <div class="fees" v-if="isConfirm">
                 <p>
                     {{ $t('transfer.fee_tx') }}
-                    <span>{{ maxFeeText }} SAMA</span>
+                    <span>{{ maxFeeText }} DND</span>
                 </p>
                 <p>
                     <span>${{ maxFeeUSD.toLocaleString(2) }} USD</span>

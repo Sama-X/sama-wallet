@@ -29,7 +29,7 @@
                             depressed
                             :disabled="!showList"
                         >
-                            Export SAMA Transfers
+                            Export DND Transfers
                         </v-btn>
                     </div>
                 </div>

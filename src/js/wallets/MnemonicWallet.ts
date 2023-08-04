@@ -45,7 +45,6 @@ import Erc20Token from '@/js/Erc20Token'
 import { WalletHelper } from '@/helpers/wallet_helper'
 import { Transaction } from '@ethereumjs/tx'
 import MnemonicPhrase from '@/js/wallets/MnemonicPhrase'
-import { ExportChainsC, ExportChainsP } from '@avalabs/avalanche-wallet-sdk'
 import axios from 'axios'
 import { samaUrl } from '@/samaIp'
 

@@ -16,16 +16,16 @@
 
                         <p>
                             Export Fee
-                            <span>{{ exportFee.toLocaleString() }} SAMA</span>
+                            <span>{{ exportFee.toLocaleString() }} DND</span>
                         </p>
                         <p>
                             Import Fee
-                            <span>{{ importFee.toLocaleString() }} SAMA</span>
+                            <span>{{ importFee.toLocaleString() }} DND</span>
                         </p>
                         <p>
                             <b>
                                 Total
-                                <span>{{ fee.toLocaleString() }} SAMA</span>
+                                <span>{{ fee.toLocaleString() }} DND</span>
                             </b>
                         </p>
                     </div>

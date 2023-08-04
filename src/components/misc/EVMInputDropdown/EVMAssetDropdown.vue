@@ -34,7 +34,7 @@ export default class EVMAssetDropdown extends Vue {
     }
 
     get symbol() {
-        if (this.selected === 'native') return 'SAMA'
+        if (this.selected === 'native') return 'DND'
         else return this.selected.data.symbol
     }
 

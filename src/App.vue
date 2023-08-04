@@ -77,21 +77,21 @@ export default {
                 vmid: 'description',
                 name: 'description',
                 content:
-                    'sama wallet is a simple, highly secure, non-custodial crypto wallet for storing SAMA.',
+                    'GOLDSTREAM wallet is a simple, highly secure, non-custodial crypto wallet for storing GOLDSTREAM.',
             },
             {
                 vmid: 'og:description',
                 name: 'description',
                 content:
-                    'sama wallet is a simple, highly secure, non-custodial crypto wallet for storing SAMA.',
+                    'GOLDSTREAM wallet is a simple, highly secure, non-custodial crypto wallet for storing GOLDSTREAM.',
             },
             {
                 vmid: 'og:title',
                 name: 'og:title',
-                content: 'sama Wallet',
+                content: 'GOLDSTREAM Wallet',
             },
         ],
-        title: 'sama Wallet',
+        title: 'GOLDSTREAM Wallet',
         titleTemplate: '%s',
     },
 }

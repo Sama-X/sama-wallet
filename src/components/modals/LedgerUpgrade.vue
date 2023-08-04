@@ -6,13 +6,13 @@
                 <li>Enter your PIN and access your device.</li>
                 <li>
                     Ensure you have installed the
-                    <b>sama App v0.5.3</b>
+                    <b>GOLDSTREAM App v0.5.3</b>
                     and open it on your device.
                 </li>
             </ol>
             <p style="margin-top: 12px !important">
                 <small>
-                    If you do not have the sama app on your ledger, please add it through the
+                    If you do not have the GOLDSTREAM app on your ledger, please add it through the
                     <a href="https://www.ledger.com/ledger-live/download" target="_blank">
                         Ledger Live
                     </a>

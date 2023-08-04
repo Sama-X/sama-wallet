@@ -22,16 +22,16 @@
             </div>
             <div class="balance_row">
                 <p class="balance" data-cy="wallet_balance" v-if="!balanceTextRight">
-                    {{ showDND(samaInfoNumber) }} DND
+                    {{ showDND(infoNumber) }} DND
                 </p>
                 <p class="balance" data-cy="wallet_balance" v-else>
-                    {{ showDND(samaInfoNumber) }}
+                    {{ showDND(infoNumber) }}
                     DND
                 </p>
             </div>
             <div class="balance_desc">
                 <p class="balance_usd">
-                    <b>$ {{ showDND(samaInfoNumber) }}</b>
+                    <b>$ {{ showDND(infoNumber) }}</b>
                     USD
                 </p>
                 <p class="balance_usd" style="background-color: transparent">
@@ -79,7 +79,7 @@ import { AvaNetwork } from '@/js/AvaNetwork'
 })
 export default class BalanceCard extends Vue {
     isBreakdown = true
-    samaInfoNumber: Big = Big(0)
+    infoNumber: Big = Big(0)
 
     created() {
         setTimeout(() => {
@@ -106,7 +106,7 @@ export default class BalanceCard extends Vue {
             .post(`${this.network.url}/get_blance`, formDataObj)
             .then((res) => {
                 const balance = res.data.result.balance
-                this.samaInfoNumber = Big(balance)
+                this.infoNumber = Big(balance)
 
                 if (type == 1) {
                     this.$store.dispatch('Notifications/add', {
@@ -115,8 +115,8 @@ export default class BalanceCard extends Vue {
                         type: 'success',
                     })
                 }
-                localStorage.setItem('samaInfoNumber', this.samaInfoNumber + '')
-                this.$emit('samaInfoChange', this.samaInfoNumber)
+                localStorage.setItem('infoNumber', this.infoNumber + '')
+                this.$emit('samaInfoChange', this.infoNumber)
             })
             .finally(() => {
                 setTimeout(() => {

@@ -42,7 +42,7 @@
         </div>
         <div class="confirmation_val" v-else>
             <label>{{ $t('earn.transfer.amount') }}</label>
-            <p>{{ formAmtText }} SAMA</p>
+            <p>{{ formAmtText }} DND</p>
         </div>
     </div>
 </template>

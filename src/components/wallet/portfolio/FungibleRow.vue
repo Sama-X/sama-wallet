@@ -7,7 +7,7 @@
         </div>
         <p class="name_col not_mobile">
             <!-- {{ name }} ({{ symbol }}) -->
-            SAMA
+            DND
             <!-- <span v-if="!isAvaxToken">ANT</span> -->
         </p>
         <p class="name_col mobile_only">{{ symbol }}</p>
@@ -114,7 +114,7 @@ export default class FungibleRow extends Vue {
     get name(): string {
         let name = this.asset.name
         // TODO: Remove this hack after network change
-        if (name === 'AVA') return 'SAMA'
+        if (name === 'AVA') return 'DND'
         return name
     }
 
@@ -124,7 +124,7 @@ export default class FungibleRow extends Vue {
 
         // let sym = this.asset.symbol
         // TODO: Remove this hack after network change
-        // if (sym === 'AVA') return 'SAMA'
+        // if (sym === 'AVA') return 'DND'
         // return sym
     }
 

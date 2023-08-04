@@ -43,7 +43,7 @@
                         text-align: center;
                     "
                 >
-                    REQUEST 2 SAMA
+                    REQUEST 2 DND
                 </button>
             </div> -->
         </div>
@@ -54,9 +54,7 @@ import { Vue, Component, Model, Prop } from 'vue-property-decorator'
 import { ChainIdType } from '@/constants'
 import { CurrencyType } from '@/components/misc/CurrencySelect/types'
 import axios from 'axios'
-import { ava, avm, isValidAddress, bintools } from '../../../AVA'
-import AvaAsset from '../../../js/AvaAsset'
-import { samaUrl } from '@/samaIp'
+import { AvaNetwork } from '@/js/AvaNetwork'
 
 @Component
 export default class ChainInput extends Vue {
@@ -74,7 +72,6 @@ export default class ChainInput extends Vue {
     }
 
     created() {
-        this.getLian()
         setTimeout(() => {
             this.initAmout()
         }, 3000)
@@ -84,43 +81,10 @@ export default class ChainInput extends Vue {
         return this.$store.state.activeWallet
     }
 
-    get isEVMSupported() {
-        this.getLian()
-        return this.wallet.ethAddress
+    get network(): AvaNetwork {
+        return this.$store.state.Network.selectedNetwork
     }
 
-    getLian() {
-        axios.post(samaUrl + '/get_block_chain').then((res) => {
-            for (let i in res.data.result.blockchains) {
-                if (res.data.result.blockchains[i].name == 'sama') {
-                    this.lian = res.data.result.blockchains[i].id
-                    return
-                }
-            }
-        })
-    }
-    receiveFunc() {
-        if (!this.addressUrl) {
-            this.isAddress = false
-            return false
-        } else {
-            if (this.lian) {
-                let formDataObj = new FormData()
-                formDataObj.append('chain_id', this.lian)
-                formDataObj.append('address', this.addressUrl)
-                formDataObj.append(
-                    'priv_key',
-                    'PrivateKey-ewoqjP7PxY4yr3iLTpLisriqt94hdyDFNgchSxGGztUrTXtNN'
-                )
-                formDataObj.append('amount', '1000000')
-                axios.post(samaUrl + '/transfer', formDataObj).then((res) => {
-                    this.isAddress = true
-                    this.addressUrl = ''
-                    this.initAmout()
-                })
-            }
-        }
-    }
     async initAmout() {
         // const res = await avm.getAssetDescription('AVAX')
         // const id = bintools.cb58Encode(res.assetID)
@@ -128,7 +92,7 @@ export default class ChainInput extends Vue {
             let formDataObj = new FormData()
             formDataObj.append('chain_id', this.lian)
             formDataObj.append('address', '0x' + this.wallet.ethAddress)
-            axios.post(samaUrl + '/get_blance', formDataObj).then((res) => {
+            axios.post(`${this.network.url}/get_blance`, formDataObj).then((res) => {
                 this.isSuccess = true
             })
             // const asset = new AvaAsset(
