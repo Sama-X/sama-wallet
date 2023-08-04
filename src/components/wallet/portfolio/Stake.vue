@@ -61,7 +61,9 @@ export default class Stake extends Vue {
     stakeExpireTime: Date = null
 
     created() {
-        this.getStakeRole()
+        setTimeout(() => {
+            this.getStakeRole()
+        }, 5000)
     }
 
     get networkStatus(): string {
@@ -94,13 +96,6 @@ export default class Stake extends Vue {
         formDataObj.append('chain_id', this.chainID)
         formDataObj.append('address', '0x' + wallet.ethAddress)
         axios.post(this.chainURL + '/get_staker', formDataObj).then((res) => {
-            if (res.data.error) {
-                this.$store.dispatch('Notifications/add', {
-                    title: '获取质押失败',
-                    message: res.data.error.message,
-                    type: 'error',
-                })
-            }
             const data = res.data.result
             const stakes = data.stakes || []
             for (let staker of stakes) {
