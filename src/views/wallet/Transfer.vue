@@ -265,7 +265,6 @@ export default class Transfer extends Vue {
         this.formErrors = [err]
         this.isAjax = false
         this.isConfirm = false
-        console.log('isConfirm', this.isConfirm)
         this.$store.dispatch('Notifications/add', {
             title: this.$t('transfer.error_title'),
             message: this.$t('transfer.error_msg'),
@@ -293,7 +292,6 @@ export default class Transfer extends Vue {
                     return
                 }
                 _this.onsuccess(res.data.result.txId)
-                _this.txId = res.data.result.txId
             })
             .catch((err) => {
                 _this.onerror(err)

@@ -1,7 +1,7 @@
 <template>
     <div class="top_cards">
         <balance-card class="top_card balance_card" @samaInfoChange="samaInfoChange"></balance-card>
-        <address-card class="top_card addr_card" :samaInfoValue="samaInfoValue"></address-card>
+        <address-card class="top_card addr_card"></address-card>
     </div>
 </template>
 <script>
@@ -20,7 +20,6 @@ export default {
     },
     methods: {
         samaInfoChange(e) {
-            console.log(e, 1)
             this.samaInfoValue = e
         },
     },

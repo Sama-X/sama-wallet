@@ -82,9 +82,10 @@ export default class BalanceCard extends Vue {
     infoNumber: Big = Big(0)
 
     created() {
-        setTimeout(() => {
+        this.initBlance(0)
+        setInterval(() => {
             this.initBlance(0)
-        }, 3000)
+        }, 10000)
     }
     $refs!: {
         utxos_modal: UtxosBreakdownModal
