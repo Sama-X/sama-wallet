@@ -36,7 +36,7 @@
                         </p>
                         <p>
                             {{ $t('transfer.total_avax') }}
-                            <span>{{ totalUSD.toLocaleString(2) }} USD</span>
+                            <span>{{ showDND(totalUSD, 3) }} USD</span>
                         </p>
                     </div>
                     <div class="checkout">
@@ -216,8 +216,8 @@ export default class Transfer extends Vue {
         }
     }
 
-    showDND(value: Big) {
-        return value.div(new Big(10).pow(9)).toLocaleString(9).toLocaleString()
+    showDND(value: Big, length: number = 9) {
+        return value.div(new Big(10).pow(9)).toLocaleString(length).toLocaleString()
     }
 
     startAgain() {
@@ -391,10 +391,10 @@ export default class Transfer extends Vue {
     }
 
     get totalUSD(): Big {
-        let totalAsset = this.avaxTxSize.add(avm.getTxFee())
-        let bigAmt = bnToBig(totalAsset, 9)
-        let usdPrice = this.priceDict.usd
-        let usdBig = bigAmt.times(usdPrice)
+        let amount = Big(this.memo || '0').times(1_000_000_000)
+        let total = amount.add(this.txFee)
+        let usdPrice = this.priceDict.usd || 1
+        let usdBig = total.times(usdPrice)
         return usdBig
     }
 

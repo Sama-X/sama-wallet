@@ -70,11 +70,14 @@ export default class Wallet extends Vue {
 
     checkLogout() {
         let now = Date.now()
-
         // Logout if current time is passed the logout timestamp
         if (now >= this.logoutTimestamp && !this.isLogOut) {
             this.isLogOut = true
             this.$store.dispatch('timeoutLogout')
+        } else {
+            if (this.isLogOut) {
+                this.$store.dispatch('logout')
+            }
         }
     }
 
@@ -98,6 +101,9 @@ export default class Wallet extends Vue {
     }
 
     mounted() {
+        if (!this.$store.state.activeWallet) {
+            this.isLogOut = true
+        }
         let view = this.$refs.wallet_view as HTMLDivElement
 
         view.addEventListener('mousemove', this.resetTimer)

@@ -173,7 +173,7 @@ const network_module: Module<NetworkState, RootState> = {
         },
 
         async updateTxFee({ state }) {
-            const txFee = new BN(45662)
+            const txFee = new BN(456620)
             state.txFee = txFee
             avm.setTxFee(txFee)
         },
