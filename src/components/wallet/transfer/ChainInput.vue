@@ -81,22 +81,21 @@ export default class ChainInput extends Vue {
         return this.wallet.ethAddress
     }
 
-    getLian() {
-        axios.post(samaUrl + '/get_block_chain').then((res) => {
-            for (let i in res.data.result.blockchains) {
-                if (res.data.result.blockchains[i].name == 'sama') {
-                    return res.data.result.blockchains[i].id
-                }
+    async getLian() {
+        const resp = await axios.post(samaUrl + '/get_block_chain')
+        for (let i in resp.data.result.blockchains) {
+            if (resp.data.result.blockchains[i].name == 'sama') {
+                return resp.data.result.blockchains[i].id
             }
-        })
+        }
     }
-    receiveFunc() {
+    async receiveFunc() {
         let _this = this
         if (!this.addressUrl) {
             _this.isAddress = false
             return false
         } else {
-            let lian = _this.getLian()
+            let lian = await _this.getLian()
             if (lian) {
                 let formDataObj = new FormData()
                 formDataObj.append('chain_id', lian)
@@ -118,7 +117,7 @@ export default class ChainInput extends Vue {
         // const res = await avm.getAssetDescription('AVAX')
         // const id = bintools.cb58Encode(res.assetID)
         let _this = this
-        let lian = _this.getLian()
+        let lian = await _this.getLian()
         if (lian) {
             let formDataObj = new FormData()
             formDataObj.append('chain_id', lian)

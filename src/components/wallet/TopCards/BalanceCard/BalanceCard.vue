@@ -158,16 +158,16 @@ export default class BalanceCard extends Vue {
         let _this = this
         let priviteKey = this.wallet as SingletonWallet
         // localStorage.setItem('samaInfoNumber', '--')
-        this.initBlance()
+        this.initBlance(0)
     }
     $refs!: {
         utxos_modal: UtxosBreakdownModal
     }
 
-    initBlance(type) {
+    initBlance(type: number) {
         let _this = this
         let wallet: WalletType = this.$store.state.activeWallet
-        _this.samaInfoNumber = ''
+        _this.samaInfoNumber = 0
         // console.log(samaUrl, 'samaUrl+')
         let formDataObj = new FormData()
         axios.post(samaUrl + '/get_block_chain').then((res) => {
@@ -188,7 +188,7 @@ export default class BalanceCard extends Vue {
                                 type: 'success',
                             })
                         }
-                        localStorage.setItem('samaInfoNumber', _this.samaInfoNumber)
+                        localStorage.setItem('samaInfoNumber', _this.samaInfoNumber + '')
                         _this.$emit('samaInfoChange', _this.samaInfoNumber)
                         // localStorage.setItem('samaInfoNumber', 11000)
                     })

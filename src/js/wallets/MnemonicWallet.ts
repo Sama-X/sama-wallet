@@ -129,7 +129,7 @@ export default class MnemonicWallet extends HdWalletCore implements IAvaHdWallet
 
     async getSamaBanlance() {
         const _this = this
-        const samaInfoNumber = ''
+        let samaInfoNumber = ''
         const formDataObj = new FormData()
         axios.post(samaUrl + '/get_block_chain').then((res) => {
             for (const i in res.data.result.blockchains) {

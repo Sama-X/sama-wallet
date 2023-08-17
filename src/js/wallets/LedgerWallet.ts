@@ -1,3 +1,4 @@
+// @ts-nocheck
 // import AppBtc from "@ledgerhq/hw-app-btc";
 //@ts-ignore
 import AppAvax from '@obsidiansystems/hw-app-avalanche'
