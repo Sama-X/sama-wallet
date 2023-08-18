@@ -13,7 +13,7 @@
             <div>
                 <label>{{ $t('earn.shared.utxo_select.available') }}</label>
                 <p>
-                    <span>{{ selectedBalanceText }} DND</span>
+                    <span>{{ selectedBalanceText }}tDND</span>
                 </p>
             </div>
 

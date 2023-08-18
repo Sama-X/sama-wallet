@@ -5,7 +5,7 @@
     "address": "Address",
     "add_pk": "Add Private Key",
     "home": {
-        "desc": "GOLDSTREAM Wallet is a simple, secure, non-custodial wallet for storing DND assets.",
+        "desc": "GOLDSTREAM Wallet is a simple, secure, non-custodial wallet for storing tDND assets.",
         "access": {
             "title": "Welcome Back!",
             "desc": "Access your existing GOLDSTREAM wallet here.",
@@ -106,7 +106,7 @@
         "nftempty": "You have not collected any non fungible tokens.",
         "locked": "Locked",
         "info2": "I bought coins in the Token Sale. Where are my AVAX?",
-        "info2_desc": "This wallet is connected to the DND Everest test network. Your purchase will appear in the wallet after the DND Mainnet launch.",
+        "info2_desc": "This wallet is connected to the tDND Everest test network. Your purchase will appear in the wallet after the tDND Mainnet launch.",
         "hover1": "View Address QR Code",
         "hover2": "Paper Wallet",
         "hover3": "Copy",
@@ -127,8 +127,8 @@
             "title_c": " GOLDSTREAM Wallet Address",
             "desc_x_1": "This is your X-Chain address to receive funds.",
             "desc_x_2": "Your address will change after every deposit. You can keep using previous addresses.",
-            "desc_p": "This is My DND address",
-            "desc_c": "This is My DND address"
+            "desc_p": "This is My tDND address",
+            "desc_c": "This is My tDND address"
         }
     },
     "transfer": {
@@ -144,7 +144,7 @@
         "send": "Send Transaction",
         "summary": "Transaction Summary",
         "total": "Total",
-        "total_avax": "Total DND",
+        "total_avax": "Total tDND",
         "chain_warn": "You can only send tokens on the X chain",
         "disconnected": "Unable to send assets. Disconnected from the network.",
         "success_title": "Transaction Sent",
@@ -375,12 +375,12 @@
         "warning_2": "You must have at least {0} AVAX on the P chain to become a delegator.",
         "validate_card": {
             "title": "Validate",
-            "desc": "You have an DND node that you want to stake with.",
+            "desc": "You have an tDND node that you want to stake with.",
             "submit": "Add Validator"
         },
         "delegate_card": {
             "title": "Delegate",
-            "desc": "You do not own an DND node, but you want to stake using another node.",
+            "desc": "You do not own an tDND node, but you want to stake using another node.",
             "submit": "Add Delegator"
         },
         "transfer_card": {
@@ -666,7 +666,7 @@
         "loading": "Loading transaction history..",
         "warn_loading": "This list might be incomplete and out of order.",
         "error_api": "Explorer API Not Found",
-        "error_api_desc": "You must provide an DND Explorer API for this network to view transaction history.",
+        "error_api_desc": "You must provide an tDND Explorer API for this network to view transaction history.",
         "start": "Stake Start Date",
         "end": "Stake End Date",
         "date_reward": "Reward Date",
@@ -722,7 +722,7 @@
             "done": "Done",
             "upgrade": "Upgrade",
             "title": "Trouble Connecting?",
-            "desc": "We're having trouble connecting to your device. Please make sure you have the DND app open and upgraded to the latest version."
+            "desc": "We're having trouble connecting to your device. Please make sure you have the tDND app open and upgraded to the latest version."
         },
         "hd": {
             "future_warn_title": "DO NOT USE THE ADDRESSES BELOW",

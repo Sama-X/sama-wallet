@@ -43,7 +43,7 @@
                         text-align: center;
                     "
                 >
-                    REQUEST 2 DND
+                    REQUEST 2 tDND
                 </button>
             </div> -->
         </div>

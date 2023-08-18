@@ -29,7 +29,7 @@
             </div>
             <div class="tot">
                 <label>{{ $t('modal.utxo_select.available') }}</label>
-                <p>{{ selectedBalanceText }} DND</p>
+                <p>{{ selectedBalanceText }} tDND</p>
             </div>
             <v-btn class="button_secondary" block depressed small @click="close">
                 {{ $t('modal.utxo_select.submit') }}

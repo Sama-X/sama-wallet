@@ -14,7 +14,7 @@
                             @input="onInputChange"
                             v-model="availableSpace"
                         />
-                        <p>DND</p>
+                        <p>tDND</p>
                     </div>
                 </div>
                 <div class="duration">

@@ -1,7 +1,7 @@
 <template>
     <modal ref="modal" title="Export AVAX Transfers" class="modal_main">
         <div class="csv_modal_body">
-            <p>Export DND transactions including cross chain transfers on chains.</p>
+            <p>Export tDND transactions including cross chain transfers on chains.</p>
             <p class="err" v-if="error">{{ error }}</p>
             <v-btn
                 class="button_secondary"

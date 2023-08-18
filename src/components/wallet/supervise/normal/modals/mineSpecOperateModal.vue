@@ -25,7 +25,7 @@
                 <v-list-item>
                     <v-list-item-content class="listLabel">金额</v-list-item-content>
                     <v-list-item-content class="listValue">
-                        {{ detail.amount }}DND
+                        {{ detail.amount }}tDND
                     </v-list-item-content>
                 </v-list-item>
                 <v-list-item>

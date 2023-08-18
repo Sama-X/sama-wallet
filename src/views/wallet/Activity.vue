@@ -29,7 +29,7 @@
                             depressed
                             :disabled="!showList"
                         >
-                            Export DND Transfers
+                            Export tDND Transfers
                         </v-btn>
                     </div>
                 </div>

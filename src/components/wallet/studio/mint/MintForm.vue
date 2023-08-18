@@ -73,7 +73,7 @@
                     <div class="fee">
                         <p>
                             {{ $t('studio.mint.form_col.fee') }}
-                            <span>{{ txFee.toLocaleString() }} DND</span>
+                            <span>{{ txFee.toLocaleString() }} tDND</span>
                         </p>
                     </div>
                     <v-btn

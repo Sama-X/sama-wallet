@@ -22,11 +22,11 @@
             </div>
             <div class="balance_row">
                 <p class="balance" data-cy="wallet_balance" v-if="!balanceTextRight">
-                    {{ showDND(infoNumber) }} DND
+                    {{ showDND(infoNumber) }} tDND
                 </p>
                 <p class="balance" data-cy="wallet_balance" v-else>
                     {{ showDND(infoNumber) }}
-                    DND
+                    tDND
                 </p>
             </div>
             <div class="balance_desc">
@@ -35,7 +35,7 @@
                     USD
                 </p>
                 <p class="balance_usd" style="background-color: transparent">
-                    <b>1 DND</b>
+                    <b>1 tDND</b>
                     =
                     <b>${{ avaxPriceText }}</b>
                     USD

@@ -1,1 +1,1 @@
-export type CurrencyType = 'USD' | 'DND'
+export type CurrencyType = 'USD' | 'tDND'

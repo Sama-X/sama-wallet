@@ -32,7 +32,7 @@
                     <div class="fees">
                         <p>
                             {{ $t('transfer.fee_tx') }}
-                            <span>{{ showDND(txFee) }} DND</span>
+                            <span>{{ showDND(txFee) }} tDND</span>
                         </p>
                         <p>
                             {{ $t('transfer.total_avax') }}

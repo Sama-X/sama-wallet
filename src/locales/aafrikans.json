@@ -5,15 +5,15 @@
     "address": "Adres",
     "add_pk": "Voeg Privaat Sleutel by",
     "home": {
-        "desc": "GOLDSTREAM Wallet is 'n eenvoudige, veilige, nie-toesighouende beursie vir die berging van dnd-bates.",
+        "desc": "GOLDSTREAM Wallet is 'n eenvoudige, veilige, nie-toesighouende beursie vir die berging van tdnd-bates.",
         "access": {
             "title": "Welkom terug!",
-            "desc": "Kry 'toegang' tot jou bestaande dnd beursie hier.",
+            "desc": "Kry 'toegang' tot jou bestaande tdnd beursie hier.",
             "submit": "Kry toegang tot beursie"
         },
         "create": {
             "title": "Nuut aan GOLDSTREAM Wallet?",
-            "desc": "'Skep' 'n nuwe beursie om dnd-bates te stuur, ontvang en omruil.",
+            "desc": "'Skep' 'n nuwe beursie om tdnd-bates te stuur, ontvang en omruil.",
             "submit": "Skep Nuwe Beursie"
         }
     },

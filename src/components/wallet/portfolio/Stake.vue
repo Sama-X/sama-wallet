@@ -8,14 +8,14 @@
                 <div class="role_left">
                     <div class="role_item">{{ $t('stake.stake_type') }}: {{ currentRole }}</div>
                     <div class="role_item">
-                        {{ $t('stake.stake_amount') }}: {{ showDND(stakeAmount) }} DND
+                        {{ $t('stake.stake_amount') }}: {{ showDND(stakeAmount) }} tDND
                     </div>
                     <div class="role_item">
                         {{ $t('stake.stake_expired_time') }}: {{ stakeExpireTime.toLocaleString() }}
                     </div>
                 </div>
                 <div class="role_right">
-                    <div>{{ $t('stake.expect_reward') }}: {{ showDND(stakeReward) }} DND</div>
+                    <div>{{ $t('stake.expect_reward') }}: {{ showDND(stakeReward) }} tDND</div>
                     <button :disabled="stakeReward.lte(0)" @click="claim">
                         {{ $t('stake.claim') }}
                     </button>
@@ -25,13 +25,13 @@
                 <div>
                     <button @click="stake('7')">{{ $t('stake.stake_work_node') }}</button>
                     <span class="price">
-                        &nbsp;{{ $t('stake.price') }}: {{ showDND(workerFee) }} DND
+                        &nbsp;{{ $t('stake.price') }}: {{ showDND(workerFee) }} tDND
                     </span>
                 </div>
                 <div>
                     <button @click="stake('6')">{{ $t('stake.stake_validate_node') }}</button>
                     <span class="price">
-                        &nbsp;{{ $t('stake.price') }}: {{ showDND(validtorFee) }} DND
+                        &nbsp;{{ $t('stake.price') }}: {{ showDND(validtorFee) }} tDND
                     </span>
                 </div>
             </div>
